@@ -1,0 +1,8 @@
+        //$data = $request->request->get('form');
+        //$r = $request->request->all();
+        ///var_dump($request->request->get('user_type'));
+        ///die;
+        //$request = \Drupal::requestStack()->getCurrentRequest()->query->all();
+       // $r= json_decode($r);
+        //var_dump($r['username']);
+        //var_dump($data);
