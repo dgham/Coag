@@ -31,7 +31,7 @@ class RestApiDeviceController extends FOSRestController
         );
             if ($user->getUserType() === UserType::TYPE_ADMIN) {
                 $repository = $this->getDoctrine()->getRepository(Device::class);
-                $device = $repository->findBy(array('removed'=>false));
+                $device = $repository->findBy(array('removed'=>false),array('id'=>'DESC'));
                 if (!is_null($device)) {
                     return View::create($device, JsonResponse::HTTP_OK, []);
         } else {
@@ -75,7 +75,7 @@ class RestApiDeviceController extends FOSRestController
     public function postPushDeviceAction(Request $request)
     {
         $user= $this->getUser();
-        if (($user->getUserType() === UserType::TYPE_PATIENT) || ($user->getUserType() === UserType::TYPE_DOCTOR) || ($user->getUserType() === UserType::TYPE_HOSPITAL) ) {
+        if (($user->getUserType() === UserType::TYPE_ADMIN) || ($user->getUserType() === UserType::TYPE_DOCTOR) || ($user->getUserType() === UserType::TYPE_HOSPITAL) ) {
         try {
             $data = $request->request->all();
             $repository = $this->getDoctrine()->getRepository(Device::class);
@@ -181,7 +181,7 @@ class RestApiDeviceController extends FOSRestController
     public function patchPushDeviceAction(Request $request,$id)
     {
         $user= $this->getUser();
-        if (($user->getUserType() === UserType::TYPE_PATIENT) || ($user->getUserType() === UserType::TYPE_DOCTOR) || ($user->getUserType() === UserType::TYPE_HOSPITAL) ) {
+        if (($user->getUserType() === UserType::TYPE_ADMIN) || ($user->getUserType() === UserType::TYPE_DOCTOR) || ($user->getUserType() === UserType::TYPE_HOSPITAL) ) {
         try {
             $data = $request->request->all();
             $repository = $this->getDoctrine()->getRepository(Device::class);

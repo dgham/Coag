@@ -27,7 +27,7 @@ class RestApiCountryController extends FOSRestController
     public function index()
     {
         $user = $this->getUser();
-            if ($user->getUserType() === UserType::TYPE_ADMIN) {
+            if (($user->getUserType() === UserType::TYPE_ADMIN) ||($user->getUserType() === UserType::TYPE_DOCTOR) || ($user->getUserType() === UserType::TYPE_PATIENT)  ||($user->getUserType() === UserType::TYPE_ADMIN)  ||($user->getUserType() === UserType::TYPE_HOSPITAL)) {
                 $repository = $this->getDoctrine()->getRepository(Country::class);
                 $country = $repository->findBy(array('remove'=>false),array('id'=>'DESC'));
         if (!is_null($country)) {

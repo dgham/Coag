@@ -25,7 +25,7 @@ class RestApiAssetController  extends FOSRestController
         $user = $this->getUser();
             if ($user->getUserType() === UserType::TYPE_ADMIN) {
                 $repository = $this->getDoctrine()->getRepository(Asset::class);
-                $asset = $repository->findBy(array('remove'=>false));
+                $asset = $repository->findBy(array('remove'=>false),array('id'=>'DESC'));
         if (!is_null($asset)) {
             return View::create($asset, JsonResponse::HTTP_OK, []);
         } else {
@@ -176,6 +176,7 @@ class RestApiAssetController  extends FOSRestController
                 $entity->persist($asset);
                 $entity->flush();
                 return View::create($asset, JsonResponse::HTTP_CREATED, []);
+             
             } 
            
            

@@ -5,6 +5,7 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\User;
 use App\Entity\Doctor;
+use App\Entity\Country;
 use App\Entity\Patient;
 use App\Entity\Hospital;
 use App\Entity\UserType;
@@ -104,11 +105,18 @@ class RestApiProfileController extends FOSRestController
         }
         $country= $request->request->get('country');
         if (isset($country)) {
-            $user->setCountry($country);
+            $type= gettype($country);
+            if($type == "integer"){
+                $repository = $this->getDoctrine()->getRepository(Country::class);
+                $countryId = $repository->findOneBy(array('id' => $country));
+                $user->setCountry($countryId);
+            }
+            else {
+                return View::create('country must be an int  ', JsonResponse::HTTP_BAD_REQUEST, []);
+            }
+           
         }
         $gender= $request->request->get('gender');
-    
-
         if (isset($gender)) {
             if ($gender == "Male" || $gender =="Female"){
             $user->setGender($gender);
@@ -143,7 +151,7 @@ class RestApiProfileController extends FOSRestController
         $user->setUpdatedAt(new \DateTime());
         $em = $this->getDoctrine()->getManager();
         $em->flush();
-        
+ 
         if ($user->getUserType() === UserType::TYPE_HOSPITAL) {
             $repository = $this->getDoctrine()->getRepository(Hospital::class);
             $hospital = $repository->findOneBy(array('created_by' => $user->getId()));

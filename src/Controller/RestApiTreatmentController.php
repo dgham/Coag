@@ -33,7 +33,7 @@ class RestApiTreatmentController extends FOSRestController
         );
             if ($user->getUserType() === UserType::TYPE_DOCTOR) {
                 $repository = $this->getDoctrine()->getRepository(Treatment::class);
-                $treatment = $repository->findBy(array('created_by'=> $data,'remove' => false));
+                $treatment = $repository->findBy(array('created_by'=> $data,'remove' => false),array('id'=>'DESC'));
                 if (!is_null($treatment)) {
                 return View::create($treatment, JsonResponse::HTTP_OK, []);
                 
@@ -42,7 +42,7 @@ class RestApiTreatmentController extends FOSRestController
             }  
               if ($user->getUserType() === UserType::TYPE_PATIENT) {
                 $repository = $this->getDoctrine()->getRepository(Treatment::class);
-                $treatment = $repository->findBy(array('patient'=> $data,'remove' => false));
+                $treatment = $repository->findBy(array('patient'=> $data,'remove' => false,array('id'=>'DESC')));
                 if (!is_null($treatment)) {
                     return View::create($treatment, JsonResponse::HTTP_OK, []);
         } 

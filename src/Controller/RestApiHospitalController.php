@@ -15,6 +15,36 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class RestApiHospitalController extends FOSRestController
 {
+
+ /**
+    * @Rest\Get("/api/getAllhospital", name ="getAll_hosptital")
+    * @Rest\View(serializerGroups={"admin"})
+     */
+    public function getAllHospital()
+    {
+        $user = $this->getUser();
+            if ($user->getUserType() === UserType::TYPE_DOCTOR) {
+                $repository = $this->getDoctrine()->getRepository(Hospital::class);
+                $hospital = $repository->findAll();
+        if (!is_null($hospital)) {
+            return View::create($hospital, JsonResponse::HTTP_OK, []);
+        } else {
+            return View::create('hospital not Found', JsonResponse::HTTP_NOT_FOUND);
+                  } 
+                   
+            }
+                     
+                      else {
+                        return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+                              }
+
+        }
+
+
+
+
+
+
    /**
     * @Rest\Get("/api/hospital", name ="get_hosptital")
     * @Rest\View(serializerGroups={"admin"})

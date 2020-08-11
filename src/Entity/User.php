@@ -30,12 +30,6 @@ class User extends BaseUser
      */
     protected $id;
 
-    /**
-     * @ORM\Column(type="string", length=85, nullable=true)
-     * @Expose
-     * @Serializer\Groups({"users","doctors","admin","hospitals"})
-     */
-    private $country;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
@@ -145,6 +139,13 @@ class User extends BaseUser
      */
     private $remove;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Country")
+     * @Serializer\Groups({"users","doctors","hospitals"})
+     */
+    private $country;
+
+   
     public function __construct()
     {
         parent::__construct();
@@ -173,17 +174,7 @@ class User extends BaseUser
             ) = unserialize($serialized,['allowed_classes' => false]);
     }
 
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?string $country): self
-    {
-        $this->country = $country;
-
-        return $this;
-    }
+ 
 
     public function getGender(): ?string
     {
@@ -406,6 +397,18 @@ class User extends BaseUser
     public function setRemove(bool $remove): self
     {
         $this->remove = $remove;
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

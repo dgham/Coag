@@ -105,6 +105,98 @@ class RestApiDoctorController extends AbstractController
     }
 
 
+ /**
+     * @param Request $request
+     *
+   * @Rest\Patch("/api/doctor", name ="patch_doctorr")
+   * @Rest\View(serializerGroups={"doctors"})
+     */
+    public function patchdoctor(Request $request)
+    {
+        $user = $this->getUser();
+              if ($user->getUserType() === UserType::TYPE_DOCTOR) {
+                $hospitalid= $request->request->get('hospital_id');
+            if (isset($hospitalid)) {
+                
+                $repository = $this->getDoctrine()->getRepository(Hospital::class);
+                $hospital = $repository->findOneBy(array('id' => $hospitalid,'removed' => false));
+                if (!is_null($hospital)) {
+                $repository = $this->getDoctrine()->getRepository(Doctor::class);
+                $doctor = $repository->findOneBy(array('id'=>$user->getId(),'removed' => false));
+                if (!is_null($doctor)) {
+                    $doctor->setHospital($hospital);
+                    $doctor->setUpdatedBy($user);
+                    $doctor->setUpdatedAt(new \DateTime());
+                    $em = $this->getDoctrine()->getManager();
+                    $em->flush();
+                    $response=array(
+                        'message'=>'affiliate changed with success',
+                        'result'=>$doctor,
+                       
+                    );
+                    return View::create($response, JsonResponse::HTTP_OK, []);
+                     }  
+                     
+                     else{
+                        return View::create('doctor not found', JsonResponse::HTTP_NOT_FOUND);  
+                     }
+                    }
+                     else{
+                        return View::create('hospital not found', JsonResponse::HTTP_NOT_FOUND);  
+                     }
+                    }
+                     else{
+                        return View::create('hospital MISSING', JsonResponse::HTTP_BAD_REQUEST);  
+                     }
+                    }
+                     else {
+                        return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+                              }
+            
+            
+        }
+
+    
+               
+            
+
+
+
+
+
+
+
+ /**
+
+     *
+   * @Rest\get("/api/doctorAffiliation", name ="affiliation_doctor")
+   * @Rest\View(serializerGroups={"admin"})
+     */
+    public function getAffiliationdoctor(Request $request)
+    {
+        $user = $this->getUser();
+              if ($user->getUserType() === UserType::TYPE_DOCTOR) {
+       
+                $repository = $this->getDoctrine()->getRepository(Doctor::class);
+                $doctor = $repository->findOneBy(array('id'=>$user->getId(),'affiliate'=>true,'removed' => false));
+                if (!is_null($doctor)) {
+                   
+                    return View::create($doctor, JsonResponse::HTTP_OK, []);
+                     }  
+                     
+                     else{
+                        return View::create('not affiliate',JsonResponse::HTTP_OK);  
+                     }
+                    }
+                    
+                     else {
+                        return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+                              }
+            
+            
+        }
+
+
 
 
  /**
@@ -413,10 +505,7 @@ class RestApiDoctorController extends AbstractController
     if (!is_null($userr)) {
         $repository = $this->getDoctrine()->getRepository(Doctor::class);
         $doctor = $repository->findOneBy(array('created_by'=>$id));
-         $matricule= $doctor->getMatricule();
-         $repository = $this->getDoctrine()->getRepository(Matricule::class);
-         $verife = $repository->findOneBy(array('doctor_matricule'=>$matricule));
-         if (!is_null($verife)) {
+       
   
         if (isset($activation)) {
         if ($activation == true || $activation == false ){
@@ -433,10 +522,7 @@ class RestApiDoctorController extends AbstractController
             return View::create('error! enabled missing', JsonResponse::HTTP_BAD_REQUEST);
     }
  
-    }
-    else{
-        return View::create('matricule verifcation with error, matricule not found', JsonResponse::HTTP_NOT_FOUND);
-    }  
+
 }else{
         return View::create('User Account not found', JsonResponse::HTTP_NOT_FOUND);
     }
@@ -447,5 +533,38 @@ class RestApiDoctorController extends AbstractController
 
     }
 
+  /**
+     * @Rest\Get("/api/verification/doctor/{id}", name ="api_verifcation")
+     * @Rest\View(serializerGroups={"admin"})
+     */
+    public function matriculeVerification($id,Request $request)
+    {
+        $user = $this->getUser();
+        if ($user->getUserType() === UserType::TYPE_ADMIN) {
+            $repository = $this->getDoctrine()->getRepository(User::class);
+            $userr = $repository->findOneBy(array('id'=>$id));
+          
+    if (!is_null($userr)) {
+        $repository = $this->getDoctrine()->getRepository(Doctor::class);
+        $doctor = $repository->findOneBy(array('created_by'=>$id));
+         $matricule= $doctor->getMatricule();
+         $repository = $this->getDoctrine()->getRepository(Matricule::class);
+         $verife = $repository->findOneBy(array('doctor_matricule'=>$matricule));
+         if (!is_null($verife)) {
+            return View::create('matricule verified successfuly', JsonResponse::HTTP_OK);
+     
+    }
+    else{
+        return View::create('matricule verifcation error, matricule not found', JsonResponse::HTTP_NOT_FOUND);
+    }  
+}else{
+        return View::create('User Account not found', JsonResponse::HTTP_NOT_FOUND);
+    }
+    }
+            else{
+                return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+        }
+
+    }
 
 }

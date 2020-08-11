@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="36d0c518-0c4f-41ab-afc6-2f5c0bf78aca" name="Default Changelist" comment="" />
+    <list default="true" id="36d0c518-0c4f-41ab-afc6-2f5c0bf78aca" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microsoft Edge.lnk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RestApiAssetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RestApiAssetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RestApiCountryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RestApiCountryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RestApiDeviceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RestApiDeviceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RestApiDoctorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RestApiDoctorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RestApiHospitalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RestApiHospitalController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RestApiMedicalReportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RestApiMedicalReportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RestApiMesureINRController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RestApiMesureINRController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RestApiProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RestApiProfileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RestApiSessionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RestApiSessionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RestApiTreatmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RestApiTreatmentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +30,9 @@
     <execution>
       <phar pharPath="$PROJECT_DIR$/composer.phar" interpreterId="481b26c6-5254-4aff-b4ce-9d6d7bbc5c82" />
     </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -110,6 +131,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -128,6 +150,8 @@
       <option name="presentableId" value="Default" />
       <updated>1583852792779</updated>
       <workItem from="1583852935106" duration="4668000" />
+      <workItem from="1597087733573" duration="65000" />
+      <workItem from="1597087821368" duration="72000" />
     </task>
     <servers />
   </component>
@@ -135,9 +159,9 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="500" y="287" key="NewPhpFileDialog" timestamp="1583853398073">
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1597087830165">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="500" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1583853398073" />
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1597087830165" />
   </component>
 </project>

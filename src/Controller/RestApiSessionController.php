@@ -29,7 +29,7 @@ class RestApiSessionController extends FOSRestController
         );
             if ($user->getUserType() === UserType::TYPE_ADMIN) {
                 $repository = $this->getDoctrine()->getRepository(session::class);
-                $session = $repository->findBy(array('removed'=>false));
+                $session = $repository->findBy(array('removed'=>false),(array('id'=>'DESC')));
                 if (!is_null($session)) {
                     return View::create($session, JsonResponse::HTTP_OK, []);
         } else {
@@ -77,7 +77,7 @@ class RestApiSessionController extends FOSRestController
     public function postsessionAction(Request $request)
     {
         $user= $this->getUser();
-        if ((!$user->getUserType() === UserType::TYPE_PATIENT) || (!$user->getUserType() === UserType::TYPE_DOCTOR) || (!$user->getUserType() === UserType::TYPE_HOSPITAL) || (!$user->getUserType() === UserType::TYPE_ADMIN)) {
+        if ((!$user->getUserType() === UserType::TYPE_ADMIN) || (!$user->getUserType() === UserType::TYPE_DOCTOR) || (!$user->getUserType() === UserType::TYPE_HOSPITAL) || (!$user->getUserType() === UserType::TYPE_ADMIN)) {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
         try {

@@ -96,7 +96,7 @@ class RestApiMedicalReportController extends FOSRestController
                     if (isset($comment)) {
                     if($typecomment == "string"){
                     $note = new Note();
-                   $note->setComment($comment);
+                   $note->setComment(preg_replace_callback("/(&#[0-9]+;)/", function($m) { return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES"); },$comment));
                    $patientid= $request->request->get('patient_id');
                    if (isset($patientid)){
                        //   Get user if exist or not   //
@@ -158,7 +158,7 @@ class RestApiMedicalReportController extends FOSRestController
                  if (!is_null($notes)) {
                     $comment= $request->request->get('comment');
                      if (isset($comment)) {
-                    $notes->setComment($comment);
+                    $notes->setComment(preg_replace_callback("/(&#[0-9]+;)/", function($m) { return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES"); },$comment));
                      }
                      $patientid= $request->request->get('patient_id');
                      if (isset($patientid)){
