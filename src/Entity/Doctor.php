@@ -117,7 +117,7 @@ class Doctor
         return $this;
     }
 
-    public function getUpdatedBy(): ?Users
+    public function getUpdatedBy(): ?User
     {
         return $this->updated_by;
     }

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use DateTime;
 use App\Entity\User;
 use ReflectionClass;
 use App\Entity\Doctor;
@@ -12,31 +11,31 @@ use App\Entity\UserType;
 use App\Entity\Matricule;
 use App\Entity\Diagnostic;
 use FOS\RestBundle\View\View;
-use Symfony\Component\Form\Form;
 use App\Entity\DoctorAssignement;
+use App\Repository\DoctorRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Form;
 use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\Mime\Email;
 use FOS\UserBundle\Event\FormEvent;
-use App\Repository\DoctorRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use FOS\UserBundle\Event\GetResponseUserEvent;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations\Patch;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use FOS\UserBundle\Event\GetResponseNullableUserEvent;
 use Symfony\Component\Security\Core\User\UserInterface;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -101,11 +100,8 @@ class RestApiDoctorAssignementController extends AbstractController
         $doctorassignment->setIdDoctor($doctor_id);
         $doctorassignment->setRequestDate(new \DateTime());
         $doctorassignment->setStatus("pending");
-        $doctorassignment->setDisabled(false);
-        $doctorassignment->setRemoved(false);
-        $em = $this->getDoctrine()->getManager();
-      
-        $em->flush();
+        $entity ->persist($doctorassignment);
+        $entity->flush();
         $response=array(
                 'message'=>'success',
                 'result'=>'Email was send successfuly, check your email to reset your password'
