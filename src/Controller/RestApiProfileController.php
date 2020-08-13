@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use DateTime;
 use App\Entity\User;
 use App\Entity\Doctor;
@@ -43,14 +42,13 @@ class RestApiProfileController extends FOSRestController
     public function api_login(): JsonResponse
     {
         $user= $this->getUser();
-        dump($user);
-        die;
         return new Response([
             "username" => $user->getUsername(),
             "email" => $user->getEmail(),
             "user_type" => $user->getUserType(),
         ]
     );
+
     }
     /**
      * @Rest\Get("/api/profile", name ="api_profile")
