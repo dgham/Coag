@@ -67,11 +67,12 @@ class RestApiUserController extends FOSRestController
                 return $this->json($errors,400);
             }
             $usertype= $request->request->get('user_type');
-            if (($usertype == "doctor")||($usertype == "patient")){
+            if ($usertype == "doctor" || $usertype == "patient" ){
                 $hash = $encoder->encodePassword($user,$user->getPassword());
                 $user->setPassword($hash);
                 $qrcode=md5(uniqid());
                 $user->setQRCode($qrcode);
+                $user->setEnabled(true);
                 $user->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
                 $user->setCreatedAt(new \DateTime());
             }else{
