@@ -17,8 +17,6 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 /**
  * AuthenticationSuccessListener
- *
- * @author Aybek CHAOUECH <aybek.chaouech@continuousnet.com>
  */
 class AuthenticationSuccessListener extends Controller
 {

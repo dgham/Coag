@@ -1,6 +1,12 @@
 {
+    "bacon/bacon-qr-code": {
+        "version": "2.0.2"
+    },
     "bluemoehre/flac-php": {
         "version": "v1.0.2"
+    },
+    "dasprid/enum": {
+        "version": "1.0.2"
     },
     "doctrine/annotations": {
         "version": "1.0",
@@ -80,6 +86,15 @@
     },
     "egulias/email-validator": {
         "version": "2.1.17"
+    },
+    "endroid/installer": {
+        "version": "1.2.3"
+    },
+    "endroid/qr-code": {
+        "version": "3.9.1"
+    },
+    "endroid/qr-code-bundle": {
+        "version": "3.4.3"
     },
     "fmonts/ffmpeg-bundle": {
         "version": "0.7.3"
@@ -164,6 +179,9 @@
             "./config/packages/prod/jms_serializer.yaml"
         ]
     },
+    "khanamiryan/qrcode-detector-decoder": {
+        "version": "1.0.3"
+    },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.0.1"
     },
@@ -181,6 +199,9 @@
         "files": [
             "./config/packages/lexik_jwt_authentication.yaml"
         ]
+    },
+    "myclabs/php-enum": {
+        "version": "1.7.6"
     },
     "namshi/jose": {
         "version": "7.2.3"

@@ -145,6 +145,11 @@ class User extends BaseUser
      */
     private $country;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $QR_code;
+
    
     public function __construct()
     {
@@ -409,6 +414,18 @@ class User extends BaseUser
     public function setCountry(?Country $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getQRCode(): ?string
+    {
+        return $this->QR_code;
+    }
+
+    public function setQRCode(?string $QR_code): self
+    {
+        $this->QR_code = $QR_code;
 
         return $this;
     }

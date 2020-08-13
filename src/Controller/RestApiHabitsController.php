@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\Foods;
 use App\Entity\Patient;
 use App\Entity\UserType;
 use App\Entity\Eatinghabits;
@@ -33,7 +34,11 @@ class RestApiHabitsController extends FOSRestController
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
             $habitsrepository = $this->getDoctrine()->getRepository(Eatinghabits::class);
             $habits = $habitsrepository->findBy(array('created_by'=> $data,'remove' => false));
+            if(!empty($habits)){
             return View::create($habits, JsonResponse::HTTP_OK, []);
+         }
+         else{
+            return View::create('No data found :)', JsonResponse::HTTP_OK, []);
          }
          if ($user->getUserType() === UserType::TYPE_DOCTOR) {
             $patientrepository = $this->getDoctrine()->getRepository(Patient::class);
@@ -52,7 +57,7 @@ class RestApiHabitsController extends FOSRestController
             }
          }
     }
-
+    }
      /**
      * @Rest\Get("/api/habits/{id}", name ="search_habits")
      * @Rest\View(serializerGroups={"doctors"})
@@ -99,54 +104,65 @@ class RestApiHabitsController extends FOSRestController
         $user = $this->getUser();
         try{
             if ($user->getUserType() === UserType::TYPE_PATIENT) {
-                $description= $request->request->get('description');
-                $typedescription= gettype($description);
-                if (isset($description)) {
-                    if($typedescription == "string"){
-                $habits = new Eatinghabits();
-               $habits->setDescription($description);
-                $habits->setCreatedBy($user);
-                $habits->setCreatedAt(new \DateTime());
-                $habits->setRemove(false);
-                $entity ->persist($habits);
-                $entity->flush();
-                $response=array(
-                    'message'=>'health habits created',
-                    'result'=>$habits,
-                   
-                );
-                return View::create($response, Response::HTTP_CREATED, []);
-                    }
-                    else{
-                        return View::create('health habit description must be a string', JsonResponse::HTTP_BAD_REQUEST); 
-                    }
-                } else {
-                    return View::create('missing description !!', JsonResponse::HTTP_BAD_REQUEST);
-                }
-             }
-        }catch (Exception $ex){
-            return View::create($ex->getMessage(), JsonResponse::HTTP_BAD_REQUEST, []);
-    }  
+                $foodId= $request->request->get('food_description_id');
+                $typedescription= gettype($foodId);
+                if (isset($foodId)) {
+                    if($typedescription == "integer"){
+                        $repository = $this->getDoctrine()->getRepository(Foods::class);
+                        $foods = $repository->findOneBy(array('id' => $foodId,'removed' => false));
+                        if (!is_null($foods)) { 
+                            $habits = new Eatinghabits();
+                            $habits->setFoodDescription($foods);
+                            $habits->setCreatedBy($user);
+                            $habits->setCreatedAt(new \DateTime());
+                            $habits->setRemove(false);
+                            $entity ->persist($habits);
+                            $entity->flush();
+                            $response=array(
+                                'message'=>'health habits created',
+                                'result'=>$habits,
+                            
+                            );
+                            return View::create($response, Response::HTTP_CREATED, []);
+                                
+                            }
+                            else{
+                                return View::create('food description not exist !', JsonResponse::HTTP_BAD_REQUEST);
+                            }
+                        }
+                                else{
+                                    return View::create('health habit description must be an int', JsonResponse::HTTP_BAD_REQUEST); 
+                                }
+                            } else {
+                                return View::create('missing food_description_id !!', JsonResponse::HTTP_BAD_REQUEST);
+                            }
+                        }
+                    }catch (Exception $ex){
+                        return View::create($ex->getMessage(), JsonResponse::HTTP_BAD_REQUEST, []);
+                }  
 }
 
-     /**
-     * @param Request $request
-     *
+   /**
+   * @param Request $request
    * @Rest\Patch("/api/habits/{id}", name ="patch_habits")
    * @Rest\View(serializerGroups={"users"})
-     */
+   */
     public function patchAction(Request $request,$id)
     {
         $user = $this->getUser();
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
             $repository = $this->getDoctrine()->getRepository(Eatinghabits::class);
             $habits = $repository->findOneBy(array('id' => $id,'created_by' => $user->getId(),'remove' => false));
-                 if (!is_null($habits)) {
-                    $description= $request->request->get('description');
-                    $typedescription= gettype($description);
-                     if (isset($description)) {
-                        if($typedescription == "string"){
-                    $habits->setDescription($description);
+                 if (!is_null($habits)){
+                    $foodId= $request->request->get('food_description_id');
+                    $typedescription= gettype($foodId);
+                    if (isset($foodId)) {
+                    if($typedescription == "integer"){
+                    $repository = $this->getDoctrine()->getRepository(Foods::class);
+                    $foods = $repository->findOneBy(array('id' => $foodId,'removed' => false));
+
+                    if (!is_null($foods)) { 
+                    $habits->setFoodDescription($foods);
                     $habits->setUpdatedBy($user);
                     $habits->setUpdatedAt(new \DateTime());
                     $em = $this->getDoctrine()->getManager();
@@ -157,7 +173,11 @@ class RestApiHabitsController extends FOSRestController
                        
                     );
                     return View::create($response, JsonResponse::HTTP_OK, []);
-                     }    
+                     }  
+                     else{
+                        return View::create('foods habits not exist', JsonResponse::HTTP_BAD_REQUEST); 
+                    }  
+                }
                     
                     else{
                         return View::create('health habit description must be a string', JsonResponse::HTTP_BAD_REQUEST); 

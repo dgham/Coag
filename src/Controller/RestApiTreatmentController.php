@@ -8,6 +8,7 @@ use App\Entity\Patient;
 use App\Entity\UserType;
 use App\Entity\Treatment;
 use FOS\RestBundle\View\View;
+use App\Entity\MedicationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -106,88 +107,91 @@ class RestApiTreatmentController extends FOSRestController
                 $type= $request->request->get('type');
                 $typetype= gettype($type);
                 if (isset($type)) {
-                    if($typetype == "string"){
-                $treatment->setType($type);
-            } else {
-                return View::create(' type of treatment should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
-            }
-        }
-        else {
-            return View::create('missing type of treatment!!', JsonResponse::HTTP_BAD_REQUEST, []);
-        }        
-                $dosage= $request->request->get('dosage');
-                $typedosage= gettype($dosage);
-                if (isset($dosage)) {
-                    if($typedosage == "string"){
-                $treatment->setDosage($dosage);
-            } else {
-                return View::create(' dosage of treatment should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
-            }
-        }
-        else {
-            return View::create('missing dosage of the treatment!!', JsonResponse::HTTP_BAD_REQUEST, []);
-        }
-                $periode= $request->request->get('periode');
-                $periodef= $request->request->get('periodeof');
-                $typeperiode= gettype($periode);
-                if (isset($periode)) {
-                    $periodfinal=$periode.' '.$periodef;
-                    if($typeperiode == "string"){
-                $treatment->setPeriode($periodfinal);
-            } else {
-                return View::create(' periode of treatment should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
-            }
-        }
-        else {
-            return View::create('missing periode!!', JsonResponse::HTTP_BAD_REQUEST, []);
-        }
-                
-               $patientid= $request->request->get('patient_id');
-               if (isset($patientid)){
-                   //   Get user if exist or not   //
-                $userrepository = $this->getDoctrine()->getRepository(User::class);
-                $iduser = $userrepository->findOneBy(array('id' => $patientid));
-                //    Get patient if doctor is assigned by or not //
-                $patientrepository = $this->getDoctrine()->getRepository(Patient::class);
-                $idpatient= $patientrepository->findOneBy(array('created_by' => $patientid,'assignedBy'=> $user->getId()));
-                if(!is_null($iduser)){
-                    if(!is_null($idpatient)){
-                        $treatment->setPatient($iduser);
-                        $treatment->setCreatedBy($user);
-                        $treatment->setCreatedAt(new \DateTime());
-                        $treatment->setRemove(false);
-                        $entity ->persist($treatment);
-                        $entity->flush();
-                        $response=array(
-                            'message'=>'treatment created',
-                            'result'=>$treatment,
-                           
-                        );
-                        return View::create($response, Response::HTTP_CREATED, []);
-                        
-                
+                    if($typetype == "integer"){
+                        $repository = $this->getDoctrine()->getRepository(MedicationType::class);
+                        $medicationType = $repository->findOneBy(array('id' => $type,'removed' => false));
+                        if (!is_null($medicationType)) {
+                         $treatment->setType($medicationType);
+                                } else {
+                                    return View::create('type of treatment should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
+                                }
+                            }
+                            else {
+                                return View::create('missing type of treatment!!', JsonResponse::HTTP_BAD_REQUEST, []);
+                            }        
+                                    $dosage= $request->request->get('dosage');
+                                    $typedosage= gettype($dosage);
+                                    if (isset($dosage)) {
+                                        if($typedosage == "string"){
+                                    $treatment->setDosage($dosage);
+                                } else {
+                                    return View::create(' dosage of treatment should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
+                                }
+                            }
+                            else {
+                                return View::create('missing dosage of the treatment!!', JsonResponse::HTTP_BAD_REQUEST, []);
+                            }
+                                    $periode= $request->request->get('periode');
+                                    $periodef= $request->request->get('periodeof');
+                                    $typeperiode= gettype($periode);
+                                    if (isset($periode)) {
+                                        $periodfinal=$periode.' '.$periodef;
+                                        if($typeperiode == "string"){
+                                    $treatment->setPeriode($periodfinal);
+                                } else {
+                                    return View::create(' periode of treatment should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
+                                }
+                            }
+                            else {
+                                return View::create('missing periode!!', JsonResponse::HTTP_BAD_REQUEST, []);
+                            }
+                                    
+                                $patientid= $request->request->get('patient_id');
+                                if (isset($patientid)){
+                                    //   Get user if exist or not   //
+                                    $userrepository = $this->getDoctrine()->getRepository(User::class);
+                                    $iduser = $userrepository->findOneBy(array('id' => $patientid));
+                                    //    Get patient if doctor is assigned by or not //
+                                    $patientrepository = $this->getDoctrine()->getRepository(Patient::class);
+                                    $idpatient= $patientrepository->findOneBy(array('created_by' => $patientid,'assignedBy'=> $user->getId()));
+                                    if(!is_null($iduser)){
+                                        if(!is_null($idpatient)){
+                                            $treatment->setPatient($iduser);
+                                            $treatment->setCreatedBy($user);
+                                            $treatment->setCreatedAt(new \DateTime());
+                                            $treatment->setRemove(false);
+                                            $entity ->persist($treatment);
+                                            $entity->flush();
+                                            $response=array(
+                                                'message'=>'treatment created',
+                                                'result'=>$treatment,
+                                            
+                                            );
+                                            return View::create($response, Response::HTTP_CREATED, []);
+                                            
+                                    
+                                        } else {
+                                            return View::create('this doctor is not assigned to this patient!!', JsonResponse::HTTP_BAD_REQUEST, []);
+                                        }
+                                    }else {
+                                        return View::create('sorry , this patient is not exist!', JsonResponse::HTTP_BAD_REQUEST, []);
+                                        
+                                    }
+                                
+                                
+                                }else {
+                                    return View::create('you should add patient to add his treatment !', JsonResponse::HTTP_BAD_REQUEST, []);
+                                
+                                }
+                            
+
                     } else {
-                        return View::create('this doctor is not assigned to this patient!!', JsonResponse::HTTP_BAD_REQUEST, []);
+                        return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+                    }   
+                        }
+
+
                     }
-                }else {
-                    return View::create('sorry , this patient is not exist!', JsonResponse::HTTP_BAD_REQUEST, []);
-                      
-                }
-               
-               
-               }else {
-                return View::create('you should add patient to add his treatment !', JsonResponse::HTTP_BAD_REQUEST, []);
-               
-            }
-          
-
-} else {
-    return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-}   
-    }
-
-
-
       
      /**
      * @param Request $request

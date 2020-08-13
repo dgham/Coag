@@ -24,11 +24,6 @@ class Treatment
      */
     private $name;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Serializer\Groups({"users","doctors"})
-     */
-    private $type;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -94,6 +89,12 @@ class Treatment
      */
     private $patient;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\MedicationType")
+     * @Serializer\Groups({"users","doctors"})
+     */
+    private $type;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -111,17 +112,6 @@ class Treatment
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
 
     public function getPicture(): ?string
     {
@@ -253,6 +243,18 @@ class Treatment
     public function setPatient(?User $patient): self
     {
         $this->patient = $patient;
+
+        return $this;
+    }
+
+    public function getType(): ?MedicationType
+    {
+        return $this->type;
+    }
+
+    public function setType(?MedicationType $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

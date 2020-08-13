@@ -9,6 +9,7 @@ use App\Entity\Country;
 use App\Entity\Patient;
 use App\Entity\Hospital;
 use App\Entity\UserType;
+use App\Entity\Speciality;
 use FOS\RestBundle\View\View;
 use Doctrine\ORM\EntityManager;
 use Vich\UploaderBundle\Entity\File;
@@ -166,7 +167,6 @@ class RestApiProfileController extends FOSRestController
                     $em->flush();
                     return View::create($hospital, JsonResponse::HTTP_OK, []);
                 }
-              
             }
         }
          if ($user->getUserType() === UserType::TYPE_PATIENT) {
@@ -199,7 +199,14 @@ class RestApiProfileController extends FOSRestController
                 if (!is_null($doctor)) {
                     $speciality= $request->request->get('speciality');
                     if (isset($speciality)) {
-                        $doctor->setSpeciality($speciality);
+                        $repository = $this->getDoctrine()->getRepository(Speciality::class);
+                        $specialityy = $repository->findOneBy(array('id' => $speciality,'removed' => false));
+                        if (!is_null($specialityy)) {
+                        $doctor->setSpeciality($specialityy);
+                        }
+                        else{
+                            return View::create('speciality not found', JsonResponse::HTTP_BAD_REQUEST, []);
+                        }
                     }
                     $hospital= $request->request->get('hospital_id');
                     $hosp='hospital';
@@ -251,16 +258,6 @@ class RestApiProfileController extends FOSRestController
         );
         return View::create($response, JsonResponse::HTTP_OK, []);
     } 
-    
-    
-
-
-
-
-
-
-
-
 
    /**
      * @param Request $request

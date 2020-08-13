@@ -63,6 +63,16 @@ class Diagnostic
      */
     private $removed_at;
 
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $device_date;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $details;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -160,6 +170,30 @@ class Diagnostic
     public function setRemovedAt(?\DateTimeInterface $removed_at): self
     {
         $this->removed_at = $removed_at;
+
+        return $this;
+    }
+
+    public function getDeviceDate(): ?string
+    {
+        return $this->device_date;
+    }
+
+    public function setDeviceDate(?string $device_date): self
+    {
+        $this->device_date = $device_date;
+
+        return $this;
+    }
+
+    public function getDetails(): ?string
+    {
+        return $this->details;
+    }
+
+    public function setDetails(?string $details): self
+    {
+        $this->details = $details;
 
         return $this;
     }

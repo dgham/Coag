@@ -20,6 +20,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\Validator\Constraints\Date;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,7 +40,10 @@ class RestApiMesureINRController extends FOSRestController
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
             $repository = $this->getDoctrine()->getRepository(Diagnostic::class);
             $diagnostic = $repository->findBy(array('created_by'=> $data));
-            return View::create($diagnostic, JsonResponse::HTTP_OK, []);
+            if(!empty($diagnostic)){
+                return View::create($diagnostic, JsonResponse::HTTP_OK, []);
+            }
+            return View::create('No data found', JsonResponse::HTTP_OK, []);
          }
          if ($user->getUserType() === UserType::TYPE_DOCTOR) {
             $patientrepository = $this->getDoctrine()->getRepository(Patient::class);
@@ -50,14 +54,19 @@ class RestApiMesureINRController extends FOSRestController
             if (!is_null($Assigned)) {
                 $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
                 $diagnostic = $diagnosticrepository->findBy(array('created_by'=> $a));
-                return View::create($diagnostic, JsonResponse::HTTP_OK, []);
-            }
+                if(!empty($diagnostic)){
+                    return View::create($diagnostic, JsonResponse::HTTP_OK, []);
+                }
+                return View::create('No data found', JsonResponse::HTTP_OK, []);
+             }
+            
             else {
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
             }
+        
          }
     }
-      /**
+    /**
      * @Rest\Get("/api/diagnostic/{id}", name ="search_diagnostic")
      * @Rest\View(serializerGroups={"users"})
      */
@@ -101,128 +110,71 @@ class RestApiMesureINRController extends FOSRestController
                 }
     }
 
-     /**
-     * @Rest\Post("/api/diagnostic", name ="post_diagnostic")
-     * @Rest\View(serializerGroups={"users"})
-     */
-    public function create(Request $request,EntityManagerInterface $entity){
-        $user = $this->getUser();
-        
-        try{
-            if ($user->getUserType() === UserType::TYPE_PATIENT) {
-                $value= $request->request->get('value');
-                $typevalue= gettype($value);
-                if (isset($value)) {
-                    if($typevalue == "double"){
-                $diagnostic = new Diagnostic();
-                $diagnostic->setValue($value);
+                /**
+                 * @Rest\Post("/api/diagnostic", name ="post_diagnostic")
+                 * @Rest\View(serializerGroups={"users"})
+                 */
+                public function create(Request $request,EntityManagerInterface $entity){
+                    $user = $this->getUser();
+                    
+                    try{
+                        if ($user->getUserType() === UserType::TYPE_PATIENT) {
+                            $value= $request->request->get('value');
+                            $typevalue= gettype($value);
+                            $diagnostic = new Diagnostic();
+                            if (isset($value)) {
+                                if($typevalue == "double"){
+                        
+                            $diagnostic->setValue($value);
+                            if ((2.0 < $value) && ($value > 3.0)){
+                                $diagnostic->setIndication('anormal mesure');
+                                    }
+                                    else{
+                                        $diagnostic->setIndication('normal mesure'); 
+                                    }
+                            }
+                        
+                                else{
+                                    return View::create('value of INR must be double!', JsonResponse::HTTP_BAD_REQUEST, []);
+                                }
+                            } else{
+                                return View::create('value INR is missing!', JsonResponse::HTTP_BAD_REQUEST, []);
+                            }
+                            $details= $request->request->get('details');
+                            $typevalue= gettype($details);
+                            if (isset($details)) {
+                                if($typevalue == "string"){
+                            $diagnostic->setDetails($details);
+                                }
+                                else{
+                                    return View::create('details must be string!', JsonResponse::HTTP_BAD_REQUEST, []);
+                                }
+                            } 
+                            $devicedate= $request->request->get('devicedate');
+                            $typevalue= gettype($devicedate);
+                            if (isset($devicedate)) {
+                                if($typevalue == "string"){
+                                    $diagnostic->setDeviceDate($devicedate);
+                                }
+                                else{
+                                    return View::create(' device date must be string!', JsonResponse::HTTP_BAD_REQUEST, []);
+                                }
+                            }
+                            $diagnostic->setCreatedBy($user);
+                            $diagnostic->setCreatedAt(new \DateTime());
+                            $entity ->persist($diagnostic);
+                            $entity->flush();
+                            return View::create($diagnostic, JsonResponse::HTTP_CREATED, []);        
                     }
-                    else{
-                        return View::create('value of INR must be double!', JsonResponse::HTTP_BAD_REQUEST, []);
-                    }
-                } else{
-                    return View::create('value INR is missing!', JsonResponse::HTTP_BAD_REQUEST, []);
-                }
-
-                $indication= $request->request->get('indication');
-                $typeindication= gettype($indication);
-                if (isset($indication)) {
-                    if($typeindication == "string"){
-                $diagnostic->setIndication($indication);
-                $diagnostic->setCreatedBy($user);
-                $diagnostic->setCreatedAt(new \DateTime());
-                $entity ->persist($diagnostic);
-                $entity->flush();
-                return View::create($diagnostic, JsonResponse::HTTP_CREATED, []);
-                    }
-                    else{
-                        return View::create('indication of INR should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
-                    }
-                }
                     else {
-                        return View::create('indication is missing!', JsonResponse::HTTP_BAD_REQUEST, []);
+                        return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                     }
-
-
-        
-        }
-        else {
-            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-        }
-
-        }catch (Exception $e){
-            return View::create($e->getMessage(), JsonResponse::HTTP_BAD_REQUEST, []);
-    }  
-}
-
-
+                    }catch (Exception $e){
+                        return View::create($e->getMessage(), JsonResponse::HTTP_BAD_REQUEST, []);
+                }  
+            }
 
     /**
-     * @Rest\Post("/api/AddDiagnostic", name ="Add_diagnostic")
-     * @Rest\View(serializerGroups={"users"})
-     */
-    public function AddDiagnostic(Request $request,EntityManagerInterface $entity){
-        $user = $this->getUser();
-        try{
-            if ($user->getUserType() === UserType::TYPE_DOCTOR) {
-                $value= $request->request->get('value');
-                $typevalue= gettype($value);
-                if (isset($value)) {
-                    if($typevalue == "double"){
-                $diagnostic = new Diagnostic();
-                $diagnostic->setValue($value);
-            }
-            else{
-                return View::create('value of INR must be double!', JsonResponse::HTTP_BAD_REQUEST, []);
-            }
-                $indication= $request->request->get('indication');
-                $typeindication= gettype($indication);
-                if (isset($indication)) {
-                    if($typeindication == "string"){
-                $diagnostic->setIndication($indication);
-            }
-            else{
-                return View::create('indication of INR must be string!', JsonResponse::HTTP_BAD_REQUEST, []);
-            }
-                $createdBy= $request->request->get('created_by');
-                if (isset($createdBy)) {
-                    
-                    $repository = $this->getDoctrine()->getRepository(Patient::class);
-                    $create = $repository->findOneBy(array('assignedBy' => $user->getId(),'created_by'=>$createdBy));
-                    if (!is_null($create)) {
-                        $repository = $this->getDoctrine()->getRepository(User::class);
-                        $userr = $repository->findOneBy(array('id' => $createdBy));
-                        $diagnostic->setCreatedBy($userr);
-                    }else{
-                        return View::create('you are not assigned to this patient', JsonResponse::HTTP_BAD_REQUEST, []);
-                    }
-                }
-                else{
-                    return View::create('select your patient please', JsonResponse::HTTP_BAD_REQUEST, []);  
-                }
-                $diagnostic->setCreatedAt(new \DateTime());
-                $entity ->persist($diagnostic);
-                $entity->flush();
-                return View::create($diagnostic, JsonResponse::HTTP_CREATED, []);
-                    }
-                    else {
-                        return View::create('indication is missing!', JsonResponse::HTTP_BAD_REQUEST, []);
-                    }
-             }
-             else {
-                return View::create('value of the diagnostic is missing!', JsonResponse::HTTP_BAD_REQUEST, []);
-            }
-        }
-        else {
-            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-        }
-
-        }catch (Exception $e){
-            return View::create($e->getMessage(), JsonResponse::HTTP_BAD_REQUEST, []);
-    }  
-}
-
-/**
      * @Rest\Get("/api/TotalMesure", name ="nb_diagnostic")
      * @Rest\View(serializerGroups={"users"})
      */
@@ -246,10 +198,8 @@ class RestApiMesureINRController extends FOSRestController
                     'ResultINR_Total'=>$nb,
                    
                 );
-
                 return View::create($response, JsonResponse::HTTP_OK, []);
             }
-        
         }
     }
     /**
@@ -355,12 +305,8 @@ class RestApiMesureINRController extends FOSRestController
                     'ResultINR_Total'=>$nbdiag,
                    
                 );
-
-                return View::create($response, JsonResponse::HTTP_OK, []);
+        return View::create($response, JsonResponse::HTTP_OK, []);
             }
-        
-        
-    
     else {
         return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         } 

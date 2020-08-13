@@ -18,11 +18,7 @@ class Eatinghabits
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Serializer\Groups({"users","doctors"})
-     */
-    private $description;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="eatinghabits")
@@ -62,6 +58,12 @@ class Eatinghabits
      */
     private $remove;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Foods")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $food_description;
+
 
 
     public function getId(): ?int
@@ -69,17 +71,7 @@ class Eatinghabits
         return $this->id;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
+    
 
     public function getCreatedBy(): ?user
     {
@@ -161,6 +153,18 @@ class Eatinghabits
     public function setRemove(bool $remove): self
     {
         $this->remove = $remove;
+
+        return $this;
+    }
+
+    public function getFoodDescription(): ?Foods
+    {
+        return $this->food_description;
+    }
+
+    public function setFoodDescription(?Foods $food_description): self
+    {
+        $this->food_description = $food_description;
 
         return $this;
     }

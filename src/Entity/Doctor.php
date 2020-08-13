@@ -24,12 +24,6 @@ class Doctor
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Expose
-     * @Serializer\Groups({"users","admin","doctors"})
-     */
-    private $speciality;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="doctors")
@@ -90,6 +84,13 @@ class Doctor
      */
     private $affiliate;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Speciality")
+     * @Expose
+     * @Serializer\Groups({"users","admin","doctors"})
+     */
+    private $speciality;
+
 
 
     public function __construct()
@@ -102,17 +103,7 @@ class Doctor
         return $this->id;
     }
 
-    public function getSpeciality(): ?string
-    {
-        return $this->speciality;
-    }
-
-    public function setSpeciality(string $speciality): self
-    {
-        $this->speciality = $speciality;
-
-        return $this;
-    }
+ 
 
     public function getCreatedBy(): ?User
     {
@@ -230,6 +221,18 @@ class Doctor
     public function setAffiliate(?bool $affiliate): self
     {
         $this->affiliate = $affiliate;
+
+        return $this;
+    }
+
+    public function getSpeciality(): ?Speciality
+    {
+        return $this->speciality;
+    }
+
+    public function setSpeciality(?Speciality $speciality): self
+    {
+        $this->speciality = $speciality;
 
         return $this;
     }

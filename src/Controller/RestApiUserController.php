@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\FOSRestController;
+use Endroid\QrCodeBundle\Response\QrCodeResponse;
+use Endroid\QrCode\Factory\QrCodeFactoryInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -65,10 +67,11 @@ class RestApiUserController extends FOSRestController
                 return $this->json($errors,400);
             }
             $usertype= $request->request->get('user_type');
-            if ($usertype == "doctor"){
+            if (($usertype == "doctor")||($usertype == "patient")){
                 $hash = $encoder->encodePassword($user,$user->getPassword());
                 $user->setPassword($hash);
-                $user->setEnabled(false);
+                $qrcode=md5(uniqid());
+                $user->setQRCode($qrcode);
                 $user->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
                 $user->setCreatedAt(new \DateTime());
             }else{
@@ -78,7 +81,6 @@ class RestApiUserController extends FOSRestController
                 $user->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
                 $user->setCreatedAt(new \DateTime());
             }
-          
             $usertype= $request->request->get('user_type');
             if ($usertype == "patient" || $usertype =="doctor" || $usertype == "hospital" || $usertype == "admin"){
                 $user->setUserType($usertype);
@@ -100,15 +102,14 @@ class RestApiUserController extends FOSRestController
                if ($usertype == "doctor"){
                      $doctor = new Doctor();
                      $matricule= $request->request->get('matricule');
-                        $doctor->setMatricule($matricule);
+                       $doctor->setMatricule($matricule);
+                
                         $doctor->setAffiliate(false);
                         $doctor->setCreatedBy($user);
                         $doctor->setCreatedAt(new \DateTime());
                         $doctor->setRemoved(false);
                         $entity ->persist($doctor);
-                        $entity->flush();
-                     
-                    
+                        $entity->flush();                   
                 }
                     if ($usertype == "hospital"){
                         $hospital = new Hospital();
@@ -173,9 +174,8 @@ class RestApiUserController extends FOSRestController
         return View::create($response, JsonResponse::HTTP_CREATED, []);    
 
     }
-    
-    
- /**
+
+    /**
      * @Route("/api/PatientNumber", name="number_patient", methods={"GET"})
      */
     public function PatientNumber()
@@ -190,9 +190,6 @@ class RestApiUserController extends FOSRestController
         return View::create($response, JsonResponse::HTTP_CREATED, []);    
 
     }
-    
-    
- 
      /**
      * @Rest\Get("/api/MesureGender", name ="bygender_diagnostic")
      * @Rest\View(serializerGroups={"users"})
@@ -211,21 +208,17 @@ class RestApiUserController extends FOSRestController
            foreach ($Assigned as $dataa) {
            $a[]=$dataa->getCreatedBy()->getId();
            }
-         
             if (!is_null($Assigned)) {
                 $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
                 $diagnostic = $diagnosticrepository->getassigned($a,$indication);
                 $diagnosticttotal = $diagnosticrepository->findBy(array('created_by'=> $a));
-              
                 $total=count($diagnostic);
                 $totale=count($diagnosticttotal);
-        
                 if (!is_null($diagnostic)) {
                    $NBMale=0;
                     foreach ($diagnostic as $dataa) {
                         if($dataa->getCreatedBy()->getGender()=="Male")
-                        $NBMale=$NBMale+1;
-                        
+                        $NBMale=$NBMale+1; 
                         }
                         $purcentageMale=intval($NBMale*100/$total);
                        
@@ -234,28 +227,18 @@ class RestApiUserController extends FOSRestController
                             if($dataa->getCreatedBy()->getGender()=="Female")
                             $NBFemale=$NBFemale+1;
                         }
-                  
-                        
-                        
                         $purcentaFemale=intval($NBFemale*100/$total);
-                   
-              
                         $response=array(
                             'MaleMesure'=>$purcentageMale ,
                             'FemaleMesure'=>$purcentaFemale  
                         );
-
                 return View::create($response, JsonResponse::HTTP_OK, []);
             }
-        
            }
         
     }
 
     }
 
-
-
-   
 
 }
