@@ -7824,7 +7824,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Twig\\Extra\\TwigExtraBundle\\": "src/"
+              
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
