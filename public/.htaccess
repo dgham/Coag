@@ -24,6 +24,8 @@
 #</IfModule>
 
 <IfModule mod_rewrite.c>
+   RewriteCond %{HTTP:Authorization} .
+    RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
     Options -MultiViews
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-f
