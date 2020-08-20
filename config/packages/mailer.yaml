@@ -1,9 +1,32 @@
-framework:
-    mailer:
-        dsn: '%env(MAILER_DSN)%'
 swiftmailer:
-    transport: "smtp"
-    host:      "api.coagcare.continuousnet.com"
-    username:  "amiradgham15@gmail.com"
-    password:  "amiraaaa55703911"
-    spool:     { type: memory }
+    default_mailer:       ~
+    mailers:
+        # Prototype
+        name:
+            url:                  null
+            transport:            smtp
+            command:              '/usr/sbin/sendmail -bs'
+            username:             CoagCareApp@gmail.com
+            password:             CoagCareApp123
+            host:                 api.coagcare.continuousnet.com
+            port:                 null
+            timeout:              30
+            source_ip:            null
+            local_domain:         null
+            stream_options:       []
+            encryption:           null
+            auth_mode:            null
+            sender_address:       CoagCareApp@gmail.com
+            delivery_addresses:   []
+            antiflood:
+                threshold:            99
+                sleep:                0
+            logging:              true
+            spool:
+                type:                 file
+                path:                 '%kernel.cache_dir%/swiftmailer/spool'
+
+                # Used by "service" type
+                id:                   null
+            delivery_whitelist:   []
+            disable_delivery:     ~
