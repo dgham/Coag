@@ -86,13 +86,16 @@ public function findByMesuremaxDate($value)
 {
     return $this->createQueryBuilder('p')
          ->select('p')
-         ->Where('p.created_by IN (:val)')
+         ->Where('p.created_by  IN (:val) ')
          ->setParameter('val',$value)
-         ->orderBy('p.created_at', 'DESC')
+         ->orderBy('p.id', 'DESC')
          ->groupBy('p.created_by')
         ->getQuery()
         ->getResult();
+
+
         
+
 }
 
     // /**

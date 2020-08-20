@@ -81,9 +81,10 @@ class RestApiAssetController  extends FOSRestController
                 $nameee=$file->getClientOriginalName();
                 $size=$file->getSize();
                 $path= $this->getParameter('video_directory');
+                $path_uplaod='Assets/videos/';
                 $videoName=$namee;
                 if ($exten == "mp4"){
-                    $file->move($path,$videoName);
+                    $file->move($path_uplaod,$videoName);
                     $asset->setTextValue($namee);
                     $access= $request->request->get('access');
                     if (isset($access)) {
@@ -118,7 +119,8 @@ class RestApiAssetController  extends FOSRestController
                $resolution=$info[0].'*'.$info[1];
               $imagetype=$file->guessExtension();
                if ($imagetype == "jpeg" || $imagetype == "png" ){
-                    $file->move($path,$imageName);
+                $path_uplaod='Assets/images/';
+                    $file->move($path_uplaod,$imageName);
                     $asset->setTextValue($imageName);
                     $access= $request->request->get('access');
                
@@ -154,7 +156,8 @@ class RestApiAssetController  extends FOSRestController
                $size = $file->getSize();
               $doctype=$file->guessExtension();
               if ($doctype == "txt" || $doctype == "pdf" ||  $doctype == "docx" || $doctype =="xlsx" || $doctype =="pptx"){
-                $file->move($path,$docName);
+                $path_uplaod='Assets/documents/';
+                $file->move($path_uplaod,$docName);
                 $asset->setTextValue($docName);
                 $access= $request->request->get('access');
                 if (isset($access)) {
@@ -175,12 +178,13 @@ class RestApiAssetController  extends FOSRestController
                 $asset->setEnabled(true);
                 $entity->persist($asset);
                 $entity->flush();
-                return View::create($asset, JsonResponse::HTTP_CREATED, []);
-             
+                $response=array(
+                    'message'=>'Asset created with success',
+                    'result'=>$asset,
+                   
+                );
+                return View::create($response, JsonResponse::HTTP_CREATED, []);
             } 
-           
-           
-         
                 }
                 else {
                     return View::create('this type of file is not accepted ,try another !', JsonResponse::HTTP_BAD_REQUEST, []);
@@ -189,9 +193,6 @@ class RestApiAssetController  extends FOSRestController
             else {
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                       }
-              
-
-    
 }
 
       /**
@@ -241,7 +242,8 @@ class RestApiAssetController  extends FOSRestController
                         $path= $this->getParameter('video_directory');
                         $videoName=$namee;
                             if ($exten == "mp4"){
-                            $file->move($path,$videoName);
+                            $path_uplaod='Assets/videos/';
+                            $file->move($path_uplaod,$videoName);
                             $asset->setTextValue($namee);
                                 if (isset($access)) {
                                     if (($access  == "public") || ($access == "private")){
@@ -264,7 +266,7 @@ class RestApiAssetController  extends FOSRestController
                             $em->flush();
                             $response=array(
                                 'message'=>'Asset updated',
-                                'result'=>$asset,
+                                'result'=> $asset
                                
                             );
                             return View::create($response, JsonResponse::HTTP_OK, []);
@@ -281,7 +283,8 @@ class RestApiAssetController  extends FOSRestController
                             $resolution=$info[0].'*'.$info[1];
                             $imagetype=$file->guessExtension();
                                 if ($imagetype == "jpeg" || $imagetype == "png" ){
-                                $file->move($path,$imageName);
+                                    $path_uplaod='Assets/images/';
+                                    $file->move($path_uplaod,$imageName);
                                 $asset->setTextValue($imageName);
                                     if (isset($access)) {
                                         if (($access  == "public") || ($access == "private")){
@@ -302,7 +305,7 @@ class RestApiAssetController  extends FOSRestController
                                 $em->flush();
                                 $response=array(
                                     'message'=>'Asset updated',
-                                    'result'=>$asset,
+                                    'result'=> $asset
                                    
                                 );
                                 return View::create($response, JsonResponse::HTTP_OK, []);
@@ -316,7 +319,8 @@ class RestApiAssetController  extends FOSRestController
                                 $size = $file->getSize();
                                 $doctype=$file->guessExtension();
                                 if ($doctype == "txt" || $doctype == "pdf" ||   $doctype == "docx" || $doctype =="xlsx" || $doctype =="pptx"){
-                                $file->move($path,$docName);
+                                $path_uplaod='Assets/documents/';
+                                $file->move($path_uplaod,$docName);
                                 $asset->setTextValue($docName);
                                         if (isset($access)) {
                                             if (($access  == "public") || ($access == "private")){
@@ -335,8 +339,7 @@ class RestApiAssetController  extends FOSRestController
                                 $em->flush();
                                 $response=array(
                                     'message'=>'Asset updated',
-                                    'result'=>$asset,
-                                   
+                                    'result'=> $asset                                
                                 );
                                 return View::create($response, JsonResponse::HTTP_OK, []);
                                 }

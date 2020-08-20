@@ -14,37 +14,37 @@ class Country
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Serializer\Groups({"users"})
+     * @Serializer\Groups({"users","doctors"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Serializer\Groups({"users"})
+     * @Serializer\Groups({"users","doctors"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-   * @Serializer\Groups({"users"})
+   * @Serializer\Groups({"users","doctors"})
      */
     private $picture;
 
     /**
      * @ORM\Column(type="string", length=2)
-    * @Serializer\Groups({"users"})
+    * @Serializer\Groups({"users","doctors"})
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=3, nullable=true)
-    * @Serializer\Groups({"users"})
+    * @Serializer\Groups({"users","doctors"})
      */
     private $long_code;
 
     /**
      * @ORM\Column(type="string", length=6, nullable=true)
-        * @Serializer\Groups({"users"})
+    * @Serializer\Groups({"users","doctors"})
      */
     private $prefix;
 
@@ -71,7 +71,7 @@ class Country
 
     /**
      * @ORM\Column(type="datetime")
-  * @Serializer\Groups({"users"})
+  * @Serializer\Groups({"users","doctors"})
      */
     private $created_at;
 

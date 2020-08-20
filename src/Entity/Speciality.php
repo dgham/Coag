@@ -14,19 +14,19 @@ class Speciality
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer").
-     * @Serializer\Groups({"admin","users"})
+     * @Serializer\Groups({"admin","users","doctors"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Serializer\Groups({"admin","users"})
+     * @Serializer\Groups({"admin","users","doctors"})
      */
     private $speciality_name;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Serializer\Groups({"admin"})
+     * @Serializer\Groups({"admin","doctors"})
      */
     private $created_at;
 

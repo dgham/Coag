@@ -8,6 +8,7 @@ use App\Entity\Patient;
 use App\Entity\UserType;
 use App\Entity\Eatinghabits;
 use FOS\RestBundle\View\View;
+use App\Entity\DoctorAssignement;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,22 +41,28 @@ class RestApiHabitsController extends FOSRestController
          else{
             return View::create('No data found :)', JsonResponse::HTTP_OK, []);
          }
+        }
          if ($user->getUserType() === UserType::TYPE_DOCTOR) {
-            $patientrepository = $this->getDoctrine()->getRepository(Patient::class);
-           $Assigned = $patientrepository->findBy(array('assignedBy'=> $data));
+            $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+            $Assigned = $repository->findBy(array('id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>false));
+         
            foreach ($Assigned as $data) {
-           $a[]= $data->getCreatedBy();
+           $a[]= $data->getIdPatient();
            }
-          
-            if (!is_null($Assigned)) {
+           if (!empty($Assigned)){
                 $habitsrepository = $this->getDoctrine()->getRepository(Eatinghabits::class);
                 $habits = $habitsrepository->findBy(array('created_by'=> $a ,'remove' => false));
+                if (!empty($habits)){
                 return View::create($habits, JsonResponse::HTTP_OK, []);
             }
+            else{
+                return View::create('no data found', JsonResponse::HTTP_NOT_FOUND, []);
+            }
+        }
             else {
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+            
             }
-         }
     }
     }
      /**
@@ -65,8 +72,8 @@ class RestApiHabitsController extends FOSRestController
     public function searchhabits($id){
         $user=$this->getUser();
         if ($user->getUserType() === UserType::TYPE_DOCTOR) {
-            $patientrepository = $this->getDoctrine()->getRepository(Patient::class);
-           $Assigned = $patientrepository->findBy(array('assignedBy'=> $user));
+            $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+            $Assigned = $repository->findBy(array('id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>false));
            foreach ($Assigned as $data) {
             $a[]= $data->getCreatedBy();
             }

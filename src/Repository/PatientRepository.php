@@ -45,7 +45,7 @@ public function findByAssignedid($value): ?Patient
 public function findcount($value)
 {
     return $this->createQueryBuilder('p')
-        ->select('count(p)')
+        ->select('p')
         ->Where('p.assignedBy = :val')
         ->setParameter('val', $value)
         ->getQuery()

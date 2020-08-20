@@ -80,7 +80,6 @@ class Patient
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @Expose
-     * @Serializer\Groups({"users","hospitals","doctors"})
      * 
      */
     private $assignedBy;

@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\User;
 use App\Entity\Patient;
 use FOS\RestBundle\View\View;
@@ -25,82 +26,70 @@ use Symfony\Component\Serializer\SerializerInterface;
 use FOS\UserBundle\Event\GetResponseNullableUserEvent;
 use Symfony\Component\Security\Core\User\UserInterface;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RestConfim extends FOSRestController
 {
-     /**
-     * Reset user password
-     *
-     * @Rest\Post("/ResetPassword", name ="Reset_password")
-     */
-    public function ResetPassword(Request $request,\Swift_Mailer $mailer)
-    {
-        $email= $request->request->get('email');
-        if (isset($email)) {
-            $repository = $this->getDoctrine()->getRepository(User::class);
-            $emailValidation = $repository->findOneBy(array('email'=>$email));
-           $token= $emailValidation->getConfirmationToken();
-           if ($token != null){
-           $token= $emailValidation->getConfirmationToken();
-           }
-           else{
-           $emailValidation->setConfirmationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
-            $em = $this->getDoctrine()->getManager();
-             $em->flush(); 
-             $token=$emailValidation->getConfirmationToken();
-           }
-        
-           $name= $emailValidation->getUsername();
-         
-            if (!is_null($emailValidation)) {
-            $message = (new \Swift_Message('CoagCare message'))
-            ->setFrom('amiradgham15@gmail.com')
-            ->setTo($email)
-            ->setBody(
-                '<html>' .
-                ' <body>' .
-               '<center><img src=`https://www.groupe-grim.com/bmw/wp-content/uploads/2019/10/groupe-personnel-medical-portant-icones-liees-sante_53876-43071.jpg`></center>.<p> Dear '. $name .',<br><br> We got a request to reset 
-               you CoagCare password .Just click the link below and you
-               you will be on your way <a href=`http://localhost:4200/reset-password?token='.$token.'`'.' style="display:block" height="42" width="150"> Reset password </a> . If you did not make this request, please ignore this email and thanks . </p>
-               <br> <p> If you need aditional assistance, or you did not make this change, please contact <a href=`mailto:CoagCareApp@gmail.com` style=`color:#ff6c37;text-decoration:unerline;font-weight:blod`>CoagCareApp@gmail.com</a>.<p> cheers, <br> the CoagCare App Team </p>
-               <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
-               © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
-                ' </body>' .
-                '</html>',
-                  'text/html' 
-            );
-        $mailer->send($message);
-            $response=array(
-                'message'=>'success',
-                'result'=>'Email was send successfuly, check your email to reset your password'
-            );
-        return View::create($response, JsonResponse::HTTP_OK, []);
-            }
-            else{
-                $response=array(
-                    'message'=>'failure',
-                    'result'=>'this email not exist try again!'
-                );
-                return View::create($response, Response::HTTP_NOT_FOUND,[]);
+   
 
+                /**
+               * Reset user password
+                 *
+                 * @Rest\Post("/auth/resetpassword", name ="Resettt_password")
+                */
+                public function resetPasswordRequestAction(Request $request,\Swift_Mailer $mailer ,UrlGeneratorInterface  $router)
+                {
+                    $email= $request->request->get('email');
+                    if (isset($email)){
+                    $user = $this->get("fos_user.user_manager")->findUserByEmail($email);
+                    if (null === $user) {
+                    throw $this->createNotFoundException();
+                    }
+                if ($user->isPasswordRequestNonExpired($this->container->getParameter("fos_user.resetting.token_ttl"))) {
+                    return View::create("Password already requested", Response::HTTP_BAD_REQUEST,[]);
                 }
-        
-          }
-          else{
-           
-            return View::create("missing email", Response::HTTP_BAD_REQUEST,[]);
+                if (null === $user->getConfirmationToken()) {
+                /** @var $tokenGenerator FOSUserBundleUtilTokenGeneratorInterface */
+                $tokenGenerator = $this->get("fos_user.util.token_generator");
+                $user->setConfirmationToken($tokenGenerator->generateToken());
+                }
+                $user->setPasswordRequestedAt(new DateTime());
+                $this->get("fos_user.user_manager")->updateUser($user);
+                $token=$user->getConfirmationToken();
+                $name= $user->getUsername();
+                $message = (new \Swift_Message('CoagCare message'))
+                ->setFrom('amiradgham15@gmail.com')
+                ->setTo($email)
+                ->setBody(
+                    '<html>' .
+                    ' <body>' .
+                   '<center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="250px" height="250px"></center>.<p> Dear '. $name .',<br><br> We got a request to reset 
+                   you CoagCare password .Just click the link below and you will be on your way <a href=`http://localhost:4200/auth/reset-password?token='.$token.'`'.' style="display:block" height="42" width="150"> Reset password </a> . If you did not make this request, please ignore this email and thanks . </p>
+                   <br> <p> If you need aditional assistance, or you did not make this change, please contact <a href=`mailto:CoagCareApp@gmail.com` style=`color:#ff6c37;text-decoration:unerline;font-weight:blod`>CoagCareApp@gmail.com</a>.<p> cheers, <br> the CoagCare App Team </p>
+                   <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
+                   © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
+                    ' </body>' .
+                    '</html>',
+                      'text/html' 
+                );
+            $mailer->send($message);
 
+                 return View::create("email send", Response::HTTP_OK,[]);
+                    }
+                    else{
+                        return View::create("missing email !", Response::HTTP_BAD_REQUEST,[]);
+                    }
             }
-    
-        }
+
       /**
      * Reset user password
      *
-     * @Rest\Patch("/RestConfirmation", name ="Resetconfirm_password")
+     * @Rest\Patch("/auth/RestConfirmation", name ="Resetconfirm_password")
      */
     public function resetConfirmation(Request $request,UserPasswordEncoderInterface $encoder,SerializerInterface $serializer)
     {
@@ -108,7 +97,7 @@ class RestConfim extends FOSRestController
     
         if (isset($token)) {
             $password= $request->request->get('password');
-            $confirmpassword= $request->request->get('confirmPassword');
+            $confirmpassword= $request->request->get('confirm_Password');
             $repository = $this->getDoctrine()->getRepository(User::class);
             $user = $repository->findOneBy(array('confirmationToken'=>$token));
             

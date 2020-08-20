@@ -17,13 +17,13 @@ class Hospital
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Expose
-     * @Serializer\Groups({"users","admin"})
+     * @Serializer\Groups({"users","admin","doctors"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=55, nullable=true)
-     * @Serializer\Groups({"users","admin"})
+     * @Serializer\Groups({"users","admin","doctors"})
      * @Expose
      */
     private $type;
@@ -31,7 +31,7 @@ class Hospital
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="hospitals")
      * @ORM\JoinColumn(nullable=false)
-     * @Serializer\Groups({"users","admin"})
+     * @Serializer\Groups({"users","admin","doctors"})
      * @Expose
      */
     private $created_by;

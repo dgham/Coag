@@ -37,4 +37,6 @@ class NoopMailer implements MailerInterface
     {
         // nothing happens.
     }
+
+    
 }

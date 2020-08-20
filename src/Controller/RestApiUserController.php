@@ -104,13 +104,14 @@ class RestApiUserController extends FOSRestController
                      $doctor = new Doctor();
                      $matricule= $request->request->get('matricule');
                        $doctor->setMatricule($matricule);
-                
                         $doctor->setAffiliate(false);
                         $doctor->setCreatedBy($user);
                         $doctor->setCreatedAt(new \DateTime());
                         $doctor->setRemoved(false);
                         $entity ->persist($doctor);
-                        $entity->flush();                   
+                        $entity->flush(); 
+                        
+                                          
                 }
                     if ($usertype == "hospital"){
                         $hospital = new Hospital();
@@ -191,11 +192,11 @@ class RestApiUserController extends FOSRestController
         return View::create($response, JsonResponse::HTTP_CREATED, []);    
 
     }
-     /**
-     * @Rest\Get("/api/MesureGender", name ="bygender_diagnostic")
-     * @Rest\View(serializerGroups={"users"})
-     */
-    public function countBygender()
+     ///**
+    // * @Rest\Get("/api/MesureGender", name ="bygender_diagnostic")
+    // * @Rest\View(serializerGroups={"users"})
+    // */
+  /*   public function countBygender()
     {
         $indication='anormal mesure';
         $a=array();
@@ -239,7 +240,7 @@ class RestApiUserController extends FOSRestController
         
     }
 
-    }
+    } */
 
 
 }

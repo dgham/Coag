@@ -3,6 +3,23 @@ fos_user:
   firewall_name: main
   user_class: App\Entity\User
   from_email:
-    address: 'amiradgham@gmail.com'
-    sender_name: 'amiradgham@gmail.com'
- 
+    address: 'amiradgham15@gmail.com'
+    sender_name: 'amiradgham15@gmail.com'
+  service:
+      mailer:  fos_user.mailer.default
+      email_canonicalizer:  fos_user.util.canonicalizer.default
+      token_generator:      fos_user.util.token_generator.default
+      username_canonicalizer:  fos_user.util.canonicalizer.default
+      user_manager:         fos_user.user_manager.default
+  resetting:
+    retry_ttl: 7200 # Value in seconds, logic will use as hours
+    token_ttl: 900
+    email:
+        from_email: # Use this node only if you don't want the global email address for the resetting email
+          address:        ...
+          sender_name:    ...
+        template:   '@FOSUser/Resetting/email.txt.twig'
+    form:
+        type:               FOS\UserBundle\Form\Type\ResettingFormType # or 'fos_user_resetting' on Symfony < 2.8
+        name:               fos_user_resetting_form
+        validation_groups:  [ResetPassword, Default]

@@ -147,6 +147,7 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Serializer\Groups({"users","doctors","admin","hospitals"})
      */
     private $QR_code;
 

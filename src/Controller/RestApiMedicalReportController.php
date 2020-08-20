@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\Patient;
 use App\Entity\UserType;
 use FOS\RestBundle\View\View;
+use App\Entity\DoctorAssignement;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -103,8 +104,9 @@ class RestApiMedicalReportController extends FOSRestController
                     $userrepository = $this->getDoctrine()->getRepository(User::class);
                     $iduser = $userrepository->findOneBy(array('id' => $patientid));
                     //    Get patient if doctor is assigned by or not //
-                    $patientrepository = $this->getDoctrine()->getRepository(Patient::class);
-                    $idpatient= $patientrepository->findOneBy(array('created_by' => $patientid,'assignedBy'=> $user->getId()));
+
+                    $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                    $idpatient = $repository->findBy(array('id_doctor'=>$user->getId(),'id_patient'=>$patientid,'status'=>'Accepted','removed'=>false));
                     if(!is_null($iduser)){
                         if(!is_null($idpatient)){
                             $note->setPatientId($iduser);
@@ -145,7 +147,6 @@ class RestApiMedicalReportController extends FOSRestController
     
      /**
      * @param Request $request
-     *
       * @Rest\Patch("/api/MedicalReport/{id}", name ="patch_notes")
       * @Rest\View(serializerGroups={"doctors"})
      */
@@ -166,8 +167,9 @@ class RestApiMedicalReportController extends FOSRestController
                       $userrepository = $this->getDoctrine()->getRepository(User::class);
                       $iduser = $userrepository->findOneBy(array('id' => $patientid));
                       //    Get patient if doctor is assigned by or not //
-                      $patientrepository = $this->getDoctrine()->getRepository(Patient::class);
-                      $idpatient= $patientrepository->findOneBy(array('created_by' => $patientid,'assignedBy'=> $user->getId()));
+                      
+                    $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                    $idpatient = $repository->findOneBy(array('id_doctor'=>$user->getId(),'id_patient'=>$patientid,'status'=>'Accepted','removed'=>false));
                       if(!is_null($iduser)){
                           if(!is_null($idpatient)){
                     $notes->setPatientId($iduser);

@@ -9,6 +9,7 @@ use App\Entity\UserType;
 use App\Entity\Treatment;
 use FOS\RestBundle\View\View;
 use App\Entity\MedicationType;
+use App\Entity\DoctorAssignement;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,25 +36,32 @@ class RestApiTreatmentController extends FOSRestController
             if ($user->getUserType() === UserType::TYPE_DOCTOR) {
                 $repository = $this->getDoctrine()->getRepository(Treatment::class);
                 $treatment = $repository->findBy(array('created_by'=> $data,'remove' => false),array('id'=>'DESC'));
-                if (!is_null($treatment)) {
+                if (!empty($treatment)) {
                 return View::create($treatment, JsonResponse::HTTP_OK, []);
                 
         } 
+        else{
+            return View::create('no treatment found', JsonResponse::HTTP_OK, []);
+        }
         
             }  
               if ($user->getUserType() === UserType::TYPE_PATIENT) {
                 $repository = $this->getDoctrine()->getRepository(Treatment::class);
                 $treatment = $repository->findBy(array('patient'=> $data,'remove' => false,array('id'=>'DESC')));
-                if (!is_null($treatment)) {
+                if (!empty($treatment)) {
                     return View::create($treatment, JsonResponse::HTTP_OK, []);
-        } 
         
-            } 
+                } 
+                else{
+                    return View::create('no treatment found', JsonResponse::HTTP_OK, []);
+                }
 
-            else {
-                return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-                      }
-        }
+                        } 
+
+                else {
+                    return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+                        }
+            }
      /**
     * @Rest\Get("/api/treatment/{id}", name ="search_treatment")
      * @Rest\View(serializerGroups={"users"})
@@ -67,7 +75,7 @@ class RestApiTreatmentController extends FOSRestController
             if (!is_null($treatment)) {
                 return View::create($treatment, JsonResponse::HTTP_OK, []);
         } else {
-           return View::create('treatment Not Found', JsonResponse::HTTP_NOT_FOUND);
+            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                   } 
                 }
                   if ($user->getUserType() === UserType::TYPE_PATIENT) {
@@ -77,22 +85,24 @@ class RestApiTreatmentController extends FOSRestController
                         return View::create($treatment, JsonResponse::HTTP_OK, []);
                 } 
                 else {
-                    return View::create('treatment Not Found', JsonResponse::HTTP_NOT_FOUND);
+                    return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                            } 
             } else {
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
            
         }
-    }  
-     /**
+    } 
+
+    /**
     * @Rest\Post("/api/treatment", name ="create_treatment")
-     * @Rest\View(serializerGroups={"users"})
-     */
+    * @Rest\View(serializerGroups={"users"})
+    */
     public function create(Request $request,EntityManagerInterface $entity){
         $user = $this->getUser();
             if ($user->getUserType() === UserType::TYPE_DOCTOR) {
                 $treatment = new Treatment();
                 $name= $request->request->get('name');
+            
                 $typname= gettype($name);
                 if (isset($name)) {
                     if($typname == "string"){
@@ -106,20 +116,27 @@ class RestApiTreatmentController extends FOSRestController
         }        
                 $type= $request->request->get('type');
                 $typetype= gettype($type);
+               
                 if (isset($type)) {
                     if($typetype == "integer"){
                         $repository = $this->getDoctrine()->getRepository(MedicationType::class);
                         $medicationType = $repository->findOneBy(array('id' => $type,'removed' => false));
-                        if (!is_null($medicationType)) {
+                        if (!empty($medicationType)) {
                          $treatment->setType($medicationType);
+                     
                                 } else {
-                                    return View::create('type of treatment should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
+                                    return View::create('type of treatment not found!', JsonResponse::HTTP_NOT_FOUND, []);
                                 }
+                            }
+                            else{
+                                return View::create('type of treatment must be integer!', JsonResponse::HTTP_BAD_REQUEST, []);
+                            }
                             }
                             else {
                                 return View::create('missing type of treatment!!', JsonResponse::HTTP_BAD_REQUEST, []);
                             }        
                                     $dosage= $request->request->get('dosage');
+                                  
                                     $typedosage= gettype($dosage);
                                     if (isset($dosage)) {
                                         if($typedosage == "string"){
@@ -151,9 +168,10 @@ class RestApiTreatmentController extends FOSRestController
                                     //   Get user if exist or not   //
                                     $userrepository = $this->getDoctrine()->getRepository(User::class);
                                     $iduser = $userrepository->findOneBy(array('id' => $patientid));
+                                  
                                     //    Get patient if doctor is assigned by or not //
-                                    $patientrepository = $this->getDoctrine()->getRepository(Patient::class);
-                                    $idpatient= $patientrepository->findOneBy(array('created_by' => $patientid,'assignedBy'=> $user->getId()));
+                                    $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                                    $idpatient = $repository->findOneBy(array('id_doctor'=>$user->getId(),'id_patient'=>$patientid,'status'=>'Accepted','removed'=>false));
                                     if(!is_null($iduser)){
                                         if(!is_null($idpatient)){
                                             $treatment->setPatient($iduser);
@@ -185,17 +203,18 @@ class RestApiTreatmentController extends FOSRestController
                                 }
                             
 
-                    } else {
-                        return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-                    }   
-                        }
+                    } 
+                        
+
+                        else {
+                            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+                        }   
 
 
                     }
       
      /**
      * @param Request $request
-     *
      * @Rest\Patch("/api/treatment/{id}", name ="patch_treatment")
      * @Rest\View(serializerGroups={"users"})
      */
@@ -249,8 +268,9 @@ class RestApiTreatmentController extends FOSRestController
                      $userrepository = $this->getDoctrine()->getRepository(User::class);
                      $iduser = $userrepository->findOneBy(array('id' => $patientid));
                      //    Get patient if doctor is assigned by or not //
-                     $patientrepository = $this->getDoctrine()->getRepository(Patient::class);
-                     $idpatient= $patientrepository->findOneBy(array('created_by' => $patientid,'assignedBy'=> $user->getId()));
+
+                     $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                     $idpatient = $repository->findOneBy(array('id_doctor'=>$user->getId() ,'id_patient'=>$patientid ,'status'=>'Accepted','removed'=>false));
                      if(!is_null($iduser)){
                          if(!is_null($idpatient)){
                              $treatment->setPatient($iduser);
@@ -265,7 +285,6 @@ class RestApiTreatmentController extends FOSRestController
                             return View::create('patient Not Found', JsonResponse::HTTP_NOT_FOUND);
                             }
                 }
-                    
                              $treatment->setUpdatedBy($user);
                              $treatment->setUpdatedAt(new \DateTime());
                              $em = $this->getDoctrine()->getManager();
@@ -286,15 +305,13 @@ class RestApiTreatmentController extends FOSRestController
                 }
                 else {
                     return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-           
-            
                     }
     }
        
     /**
-   * @Rest\Delete("/api/treatment/{id}", name ="delete_treatment")
-     * @Rest\View(serializerGroups={"users"})
-     */
+    * @Rest\Delete("/api/treatment/{id}", name ="delete_treatment")
+    * @Rest\View(serializerGroups={"users"})
+    */
     public function delete($id){
         $user = $this->getUser();
         if ($user->getUserType() === UserType::TYPE_DOCTOR) {
@@ -393,9 +410,12 @@ class RestApiTreatmentController extends FOSRestController
             if ($user->getUserType() === UserType::TYPE_DOCTOR) {
                 $repository = $this->getDoctrine()->getRepository(Treatment::class);
                 $treatment = $repository->findBy(array('created_by'=> $data,'remove' => false,'patient'=>$id));
-                if (!is_null($treatment)) {
+                if (!empty($treatment)) {
             
                 return View::create($treatment, JsonResponse::HTTP_OK, []);       
+                }
+                else{
+                    return View::create('No treatment found for this user ', JsonResponse::HTTP_OK, []);
                 }
             }  
              

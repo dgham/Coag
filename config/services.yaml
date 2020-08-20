@@ -10,8 +10,8 @@ parameters:
     assetsImages_directory: 'Assets\images\'
     document_directory: 'Assets\documents\'
     treatment_directory: 'Assets\Treatments\'
-    ffmpeg_binaries: 'D:/software/ffmpeg/bin/ffmpeg.exe'
-    ffprobe_binaries: 'D:/software/ffmpeg/bin/ffprobe.exe'
+    ffmpeg_binaries: 'software/ffmpeg/bin/ffmpeg.exe'
+    ffprobe_binaries: 'software/ffmpeg/bin/ffprobe.exe'
     ffmpeg_timeout: 3600
     ffmpeg_threads: 12
 services:
@@ -40,4 +40,10 @@ services:
     new_service_name:
         alias: fos_user.change_password.form.factory
         public: true
+    fos_user.util.token_generator:
+        alias: 'fos_user.util.token_generator.default'
+        public: true
    
+    fos_user.mailer:
+        alias: 'fos_user.mailer.default'
+        public: true
