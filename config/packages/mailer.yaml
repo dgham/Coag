@@ -3,7 +3,7 @@ framework:
         dsn: '%env(MAILER_DSN)%'
 swiftmailer:
     transport: "smtp"
-    host:      "smtp"
+    host:      "api.coagcare.continuousnet.com"
     username:  "amiradgham15@gmail.com"
     password:  "amiraaaa55703911"
     spool:     { type: memory }
