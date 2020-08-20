@@ -36,9 +36,7 @@ class RestApiDeviceController extends FOSRestController
                     return View::create($device, JsonResponse::HTTP_OK, []);
         } else {
             return View::create('device not found', JsonResponse::HTTP_NOT_FOUND);
-           
                   } 
-        
             } 
             else {
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
@@ -241,8 +239,6 @@ class RestApiDeviceController extends FOSRestController
             }
 
 
-
-
      /**
      * 
      * @Rest\Patch("/api/device/{id}", name ="patch_device")
@@ -260,9 +256,7 @@ class RestApiDeviceController extends FOSRestController
             $pushDevice = $repository->findOneBy(array('id' => $id, 'created_by' => $this->getUser()->getId(),'removed' => false));
             if (is_null($pushDevice)) {
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-           
             }
-            
             $typetoken= gettype($data['token']);
             if (isset($data['token'])) {
                 if($typetoken == "string"){
@@ -339,9 +333,5 @@ class RestApiDeviceController extends FOSRestController
         else{
         return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
-    }
-
-
-
-   
+    }  
 }
