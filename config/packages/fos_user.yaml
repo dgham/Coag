@@ -13,7 +13,7 @@ fos_user:
       user_manager:         fos_user.user_manager.default
   resetting:
     retry_ttl: 7200 # Value in seconds, logic will use as hours
-    token_ttl: 900
+    token_ttl: 30
     email:
         from_email: # Use this node only if you don't want the global email address for the resetting email
           address:        ...

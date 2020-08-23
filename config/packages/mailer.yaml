@@ -8,9 +8,9 @@ swiftmailer:
             command:              '/usr/sbin/sendmail -bs'
             username:             CoagCareApp@gmail.com
             password:             CoagCareApp123
-            host:                 api.coagcare.continuousnet.com
-            port:                 null
-            timeout:              30
+            host:                 localhost
+            port:                 25
+            timeout:              100
             source_ip:            null
             local_domain:         null
             stream_options:       []
