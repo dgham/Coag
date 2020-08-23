@@ -8,8 +8,8 @@ swiftmailer:
             command:              '/usr/sbin/sendmail -bs'
             username:             CoagCareApp@gmail.com
             password:             CoagCareApp123
-            host:                 localhost
-            port:                 25
+            host:                 mail.continuounsnet.com
+            port:                 587
             timeout:              100
             source_ip:            null
             local_domain:         null
