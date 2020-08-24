@@ -5736,17 +5736,17 @@
     },
     {
         "name": "symfony/mailer",
-        "version": "v4.4.10",
-        "version_normalized": "4.4.10.0",
+        "version": "v4.4.11",
+        "version_normalized": "4.4.11.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/mailer.git",
-            "reference": "fd16ff23c18146be32b1ea51f6cc43dc505ce361"
+            "reference": "bbc265cc1072afb336d36503a618e3c8fb5a3810"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/mailer/zipball/fd16ff23c18146be32b1ea51f6cc43dc505ce361",
-            "reference": "fd16ff23c18146be32b1ea51f6cc43dc505ce361",
+            "url": "https://api.github.com/repos/symfony/mailer/zipball/bbc265cc1072afb336d36503a618e3c8fb5a3810",
+            "reference": "bbc265cc1072afb336d36503a618e3c8fb5a3810",
             "shasum": ""
         },
         "require": {
@@ -5771,7 +5771,7 @@
             "symfony/postmark-mailer": "^4.4|^5.0",
             "symfony/sendgrid-mailer": "^4.4|^5.0"
         },
-        "time": "2020-06-10T05:55:43+00:00",
+        "time": "2020-07-15T06:28:59+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

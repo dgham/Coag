@@ -1,4 +1,5 @@
 swiftmailer:
+
     default_mailer:       ~
     mailers:
         # Prototype
@@ -6,22 +7,22 @@ swiftmailer:
             url:                  null
             transport:            smtp
             command:              '/usr/sbin/sendmail -bs'
-            username:             CoagCareApp@gmail.com
-            password:             CoagCareApp123
-            host:                 mail.continuounsnet.com
+            username:             amira.dgham@intern.continuousnet.com
+            password:             '?qS^3igZ'
+            host:                 mail.dreamhost.com
             port:                 587
             timeout:              100
-            source_ip:            null
-            local_domain:         null
-            stream_options:       []
-            encryption:           null
-            auth_mode:            null
-            sender_address:       CoagCareApp@gmail.com
+            stream_options: 
+                 ssl:
+                    allow_self_signed: true
+                    verify_peer: false
+                    verify_peer_name: false   
+            encryption:           tls
+            sender_address:       amira.dgham@intern.continuousnet.com
             delivery_addresses:   []
             antiflood:
                 threshold:            99
                 sleep:                0
-            logging:              true
             spool:
                 type:                 file
                 path:                 '%kernel.cache_dir%/swiftmailer/spool'
@@ -29,4 +30,4 @@ swiftmailer:
                 # Used by "service" type
                 id:                   null
             delivery_whitelist:   []
-            disable_delivery:     ~
+            disable_delivery:     true

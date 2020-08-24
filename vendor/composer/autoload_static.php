@@ -45,7 +45,7 @@ class ComposerStaticInitb76f4ef9626b8f8ec611258d3565dc01
         ),
         'T' => 
         array (
-
+            'Twig\\Extra\\TwigExtraBundle\\' => 27,
             'Twig\\' => 5,
         ),
         'S' => 
