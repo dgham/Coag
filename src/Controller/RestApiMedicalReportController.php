@@ -129,7 +129,7 @@ class RestApiMedicalReportController extends FOSRestController
                         return View::create('sorry this patient not exist!!', JsonResponse::HTTP_BAD_REQUEST, []);
                         }
                         }else {
-                        return View::create('you should add patient that u assigned !', JsonResponse::HTTP_BAD_REQUEST, []);
+                        return View::create('you should add patient_id that u assigned !', JsonResponse::HTTP_BAD_REQUEST, []);
                         }
                     } else {
                         return View::create('comment should be a string', JsonResponse::HTTP_BAD_REQUEST, []);

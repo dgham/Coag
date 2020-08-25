@@ -30,7 +30,7 @@ class RestConfim extends FOSRestController
         if (isset($email)) {
             $user = $this->get("fos_user.user_manager")->findUserByEmail($email);
             if (null === $user) {
-                throw $this->createNotFoundException();
+                return View::create("user email not valid", Response::HTTP_BAD_REQUEST, []);
             }
             if ($user->isPasswordRequestNonExpired($this->container->getParameter("fos_user.resetting.token_ttl"))) {
                 return View::create("Password already requested", Response::HTTP_BAD_REQUEST, []);
@@ -110,7 +110,7 @@ class RestConfim extends FOSRestController
                     } else {
                         $response = array(
                             'message' => 'failure',
-                            'result' => 'missing confirmpassword',
+                            'result' => 'missing confirm_Password',
                         );
                         return View::create($response, Response::HTTP_BAD_REQUEST, []);
 
@@ -134,7 +134,6 @@ class RestConfim extends FOSRestController
                 'result' => 'missing token',
             );
             return View::create($response, Response::HTTP_BAD_REQUEST, []);
-
         }
     }
 
@@ -169,8 +168,14 @@ class RestConfim extends FOSRestController
                     $name = $patientValidation->getUsername();
 
                     if (!is_null($patientValidation)) {
+                        try {
+                            $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
+                                ->setUsername('amira.dgham@intern.continuousnet.com')
+                                ->setPassword('?qS^3igZ')
+                                ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                            $mailer = new \Swift_Mailer($transport);
                         $message = (new \Swift_Message('CoagCare message'))
-                            ->setFrom('coagcare@gmail.com')
+                            ->setFrom('amira.dgham@intern.continuousnet.com')
                             ->setTo($email)
                             ->setBody(
                                 '<html>' .
@@ -193,6 +198,10 @@ class RestConfim extends FOSRestController
                             );
 
                         $mailer->send($message);
+                    } catch (\Exception $ex) {
+
+                        return View::create($ex->getMessage(), Response::HTTP_BAD_REQUEST, []);
+                    }
                         $patientid = $patientValidation->getId();
 
                         //$doctor_id= $doctorvalidation->getId();

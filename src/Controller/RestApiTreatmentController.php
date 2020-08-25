@@ -24,7 +24,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class RestApiTreatmentController extends FOSRestController
 {
    /**
-    * @Rest\Get("/api/treatment", name ="api_treatment")
+    * @Rest\Get("/api/medication", name ="api_treatment")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function index()
@@ -63,7 +63,7 @@ class RestApiTreatmentController extends FOSRestController
                         }
             }
      /**
-    * @Rest\Get("/api/treatment/{id}", name ="search_treatment")
+    * @Rest\Get("/api/medication/{id}", name ="search_treatment")
      * @Rest\View(serializerGroups={"users"})
      */
     public function searchTreatment($id)
@@ -88,13 +88,11 @@ class RestApiTreatmentController extends FOSRestController
                     return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                            } 
             } else {
-                return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-           
+                return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []); 
         }
-    } 
-
+    }
     /**
-    * @Rest\Post("/api/treatment", name ="create_treatment")
+    * @Rest\Post("/api/medication", name ="create_treatment")
     * @Rest\View(serializerGroups={"users"})
     */
     public function create(Request $request,EntityManagerInterface $entity){
@@ -215,7 +213,7 @@ class RestApiTreatmentController extends FOSRestController
       
      /**
      * @param Request $request
-     * @Rest\Patch("/api/treatment/{id}", name ="patch_treatment")
+     * @Rest\Patch("/api/medication/{id}", name ="patch_treatment")
      * @Rest\View(serializerGroups={"users"})
      */
     public function patchAction(Request $request,$id)
@@ -309,7 +307,7 @@ class RestApiTreatmentController extends FOSRestController
     }
        
     /**
-    * @Rest\Delete("/api/treatment/{id}", name ="delete_treatment")
+    * @Rest\Delete("/api/medication/{id}", name ="delete_treatment")
     * @Rest\View(serializerGroups={"users"})
     */
     public function delete($id){
@@ -340,7 +338,7 @@ class RestApiTreatmentController extends FOSRestController
    /**
      * @param Request $request
      * @return JsonResponse
-     * @Rest\Post("api/treatment/picture/{id}", name ="treatment_image")
+     * @Rest\Post("api/medication/picture/{id}", name ="treatment_image")
      * @Rest\View(serializerGroups={"users"})
      */
     public function uploadImage($id,Request $request)
@@ -398,7 +396,7 @@ class RestApiTreatmentController extends FOSRestController
 
                 //get treatment by patient//
     /**
-    * @Rest\Get("/api/treatmentByUser/{id}", name ="user_treatment")
+    * @Rest\Get("/api/medicationByUser/{id}", name ="user_treatment")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function findTreatmentByUser($id)

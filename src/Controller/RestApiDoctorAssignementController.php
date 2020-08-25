@@ -138,9 +138,9 @@ class RestApiDoctorAssignementController extends AbstractController
                 $idpatient= $patientValidation->getId();
                 $name=$patientValidation->getUsername();
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
-                $Assignementvalidation = $repository->findOneBy(array('id_doctor'=>$idDoctor,'id_patient'=>$idpatient,'created_by'=>$user->getId(),'status'=>'pending','removed'=>false));
-                $AssignementRefusedvalidation = $repository->findOneBy(array('id_doctor'=>$idDoctor,'id_patient'=>$idpatient,'created_by'=>$user->getId(),'status'=>'refused','removed'=>false));
-                $Assignementacceptedvalidation = $repository->findOneBy(array('id_doctor'=>$idDoctor,'id_patient'=>$idpatient,'status'=>'accepted','removed'=>false));
+                $Assignementvalidation = $repository->findOneBy(array('id_doctor'=>$idDoctor,'id_patient'=>$idpatient,'created_by'=>$user->getId(),'status'=>'Pending','removed'=>false));
+                $AssignementRefusedvalidation = $repository->findOneBy(array('id_doctor'=>$idDoctor,'id_patient'=>$idpatient,'created_by'=>$user->getId(),'status'=>'Refused','removed'=>false));
+                $Assignementacceptedvalidation = $repository->findOneBy(array('id_doctor'=>$idDoctor,'id_patient'=>$idpatient,'status'=>'Accepted','removed'=>false));
                 if (!empty($Assignementacceptedvalidation)){
                     return View::create('you are already accepted by this patient ', JsonResponse::HTTP_FORBIDDEN, []);
                 }
@@ -207,7 +207,7 @@ class RestApiDoctorAssignementController extends AbstractController
                         that wants to assigned you .Just click the link below and you
                         you will be on your way. If you did not want to allow Dr '. $username .'to assigned you, please ignore this email by clicking on refuse button and thanks . </p>
                         <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                        <br><div id=`container`><center><div class="container"><a href=`http://localhost:4200/InvitationResponse?response=accepted&token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`http://localhost:4200/InvitationResponse?response=refused&token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
+                        <br><div id=`container`><center><div class="container"><a href=`http://localhost:4200/InvitationResponse?response=Accepted&token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`http://localhost:4200/InvitationResponse?response=Refused&token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
                         <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
                         © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
                             ' </body>' .
@@ -229,7 +229,7 @@ class RestApiDoctorAssignementController extends AbstractController
                         $AssignementRefusedvalidation->setRequestDate(new \DateTime());
                         $AssignementRefusedvalidation->setUpdatedBy($user);
                         $AssignementRefusedvalidation->setUpdatedAt(new \DateTime());
-                        $AssignementRefusedvalidation->setStatus('pending');
+                        $AssignementRefusedvalidation->setStatus('Pending');
                         $em = $this->getDoctrine()->getManager();
                         $em->flush();
                         } 
@@ -291,7 +291,7 @@ class RestApiDoctorAssignementController extends AbstractController
                                     that wants to assigned you .Just click the link below and you
                                     you will be on your way. If you did not want to allow Dr '. $username .'to assigned you, please ignore this email by clicking on refuse button and thanks . </p>
                                     <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                                    <br><div id=`container`><center><div class="container"><a href=`http://localhost:4200/InvitationResponse?response=accepted&token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`http://localhost:4200/InvitationResponse?response=refused&token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
+                                    <br><div id=`container`><center><div class="container"><a href=`http://localhost:4200/InvitationResponse?response=Accepted&token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`http://localhost:4200/InvitationResponse?response=Refused&token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
                                     <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
                                     © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
                                         ' </body>' .
@@ -312,7 +312,7 @@ class RestApiDoctorAssignementController extends AbstractController
                         $doctorAssignment->setIdPatient($patientValidation);
                         $doctorAssignment->setIdDoctor($user);
                         $doctorAssignment->setRequestDate(new \DateTime());
-                        $doctorAssignment->setStatus("pending");
+                        $doctorAssignment->setStatus("Pending");
                         $doctorAssignment->setCreatedBy($user);
                         $doctorAssignment->setEnabled(true);
                         $doctorAssignment->setRemoved(false);
@@ -369,7 +369,7 @@ class RestApiDoctorAssignementController extends AbstractController
                         that wants to assigned you .Just click the link below and you
                         you will be on your way. If you did not want to allow Dr '. $username .'to assigned you, please ignore this email by clicking on refuse button and thanks . </p>
                         <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                        <br><div id=`container`><center><div class="container"><a href=`http://localhost:4200/InvitationResponse?response=accepted&token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`http://localhost:4200/InvitationResponse?response=refused&token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
+                        <br><div id=`container`><center><div class="container"><a href=`http://localhost:4200/InvitationResponse?response=Accepted&token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`http://localhost:4200/InvitationResponse?response=Refused&token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
                         <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
                         © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
                             ' </body>' .
@@ -421,9 +421,9 @@ class RestApiDoctorAssignementController extends AbstractController
                     $iddoctor= $doctorValidation->getId();
                     $name=$doctorValidation->getUsername();
                     $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
-                    $Assignementvalidation = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$idpatient,'created_by'=>$user->getId(),'status'=>'pending','removed'=>false));
-                    $AssignementRefusedvalidation = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$idpatient,'created_by'=>$user->getId(),'status'=>'refused','removed'=>false));
-                    $Assignementacceptedvalidation = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$idpatient,'status'=>'accepted','removed'=>false));
+                    $Assignementvalidation = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$idpatient,'created_by'=>$user->getId(),'status'=>'Pending','removed'=>false));
+                    $AssignementRefusedvalidation = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$idpatient,'created_by'=>$user->getId(),'status'=>'Refused','removed'=>false));
+                    $Assignementacceptedvalidation = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$idpatient,'status'=>'Accepted','removed'=>false));
                     if (!empty($Assignementacceptedvalidation)){
                         return View::create('you are already accepted by this doctor ', JsonResponse::HTTP_FORBIDDEN, []);
                     }
@@ -495,7 +495,7 @@ class RestApiDoctorAssignementController extends AbstractController
                             that wants to be his/her doctor .Just click the button Accept below and you
                             you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
                             <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                            <br><div id=`container`><center><div class="container"><a href=`http://localhost:4200/InvitationResponse?response=accepted&token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`http://localhost:4200/InvitationResponse?response=refused&token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
+                            <br><div id=`container`><center><div class="container"><a href=`http://localhost:4200/InvitationResponse?response=Accepted&token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`http://localhost:4200/InvitationResponse?response=Refused&token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
                             <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
                             © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
                                 ' </body>' .
@@ -517,7 +517,7 @@ class RestApiDoctorAssignementController extends AbstractController
                             $AssignementRefusedvalidation->setRequestDate(new \DateTime());
                             $AssignementRefusedvalidation->setUpdatedBy($user);
                             $AssignementRefusedvalidation->setUpdatedAt(new \DateTime());
-                            $AssignementRefusedvalidation->setStatus('pending');
+                            $AssignementRefusedvalidation->setStatus('Pending');
                             $em = $this->getDoctrine()->getManager();
                             $em->flush();
                             } 
@@ -579,7 +579,7 @@ class RestApiDoctorAssignementController extends AbstractController
                                         that wants to be his/her doctor .Just click the button Accept below and you
                                         you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
                                         <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                                        <br><div id=`container`><center><div class="container"><a href=`http://localhost:4200/InvitationResponse?response=accepted&token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`http://localhost:4200/InvitationResponse?response=refused&token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
+                                        <br><div id=`container`><center><div class="container"><a href=`http://localhost:4200/InvitationResponse?response=Accepted&token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`http://localhost:4200/InvitationResponse?response=Refused&token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
                                         <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
                                         © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
                                             ' </body>' .
@@ -600,7 +600,7 @@ class RestApiDoctorAssignementController extends AbstractController
                             $doctorAssignment->setIdPatient($user);
                             $doctorAssignment->setIdDoctor($doctorValidation);
                             $doctorAssignment->setRequestDate(new \DateTime());
-                            $doctorAssignment->setStatus("pending");
+                            $doctorAssignment->setStatus("Pending");
                             $doctorAssignment->setCreatedBy($user);
                             $doctorAssignment->setEnabled(true);
                             $doctorAssignment->setRemoved(false);
@@ -652,7 +652,7 @@ class RestApiDoctorAssignementController extends AbstractController
                             that wants to be his/her doctor .Just click the button Accept below and you
                             you will be on your way. If you did not want to follow INR measurements of the patient '. $username .',  please ignore this email by clicking on refuse button and thanks . </p>
                             <p> If you need aditional information about the patient, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                            <br><div id=`container`><center><div class="container"><a href=`http://localhost:4200/InvitationResponse?response=accepted&token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`http://localhost:4200/InvitationResponse?response=refused&token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
+                            <br><div id=`container`><center><div class="container"><a href=`http://localhost:4200/InvitationResponse?response=Accepted&token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`http://localhost:4200/InvitationResponse?response=Refused&token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
                             <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
                             © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
                                 ' </body>' .
@@ -706,7 +706,7 @@ class RestApiDoctorAssignementController extends AbstractController
                         if($idtype == "integer"){
                             if($responsetype == "string"){
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
-                $invitationValidation = $repository->findOneBy(array('invitation_token'=>$token,'created_by'=>$id,'status'=>'pending'));
+                $invitationValidation = $repository->findOneBy(array('invitation_token'=>$token,'created_by'=>$id,'status'=>'Pending'));
                 $invitationValidation2 = $repository->findOneBy(array('invitation_token'=>$token,'created_by'=>$id));
                 if(empty($invitationValidation2)){
                     return View::create('data failed, check your request information' , Response::HTTP_FORBIDDEN,[]); 
@@ -715,7 +715,7 @@ class RestApiDoctorAssignementController extends AbstractController
                 $Userrepository = $this->getDoctrine()->getRepository(User::class);
                 $user = $Userrepository->findOneBy(array('id'=>$id));
                 if (!empty($invitationValidation)){
-                if ($response=="accepted"){
+                if ($response=="Accepted"){
                     $invitationValidation->setStatus($response);
                     $invitationValidation->setupdatedBy($user);
                     $invitationValidation->setupdatedAt(new \DateTime());
@@ -724,7 +724,7 @@ class RestApiDoctorAssignementController extends AbstractController
                     $em->flush();
                     return View::create('invitation accepted successfully :)', JsonResponse::HTTP_OK, []);  
                 }
-                if ($response=="refused"){
+                if ($response=="Refused"){
                     $invitationValidation->setStatus($response);
                     $invitationValidation->setupdatedBy($user);
                     $invitationValidation->setupdatedAt(new \DateTime());
@@ -776,20 +776,44 @@ class RestApiDoctorAssignementController extends AbstractController
             $user = $this->getUser();
             if ($user->getUserType() === UserType::TYPE_DOCTOR) {
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
-                $assignement = $repository->findOneBy(array('id'=>$id,'id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>false));
+                $assignement = $repository->findOneBy(array('id_patient'=>$id,'id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>false));
+                $assignementDeleted = $repository->findOneBy(array('id_patient'=>$id,'id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>true));
+                if(!is_null($assignementDeleted)){
+                    return View::create('sorry ! you are already remove this doctor from your list', JsonResponse::HTTP_FORBIDDEN, []);
+                   }
                 if (!is_null($assignement)) {      
                     $assignement->setRemovedBy($user);
                     $assignement->setRemoved(true);
                     $assignement->setRemovedAt(new \DateTime());
                     $em = $this->getDoctrine()->getManager();
                     $em->flush();
-                    return View::create('you delete the assignement, you are not allowed to see the medical information about thhis patient', JsonResponse::HTTP_OK, []);
+                    return View::create('you delete the assignement, you are not allowed to see the medical information about this patient', JsonResponse::HTTP_OK, []);
                 }
                 
                 else {
                     return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                     } 
                 }
+                if ($user->getUserType() === UserType::TYPE_PATIENT) {
+                    $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                    $assignement = $repository->findOneBy(array('id_doctor'=>$id,'id_patient'=>$user->getId(),'status'=>'Accepted','removed'=>false));
+                    $assignementDeleted = $repository->findOneBy(array('id_doctor'=>$id,'id_patient'=>$user->getId(),'status'=>'Accepted','removed'=>true));
+                       if(!is_null($assignementDeleted)){
+                        return View::create('sorry ! you are already remove this doctor from your list', JsonResponse::HTTP_FORBIDDEN, []);
+                       }
+                    if (!is_null($assignement)) {      
+                        $assignement->setRemovedBy($user);
+                        $assignement->setRemoved(true);
+                        $assignement->setRemovedAt(new \DateTime());
+                        $em = $this->getDoctrine()->getManager();
+                        $em->flush();
+                        return View::create('you delete the assignement, you are not allowed to see the medical information about this patient', JsonResponse::HTTP_OK, []);
+                    }
+                    
+                    else {
+                        return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+                        } 
+                    }
                 else {
                     return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                     } 
@@ -819,13 +843,13 @@ class RestApiDoctorAssignementController extends AbstractController
                   $idpatient= $qr_validation->getId();
                   $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
                   $assignement = $repository->findOneBy(array('id_doctor'=>$user->getId(),'id_patient'=>$idpatient,'status'=>'Accepted','removed'=>false));
-                  $assignementpending = $repository->findOneBy(array('id_doctor'=>$user->getId(),'id_patient'=>$idpatient,'status'=>'pending','removed'=>false));
-                  $assignementrefused = $repository->findOneBy(array('id_doctor'=>$user->getId(),'id_patient'=>$idpatient,'status'=>'refused','removed'=>false));
+                  $assignementpending = $repository->findOneBy(array('id_doctor'=>$user->getId(),'id_patient'=>$idpatient,'status'=>'Pending','removed'=>false));
+                  $assignementrefused = $repository->findOneBy(array('id_doctor'=>$user->getId(),'id_patient'=>$idpatient,'status'=>'Refused','removed'=>false));
                   if(!empty($assignement)){
                     return View::create('you are already the doctor of this patient, try another!' , JsonResponse::HTTP_BAD_REQUEST, []);
                   }  
                   if(!empty($assignementpending)){
-                    $assignementpending->setStatus("accepted");
+                    $assignementpending->setStatus("Accepted");
                     $assignementpending->setUpdatedBy($user);
                     $assignementpending->setUpdatedAt(new \DateTime());
                     $em = $this->getDoctrine()->getManager();
@@ -833,7 +857,7 @@ class RestApiDoctorAssignementController extends AbstractController
                     return View::create('congratulation, you are the doctor of this patient' , JsonResponse::HTTP_OK, []);
                   } 
                   if (!empty($assignementrefused)){
-                    $assignementrefused->setStatus("accepted");
+                    $assignementrefused->setStatus("Accepted");
                     $assignementrefused->setUpdatedBy($user->getId());
                     $assignementrefused->setUpdatedAt(new \DateTime());
                     $em = $this->getDoctrine()->getManager();
@@ -845,7 +869,7 @@ class RestApiDoctorAssignementController extends AbstractController
                     $doctorAssignment->setIdPatient($qr_validation);
                     $doctorAssignment->setIdDoctor($user);
                     $doctorAssignment->setRequestDate(new \DateTime());
-                    $doctorAssignment->setStatus("accepted");
+                    $doctorAssignment->setStatus("Accepted");
                     $doctorAssignment->setCreatedBy($user);
                     $doctorAssignment->setEnabled(true);
                     $doctorAssignment->setRemoved(false);
@@ -871,13 +895,13 @@ class RestApiDoctorAssignementController extends AbstractController
                       $iddoctor= $qr_validation->getId();
                       $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
                       $assignement = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$user->getId(),'status'=>'Accepted','removed'=>false));
-                      $assignementpending = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$user->getId(),'status'=>'pending','removed'=>false));
-                      $assignementrefused = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$user->getId(),'status'=>'refused','removed'=>false));
+                      $assignementpending = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$user->getId(),'status'=>'Pending','removed'=>false));
+                      $assignementrefused = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$user->getId(),'status'=>'Refused','removed'=>false));
                       if(!empty($assignement)){
                         return View::create('you are already the patient of this doctor, try another!' , JsonResponse::HTTP_BAD_REQUEST, []);
                       }  
                       if(!empty($assignementpending)){
-                        $assignementpending->setStatus("accepted");
+                        $assignementpending->setStatus("Accepted");
                         $assignementpending->setUpdatedBy($user);
                         $assignementpending->setUpdatedAt(new \DateTime());
                         $em = $this->getDoctrine()->getManager();
@@ -885,7 +909,7 @@ class RestApiDoctorAssignementController extends AbstractController
                         return View::create('congratulation, you are the doctor of this patient' , JsonResponse::HTTP_OK, []);
                       } 
                       if (!empty($assignementrefused)){
-                        $assignementrefused->setStatus("accepted");
+                        $assignementrefused->setStatus("Accepted");
                         $assignementrefused->setUpdatedBy($user);
                         $assignementrefused->setUpdatedAt(new \DateTime());
                         $em = $this->getDoctrine()->getManager();
@@ -897,7 +921,7 @@ class RestApiDoctorAssignementController extends AbstractController
                         $doctorAssignment->setIdPatient($user);
                         $doctorAssignment->setIdDoctor($qr_validation);
                         $doctorAssignment->setRequestDate(new \DateTime());
-                        $doctorAssignment->setStatus("accepted");
+                        $doctorAssignment->setStatus("Accepted");
                         $doctorAssignment->setCreatedBy($user);
                         $doctorAssignment->setEnabled(true);
                         $doctorAssignment->setRemoved(false);
@@ -914,5 +938,5 @@ class RestApiDoctorAssignementController extends AbstractController
     
     }
 
-
+   
 }
