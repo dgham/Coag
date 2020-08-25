@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class WebPagesController extends AbstractController
 {
@@ -28,7 +29,7 @@ class WebPagesController extends AbstractController
         ]);
     }
     /**
-     * @Route("/ConfirmReset, name="Confirmation_resetting")
+     * @Rest\POST("/ResetResponse", name ="Confirmation_resetting")
      */
     public function ConfirmReset()
     {
@@ -46,7 +47,7 @@ class WebPagesController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success',' Your password has been reset!');
-return $this->redirectToRoute('reset_pages');
+             return $this->redirectToRoute('reset_pages');
         } else {
 
            $this->addFlash('error',' sorry!, your session expired');
