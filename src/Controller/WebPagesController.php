@@ -28,7 +28,7 @@ class WebPagesController extends AbstractController
         ]);
     }
     /**
-     * @Route("/Confirm/resetPassword", name="Confirm_resetting")
+     * @Route("/ConfirmReset, name="Confirmation_resetting")
      */
     public function ConfirmReset()
     {
