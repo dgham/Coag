@@ -10,7 +10,6 @@
         "doctrine/annotations": "^1.8",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/orm": "^2.7",
-        "endroid/qr-code-bundle": "^3.4",
         "fmonts/ffmpeg-bundle": "0.7.3",
         "friendsofsymfony/rest-bundle": "^2.7",
         "friendsofsymfony/user-bundle": "^2.1",

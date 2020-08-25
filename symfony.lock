@@ -87,15 +87,7 @@
     "egulias/email-validator": {
         "version": "2.1.17"
     },
-    "endroid/installer": {
-        "version": "1.2.3"
-    },
-    "endroid/qr-code": {
-        "version": "3.9.1"
-    },
-    "endroid/qr-code-bundle": {
-        "version": "3.4.3"
-    },
+   
     "fmonts/ffmpeg-bundle": {
         "version": "0.7.3"
     },

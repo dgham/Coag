@@ -56,7 +56,7 @@ class RestApiDoctorAssignementController extends AbstractController
         );
             if ($user->getUserType() === UserType::TYPE_DOCTOR) {
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
-                $doctorassignement = $repository->findBy(array('id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>false));
+                $doctorassignement = $repository->findBy(array('id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>false),array('id'=>'DESC'));
                if (empty($doctorassignement)){
                 return View::create('no data found' , JsonResponse::HTTP_OK, []);
                }
