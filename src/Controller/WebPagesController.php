@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class WebPagesController extends AbstractController
@@ -24,6 +25,8 @@ class WebPagesController extends AbstractController
      */
     public function resetpassword()
     {
+        $session = new Session();
+        $session->start();
         return $this->render('web_pages/resetPassword.html.twig', [
             'controller_name' => 'WebPagesController',
         ]);
