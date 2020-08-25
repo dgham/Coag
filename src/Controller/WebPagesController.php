@@ -19,7 +19,7 @@ class WebPagesController extends AbstractController
     }
 
     /**
-     * @Route("/Confirm/resetPassword", name="web_pages")
+     * @Route("/Confirm/resetPassword", name="reset_pages")
      */
     public function resetpassword()
     {
@@ -46,11 +46,11 @@ class WebPagesController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success',' Your password has been reset!');
-
+return $this->redirectToRoute('reset_pages');
         } else {
 
            $this->addFlash('error',' sorry!, your session expired');
-
+           return $this->redirectToRoute('reset_pages');
         }
 
     }
