@@ -57,7 +57,7 @@ class RestConfim extends FOSRestController
                         '<html>' .
                         ' <body>' .
                         '<center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="250px" height="250px"></center>.<p> Dear ' . $name . ',<br><br> We got a request to reset
-                   you CoagCare password .Just click the link below and you will be on your way <a href=`http://localhost:4200/auth/reset-password?token=' . $token . '`' . ' height="42" width="150"> Reset password </a> . If you did not make this request, please ignore this email and thanks .
+                   you CoagCare password .Just click the link below and you will be on your way <a href=`https://api.coagcare.continuousnet.com/Confirm/resetPassword?token=' . $token . '`' . ' height="42" width="150"> Reset password </a> . If you did not make this request, please ignore this email and thanks .
                    <br> If you need aditional assistance, or you did not make this change, please contact <a href=`mailto:CoagCareApp@gmail.com` style=`color:#ff6c37;text-decoration:unerline;font-weight:blod`>CoagCareApp@gmail.com</a>.<p> cheers, <br> the CoagCare App Team </p>
                    <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
                    © 2020 CoagCare . All Rights Reserved. Continuous Net </p>' .
