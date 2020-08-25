@@ -16,4 +16,14 @@ class WebPagesController extends AbstractController
             'controller_name' => 'WebPagesController',
         ]);
     }
+
+     /**
+     * @Route("/Confirm/resetPassword", name="web_pages")
+     */
+    public function resetpassword()
+    {
+        return $this->render('web_pages/resetPassword.html.twig', [
+            'controller_name' => 'WebPagesController',
+        ]);
+    }
 }

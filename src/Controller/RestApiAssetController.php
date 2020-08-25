@@ -58,7 +58,6 @@ class RestApiAssetController  extends FOSRestController
            } 
     }  
 
- 
      /**
      * @Rest\Post("/api/asset", name ="post_asset")
      * @Rest\View(serializerGroups={"admin"})
@@ -167,7 +166,6 @@ class RestApiAssetController  extends FOSRestController
                 }else {
                     $asset->setAccess('public');  
                 }
-               
                 $asset->setType($type);
                 $asset->setFilePath($path);
                 $asset->setFileSize($size);
@@ -185,7 +183,7 @@ class RestApiAssetController  extends FOSRestController
                 );
                 return View::create($response, JsonResponse::HTTP_CREATED, []);
             } 
-                }
+                
                 else {
                     return View::create('this type of file is not accepted ,try another !', JsonResponse::HTTP_BAD_REQUEST, []);
                             }
@@ -193,6 +191,7 @@ class RestApiAssetController  extends FOSRestController
             else {
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                       }
+                    }
 }
 
       /**
@@ -219,7 +218,7 @@ class RestApiAssetController  extends FOSRestController
      /**
      * @param Request $request
      * @Rest\Post("/api/asset/{id}", name ="update_asset")
-     * @Rest\View(serializerGroups={"users"})
+     * @Rest\View(serializerGroups={"admin"})
      */
     public function upadateAction(Request $request,$id)
     {
@@ -263,7 +262,8 @@ class RestApiAssetController  extends FOSRestController
                             $asset->setUpdatedBy($user);
                             $asset->setUpdatedAt(new \DateTime());
                             $em = $this->getDoctrine()->getManager();
-                            $em->flush();
+                              $em->flush();
+                           
                             $response=array(
                                 'message'=>'Asset updated',
                                 'result'=> $asset
