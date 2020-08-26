@@ -163,6 +163,12 @@ class RestApiDoctorAssignementController extends AbstractController
                 $em->flush(); 
                   $token= $Assignementvalidation->getInvitationToken();
                 }
+                try {
+                    $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
+                        ->setUsername('amira.dgham@intern.continuousnet.com')
+                        ->setPassword('?qS^3igZ')
+                        ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                    $mailer = new \Swift_Mailer($transport);
             $message = (new \Swift_Message('CoagCare message'))
             ->setFrom('coagcare@gmail.com')
             ->setTo($email)
@@ -215,6 +221,11 @@ class RestApiDoctorAssignementController extends AbstractController
                             'text/html' 
                         );
         $mailer->send($message);
+    } catch (\Exception $ex) {
+
+        return View::create($ex->getMessage(), Response::HTTP_BAD_REQUEST, []);
+    }
+
         $response=array(
             'message'=>'success',
             'result'=>'Email was send successfuly, check your email to reset your password'
@@ -242,6 +253,12 @@ class RestApiDoctorAssignementController extends AbstractController
                             $em->flush(); 
                               $token= $AssignementRefusedvalidation->getInvitationToken();
                             }
+                            try {
+                                $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
+                                    ->setUsername('amira.dgham@intern.continuousnet.com')
+                                    ->setPassword('?qS^3igZ')
+                                    ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                                $mailer = new \Swift_Mailer($transport);
                         $message = (new \Swift_Message('CoagCare message'))
                         ->setFrom('coagcare@gmail.com')
                         ->setTo($email)
@@ -299,6 +316,10 @@ class RestApiDoctorAssignementController extends AbstractController
                                         'text/html' 
                                     );
                     $mailer->send($message);
+                } catch (\Exception $ex) {
+
+                    return View::create($ex->getMessage(), Response::HTTP_BAD_REQUEST, []);
+                }
                     $response=array(
                         'message'=>'success',
                         'result'=>'Email was send successfuly, check your email to reset your password'
@@ -320,6 +341,12 @@ class RestApiDoctorAssignementController extends AbstractController
                         $doctorAssignment->setInvitationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
                         $entity ->persist($doctorAssignment);
                         $entity->flush();
+                        try {
+                            $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
+                                ->setUsername('amira.dgham@intern.continuousnet.com')
+                                ->setPassword('?qS^3igZ')
+                                ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                            $mailer = new \Swift_Mailer($transport);
                         $message = (new \Swift_Message('CoagCare message'))
             ->setFrom('coagcare@gmail.com')
             ->setTo($email)
@@ -377,6 +404,10 @@ class RestApiDoctorAssignementController extends AbstractController
                             'text/html' 
                         );
         $mailer->send($message);
+    } catch (\Exception $ex) {
+
+        return View::create($ex->getMessage(), Response::HTTP_BAD_REQUEST, []);
+    }
                         $response=array(
                                 'message'=>'success',
                                 'result'=>'Email was send successfuly, check your email to reset your password'
@@ -446,6 +477,12 @@ class RestApiDoctorAssignementController extends AbstractController
                     $em->flush(); 
                       $token= $Assignementvalidation->getInvitationToken();
                     }
+                    try {
+                        $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
+                            ->setUsername('amira.dgham@intern.continuousnet.com')
+                            ->setPassword('?qS^3igZ')
+                            ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                        $mailer = new \Swift_Mailer($transport);
                 $message = (new \Swift_Message('CoagCare message'))
                 ->setFrom('coagcare@gmail.com')
                 ->setTo($email)
@@ -503,6 +540,10 @@ class RestApiDoctorAssignementController extends AbstractController
                                 'text/html' 
                             );
             $mailer->send($message);
+        } catch (\Exception $ex) {
+
+            return View::create($ex->getMessage(), Response::HTTP_BAD_REQUEST, []);
+        }
             $response=array(
                 'message'=>'success',
                 'result'=>'Email was send successfuly, check your email to reset your password'
@@ -530,6 +571,12 @@ class RestApiDoctorAssignementController extends AbstractController
                                 $em->flush(); 
                                   $token= $AssignementRefusedvalidation->getInvitationToken();
                                 }
+                                try {
+                                    $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
+                                        ->setUsername('amira.dgham@intern.continuousnet.com')
+                                        ->setPassword('?qS^3igZ')
+                                        ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                                    $mailer = new \Swift_Mailer($transport);
                             $message = (new \Swift_Message('CoagCare message'))
                             ->setFrom('coagcare@gmail.com')
                             ->setTo($email)
@@ -587,6 +634,10 @@ class RestApiDoctorAssignementController extends AbstractController
                                             'text/html' 
                                         );
                         $mailer->send($message);
+                    } catch (\Exception $ex) {
+
+                        return View::create($ex->getMessage(), Response::HTTP_BAD_REQUEST, []);
+                    }
                         $response=array(
                             'message'=>'success',
                             'result'=>'Email was send successfuly, check your email to reset your password'
@@ -608,6 +659,12 @@ class RestApiDoctorAssignementController extends AbstractController
                             $doctorAssignment->setInvitationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
                             $entity ->persist($doctorAssignment);
                             $entity->flush();
+                            try {
+                                $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
+                                    ->setUsername('amira.dgham@intern.continuousnet.com')
+                                    ->setPassword('?qS^3igZ')
+                                    ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                                $mailer = new \Swift_Mailer($transport);
                             $message = (new \Swift_Message('CoagCare message'))
                 ->setFrom('coagcare@gmail.com')
                 ->setTo($email)
@@ -660,6 +717,10 @@ class RestApiDoctorAssignementController extends AbstractController
                                 'text/html' 
                             );
             $mailer->send($message);
+        } catch (\Exception $ex) {
+
+            return View::create($ex->getMessage(), Response::HTTP_BAD_REQUEST, []);
+        }
                             $response=array(
                                     'message'=>'success',
                                     'result'=>'Email was send successfuly, check your email to reset your password'
