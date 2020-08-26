@@ -36,8 +36,6 @@ class WebPagesController extends AbstractController
         $token = $request->query->get('token');
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->findOneBy(array('confirmationToken' => $token));
-dump($password);
-die;
         if (!is_null($user)) {
             if ((isset($password)) && (isset($confirm_password)))  {
                         $hash = $encoder->encodePassword($user, $password);
