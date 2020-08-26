@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -24,29 +25,53 @@ class WebPagesController extends AbstractController
     /**
      * @Route("/Confirm/resetPassword", name="reset_pages")
      */
-    public function resetpassword()
+    public function resetpassword(Request $request)
     {
-        
-// legacy application configures session
+        $session = new Session(new PhpBridgeSessionStorage());
+        $session->start();
+        $password = $request->query->get('password');
+        $confirm_password = $request->query->get('confirm_Password');
+        $token = $request->query->get('token');
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $user = $repository->findOneBy(array('confirmationToken' => $token));
+        if ((isset($password)) && (isset($confirm_password))){
+        if (!is_null($user)) {
+            $hash = $encoder->encodePassword($user, $password);
+            $user->setPassword($hash);
+            $user->setConfirmationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $this->addFlash('success',' Your password has been reset!');
+            return $this -> render('web_pages/resetPassword.html.twig');
+        }
+         else {
 
-session_start();
-
-// Get Symfony to interface with this existing session
-$session = new Session(new PhpBridgeSessionStorage());
-$session->start();
-
+           $this->addFlash('error',' sorry!, your session expired');
+           return $this -> render('web_pages/resetPassword.html.twig');
+        }
+    }
+    else{
         return $this -> render('web_pages/resetPassword.html.twig');
+    }
+
+
+
+
+
+
+
+        
      
     
     }
     /**
-     * @Rest\POST("/ResetResponse", name ="Confirmation_resetting")
+     * @Rest\Get("/ResetResponse", name ="Confirmation_resetting")
      */
-    public function ConfirmReset()
+    public function ConfirmReset( Request $request)
     {
 
-        $password = $request->query->get("password");
-        $confirm_password = $request->query->get("confirm_Password");
+        $password = $request->query->get('password');
+        $confirm_password = $request->query->get('confirm_Password');
         $token = $this->container->getParameter('token');
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->findOneBy(array('confirmationToken' => $token));
