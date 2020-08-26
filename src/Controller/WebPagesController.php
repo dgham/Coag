@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\PhpBridgeSessionStorage;
@@ -26,7 +27,7 @@ class WebPagesController extends AbstractController
     /**
      * @Route("/Confirm/resetPassword", name="reset_pages")
      */
-    public function resetpassword(Request $request,UserPasswordEncoderInterface $encoder)
+    public function resetpassword(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
     {
         $session = new Session(new PhpBridgeSessionStorage());
         $session->start();
@@ -35,7 +36,7 @@ class WebPagesController extends AbstractController
         $token = $request->query->get('token');
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->findOneBy(array('confirmationToken' => $token));
-        if ((isset($password)) && (isset($confirm_password))){
+        if ((isset($password)) && (isset($confirm_password)) && (isset($token))){
         if (!is_null($user)) {
             $hash = $encoder->encodePassword($user, $password);
             $user->setPassword($hash);
