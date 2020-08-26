@@ -324,6 +324,7 @@ class RestApiDoctorAssignementController extends AbstractController
                         $entity ->persist($doctorAssignment);
                         $entity->flush();
                         try {
+                            $token = $doctorAssignment->getInvitationToken();
                             $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
                                 ->setUsername('amira.dgham@intern.continuousnet.com')
                                 ->setPassword('?qS^3igZ')
