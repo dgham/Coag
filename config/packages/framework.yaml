@@ -16,6 +16,7 @@ framework:
         handler_id: null
         cookie_secure: auto
         cookie_samesite: lax
+        storage_id: session.storage.php_bridge
 
     #esi: true
     #fragments: true

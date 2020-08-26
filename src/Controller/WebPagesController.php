@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\Storage\PhpBridgeSessionStorage;
 
 class WebPagesController extends AbstractController
 {
@@ -25,11 +26,18 @@ class WebPagesController extends AbstractController
      */
     public function resetpassword()
     {
-        $session = new Session();
-        $session->start();
-        return $this->render('web_pages/resetPassword.html.twig', [
-            'controller_name' => 'WebPagesController',
-        ]);
+        
+// legacy application configures session
+
+session_start();
+
+// Get Symfony to interface with this existing session
+$session = new Session(new PhpBridgeSessionStorage());
+$session->start();
+
+        return $this -> render('web_pages/resetPassword.html.twig');
+     
+    
     }
     /**
      * @Rest\POST("/ResetResponse", name ="Confirmation_resetting")
