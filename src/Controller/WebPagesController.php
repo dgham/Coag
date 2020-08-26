@@ -36,16 +36,7 @@ class WebPagesController extends AbstractController
         $token = $request->query->get('token');
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->findOneBy(array('confirmationToken' => $token));
-        dump($user);
-        die;
-        if ((isset($password)) && (isset($confirm_password)) && (isset($token)) ){
         if (!is_null($user)) {
-            $hash = $encoder->encodePassword($user, $password);
-            $user->setPassword($hash);
-            $user->setConfirmationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
-            $this->addFlash('success',' Your password has been reset!');
             return $this -> render('web_pages/resetPassword.html.twig');
         }
          else {
@@ -54,10 +45,6 @@ class WebPagesController extends AbstractController
            return $this -> render('web_pages/resetPassword.html.twig');
         }
     }
-    else{
-        return $this -> render('web_pages/resetPassword.html.twig');
-    } 
     
     }
    
-}
