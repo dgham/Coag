@@ -33,9 +33,9 @@ class WebPagesController extends AbstractController
         $session->start();
         $password = $request->query->get('password');
         $confirm_password = $request->query->get('confirm_Password');
-        $token = $request->query->get('token');
+        $tokenn = $request->query->get('token');
         $repository = $this->getDoctrine()->getRepository(User::class);
-        $user = $repository->findOneBy(array('confirmationToken' => $token));
+        $user = $repository->findOneBy(array('confirmationToken' => $tokenn));
         if (!is_null($user)) {
             if ((isset($password)) && (isset($confirm_password)))  {
                         $hash = $encoder->encodePassword($user, $password);
@@ -44,7 +44,7 @@ class WebPagesController extends AbstractController
                         $em = $this->getDoctrine()->getManager();
                         $em->flush();
                         return $this->render('web_pages/resetPassword.html.twig', [
-                'token' =>  $token,
+                'token' =>  $tokenn,
             ]);
         }
     
@@ -52,7 +52,7 @@ class WebPagesController extends AbstractController
 
                
                 return $this->render('web_pages/resetPassword.html.twig', [
-                    'token' =>  $token,
+                    'token' =>  $tokenn,
                 ]);
         }
     }
@@ -60,7 +60,7 @@ class WebPagesController extends AbstractController
 
            $this->addFlash('error',' sorry! your session expired ');
            return $this->render('web_pages/resetPassword.html.twig', [
-            'token' =>  $token,
+            'token' =>  $tokenn,
         ]);
         }
 }
