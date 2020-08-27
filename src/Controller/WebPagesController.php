@@ -37,37 +37,51 @@ class WebPagesController extends AbstractController
         $session = new Session(new PhpBridgeSessionStorage());
         $session->start();
         if ($request->getMethod() === 'POST' ) {
-            $tokenn = $_GET['token'];
-            dump($token);
-            die;
+            $tokenn=$request->request->get('token');
             $repository = $this->getDoctrine()->getRepository(User::class);
             $user = $repository->findOneBy(array('confirmationToken' => $tokenn));
+            $password=$request->request->get('password');
+            
          if (!is_null($user)) {
-            $password = $_POST['password'];
             $hash = $encoder->encodePassword($user,$password);
             $user->setPassword($hash);
             $user->setConfirmationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'your password updated!'); 
-            return $this->render('web_pages/resetPassword.html.twig');
+            return $this->render('web_pages/resetPassword.html.twig', [
+                'token' =>  $token,
+            ]);
             }
              else{
                 $this->addFlash('danger', 'sorry! your session expired ');
-                return $this->render('web_pages/resetPassword.html.twig');
+                return $this->render('web_pages/resetPassword.html.twig', [
+                    'token' =>  $token,
+                ]);
                
             }
         }
-        else{
-            return $this->render('web_pages/resetPassword.html.twig');
-          
-        }
+                else{
+                    $token=$request->request->get('token');
+                return $this->render('web_pages/resetPassword.html.twig', [
+                    'token' =>  $token,
+                ]);
+                
+                }
             
         
                 
     }
 
 
+
+
+
+
+
+
+    
+   
 
     
 }
