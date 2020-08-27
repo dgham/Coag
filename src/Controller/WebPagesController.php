@@ -40,11 +40,11 @@ class WebPagesController extends AbstractController
 
     public function resetpasswordsuccess(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
     {
-        $session = new Session(new PhpBridgeSessionStorage());
-        $session->start();
        $token= $request->request->get('token');
             $repository = $this->getDoctrine()->getRepository(User::class);
             $user = $repository->findOneBy(array('confirmationToken' => $request->request->get('token')));
+            dump($user);
+            die;
         if ($user === null) {
                
                 return $this->render('web_pages/resetPassword.html.twig',['token'=>$token]);
