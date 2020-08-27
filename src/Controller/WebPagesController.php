@@ -41,8 +41,9 @@ class WebPagesController extends AbstractController
     public function resetpasswordsuccess(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
     {
        $token= $request->request->get('token');
+       $password=  $request->request->get('password');
             $repository = $this->getDoctrine()->getRepository(User::class);
-            $user = $repository->findOneBy(array('confirmationToken' => $request->request->get('token')));
+            $user = $repository->findOneBy(array('confirmationToken' => $token));
             dump($user);
             die;
         if ($user === null) {
@@ -50,7 +51,7 @@ class WebPagesController extends AbstractController
                 return $this->render('web_pages/resetPassword.html.twig',['token'=>$token]);
                 $this->addFlash('danger', 'sorry! your session expired ');
             }
-                $hash = $encoder->encodePassword($user, $request->request->get('password'));
+                $hash = $encoder->encodePassword($user,$password);
                 $user->setPassword($hash);
                 $user->setConfirmationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
                 $em = $this->getDoctrine()->getManager();
