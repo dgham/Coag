@@ -80,7 +80,6 @@ class WebPagesController extends AbstractController
             $em->flush();
             $token= $request->query->get('token');
             $this->addFlash('success', 'your password updated!'); 
-            return $this->redirectToRoute('blog_show');
             return $this->render('web_pages/resetPassword.html.twig', [
                 'token' =>  $token,
             ]);
