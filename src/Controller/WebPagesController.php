@@ -62,7 +62,6 @@ class WebPagesController extends AbstractController
             $password=$request->request->get('password');
             $hash = $encoder->encodePassword($user,$password);
             $user->setPassword($hash);
-            $user->setUpdatedBy($user);
             $user->setUpdatedAt(new \DateTime());
             $user->setConfirmationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
             $em = $this->getDoctrine()->getManager();
