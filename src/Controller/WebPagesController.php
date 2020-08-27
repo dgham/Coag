@@ -37,13 +37,11 @@ class WebPagesController extends AbstractController
         $session = new Session(new PhpBridgeSessionStorage());
         $session->start();
         if ($request->getMethod() === 'POST' ) {
-      
-            $tokenn = $_GET["token"];
-            $password = $_GET["password"];
-         
+            $tokenn = $_POST['token'];
             $repository = $this->getDoctrine()->getRepository(User::class);
             $user = $repository->findOneBy(array('confirmationToken' => $tokenn));
          if (!is_null($user)) {
+            $password = $_POST['password'];
             $hash = $encoder->encodePassword($user,$password);
             $user->setPassword($hash);
             $user->setConfirmationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
