@@ -37,9 +37,9 @@ class WebPagesController extends AbstractController
         $session = new Session(new PhpBridgeSessionStorage());
         $session->start();
         if ($request->getMethod() === 'POST' ) {
-            $tokenn=$request->request->get('token');
+            $token= $request->query->get('token');
             $repository = $this->getDoctrine()->getRepository(User::class);
-            $user = $repository->findOneBy(array('confirmationToken' => $tokenn));
+            $user = $repository->findOneBy(array('confirmationToken' => $token));
             $password=$request->request->get('password');
             
          if (!is_null($user)) {
@@ -49,11 +49,13 @@ class WebPagesController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'your password updated!'); 
+            $token= $request->query->get('token');
             return $this->render('web_pages/resetPassword.html.twig', [
                 'token' =>  $token,
             ]);
             }
              else{
+                $token= $request->query->get('token');
                 $this->addFlash('danger', 'sorry! your session expired ');
                 return $this->render('web_pages/resetPassword.html.twig', [
                     'token' =>  $token,
@@ -62,7 +64,7 @@ class WebPagesController extends AbstractController
             }
         }
                 else{
-                    $token=$request->request->get('token');
+                   $token= $request->query->get('token');
                 return $this->render('web_pages/resetPassword.html.twig', [
                     'token' =>  $token,
                 ]);
