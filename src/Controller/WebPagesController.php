@@ -36,7 +36,24 @@ class WebPagesController extends AbstractController
     {
         $session = new Session(new PhpBridgeSessionStorage());
         $session->start();
-        if ($request->getMethod() === 'POST' ) {
+                   $token= $request->query->get('token');
+                return $this->render('web_pages/resetPassword.html.twig', [
+                    'token' =>  $token,
+                ]);
+                }
+
+
+
+
+
+
+ 
+    /**
+     * @Rest\POST("/Confirm/response", name="resett_pages")
+     */
+
+    public function resetpasswordd(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
+    {
             $token= $request->query->get('token');
             $repository = $this->getDoctrine()->getRepository(User::class);
             $user = $repository->findOneBy(array('confirmationToken' => $token));
@@ -63,30 +80,13 @@ class WebPagesController extends AbstractController
                
             }
         }
-                else{
-                   $token= $request->query->get('token');
-                return $this->render('web_pages/resetPassword.html.twig', [
-                    'token' =>  $token,
-                ]);
-                
-                }
+               
             
         
                 
     }
-
-
-
-
-
-
-
-
     
-   
 
-    
-}
 
 
 
