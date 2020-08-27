@@ -50,7 +50,7 @@ class WebPagesController extends AbstractController
 
  
     /**
-     * @Rest\POST("/Confirm/response", name="resett_pages")
+     * @Rest("/Confirm/response", name="resett_pages")
      */
 
     public function resetpasswordd(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
