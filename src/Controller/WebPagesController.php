@@ -34,7 +34,7 @@ class WebPagesController extends AbstractController
         $session->start();
         if ($request->isMethod('POST')) {
             $repository = $this->getDoctrine()->getRepository(User::class);
-            $user = $repository->findOneBy(array('confirmationToken' => $tokenn));
+            $user = $repository->findOneBy(array('confirmationToken' => $token));
         if ($user === null) {
                 $this->addFlash('danger', 'sorry! your session expired ');
                 return $this->redirectToRoute('reset_pages');
@@ -46,12 +46,13 @@ class WebPagesController extends AbstractController
                 $em->flush();
                 $this->addFlash('notice', 'your password updated!');
                 return $this->redirectToRoute('reset_pages');
+        
         }else {
  
             return $this->render('web_pages/resetPassword.html.twig', ['token' => $token]);
         }
-   
-}
+    }
+
 }
 
 
