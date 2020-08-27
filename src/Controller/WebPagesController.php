@@ -24,75 +24,55 @@ class WebPagesController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/Confirm/resetPassword/{token}", name="reset_pages")
+
+
+
+
+   /**
+     * @Route("/Confirm/resetPassword", name="reset_pages")
      */
 
-    public function resetpassword(Request $request,string $token,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
+    public function resetpassword(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
     {
         $session = new Session(new PhpBridgeSessionStorage());
         $session->start();
-        $password=  $request->request->get('password');
-       
-        if ($request->isMethod('POST')) {
-             $repository = $this->getDoctrine()->getRepository(User::class);
-             $user = $repository->findOneBy(array('confirmationToken' => $token));
-             dump($user);
-             die;
+        if ($request->getMethod() === 'POST' ) {
+      
+            $tokenn = $_GET["token"];
+            $password = $_GET["password"];
+         
+            $repository = $this->getDoctrine()->getRepository(User::class);
+            $user = $repository->findOneBy(array('confirmationToken' => $tokenn));
          if (!is_null($user)) {
             $hash = $encoder->encodePassword($user,$password);
             $user->setPassword($hash);
             $user->setConfirmationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            return $this->render('web_pages/resetPassword.html.twig',['token'=>$token]);
             $this->addFlash('success', 'your password updated!'); 
+            return $this->render('web_pages/resetPassword.html.twig');
             }
              else{
-                return $this->render('web_pages/resetPassword.html.twig',['token'=>$token]);
                 $this->addFlash('danger', 'sorry! your session expired ');
-            }
-        }else{
-            return $this->render('web_pages/resetPassword.html.twig',['token'=>$token]);
-        }
-                
-    }
-/**
-     * @Route("/Confirm/response", name="resett_pages")
-     */
-
-    public function resetpasswordsuccess(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
-    {
-       $token= $request->request->get('token');
-       $password=  $request->request->get('password');
-       dump($token);
-       if ($request->isMethod('POST')) {
-            $repository = $this->getDoctrine()->getRepository(User::class);
-            $user = $repository->findOneBy(array('confirmationToken' => $token));
-            dump($user);
-            die;
-        if ($user === null) {
+                return $this->render('web_pages/resetPassword.html.twig');
                
-                return $this->render('web_pages/resetPassword.html.twig',['token'=>$token]);
-                $this->addFlash('danger', 'sorry! your session expired ');
             }
-                $hash = $encoder->encodePassword($user,$password);
-                $user->setPassword($hash);
-                $user->setConfirmationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
+        }
+        else{
+            return $this->render('web_pages/resetPassword.html.twig');
+          
+        }
+            
+        
                 
-                return $this->render('web_pages/resetPassword.html.twig',['token'=>$token]);
-                $this->addFlash('success', 'your password updated!');
     }
-    else{
-        return $this->render('web_pages/resetPassword.html.twig',['token'=>$token]);
-    }
-}
 
 
-}
 
     
+}
+
+
+
     
    
