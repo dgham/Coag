@@ -56,8 +56,6 @@ class WebPagesController extends AbstractController
     public function resetpasswordd(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
     {
             $token= $request->query->get('token');
-            dump($token);
-            die;
             $repository = $this->getDoctrine()->getRepository(User::class);
             $user = $repository->findOneBy(array('confirmationToken' => $token));  
             if (!is_null($user)) {
