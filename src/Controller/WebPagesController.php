@@ -48,7 +48,7 @@ class WebPagesController extends AbstractController
                 return $this->redirectToRoute('reset_pages');
         }else {
  
-            return $this->render('security/resetPassword.html.twig', ['token' => $token]);
+            return $this->render('web_pages/resetPassword.html.twig', ['token' => $token]);
         }
    
 }
