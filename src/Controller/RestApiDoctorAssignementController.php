@@ -111,6 +111,50 @@ class RestApiDoctorAssignementController extends AbstractController
             }
     }
 
+
+
+ /**
+     * @Rest\Get("/api/showAssigned/{id}", name ="show_assignedID")
+     * @Rest\View(serializerGroups={"doctors"})
+     */
+    public function showAssignedById()
+    {
+        $user= $this->getUser();
+        $data = array(
+            'id' => $user->getId()
+        );
+            if ($user->getUserType() === UserType::TYPE_DOCTOR) {
+                $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                $doctorassignement = $repository->findOneBy(array('id_doctor'=>$user->getId(),'id_patient'=>$id,'status'=>'Accepted','removed'=>false),array('id'=>'DESC'));
+               if (empty($doctorassignement)){
+                return View::create('no data found' , JsonResponse::HTTP_OK, []);
+               }
+               else{
+
+                return View::create($doctorassignement, JsonResponse::HTTP_OK, []);
+            }
+        }
+            if ($user->getUserType() === UserType::TYPE_PATIENT) {
+                $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                $patientassignement = $repository->findOneBy(array('id_patient'=>$user->getId(),'id_doctor'=>$id,'status'=>'Accepted','removed'=>false));
+                if (empty($patientassignement)){
+                    return View::create('no data found' , JsonResponse::HTTP_OK, []);
+                   }
+                   else{
+                return View::create($patientassignement, JsonResponse::HTTP_OK, []);
+            }
+        }
+            
+            else {
+            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+            }
+    }
+
+    
+
+
+    
+
      /**
      * send patient invitation
      *
