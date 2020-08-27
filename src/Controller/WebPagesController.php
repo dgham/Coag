@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -62,21 +63,26 @@ class WebPagesController extends AbstractController
          if (!is_null($user)) {
             $hash = $encoder->encodePassword($user,$password);
             $user->setPassword($hash);
+            $user->setUpdatedBy($user);
+            $user->setUpdatedAt(new \DateTime());
             $user->setConfirmationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
             $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
             $em->flush();
-            $this->addFlash('success', 'your password updated!'); 
+           
             $token= $request->query->get('token');
             return $this->render('web_pages/resetPassword.html.twig', [
                 'token' =>  $token,
             ]);
+            $this->addFlash('success', 'your password updated!'); 
             }
              else{
                 $token= $request->query->get('token');
-                $this->addFlash('danger', 'sorry! your session expired ');
+              
                 return $this->render('web_pages/resetPassword.html.twig', [
                     'token' =>  $token,
                 ]);
+                $this->addFlash('danger', 'sorry! your session expired ');
                
             }
         }
