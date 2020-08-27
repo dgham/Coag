@@ -56,10 +56,12 @@ class WebPagesController extends AbstractController
     public function resetpasswordd(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
     {
             $token= $request->query->get('token');
+            dump($token);
+            die;
             $repository = $this->getDoctrine()->getRepository(User::class);
             $user = $repository->findOneBy(array('confirmationToken' => $token));  
             if (!is_null($user)) {
-            $password=$request->request->get('password');
+            $password = $request->get('password');
             $hash = $encoder->encodePassword($user,$password);
             $user->setPassword($hash);
             $user->setUpdatedAt(new \DateTime());
@@ -67,7 +69,6 @@ class WebPagesController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-           
             $token= $request->query->get('token');
             $this->addFlash('success', 'your password updated!'); 
             return $this->render('web_pages/resetPassword.html.twig', [
