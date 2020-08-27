@@ -70,13 +70,17 @@ class WebPagesController extends AbstractController
            
             $token= $request->query->get('token');
             $this->addFlash('success', 'your password updated!'); 
-            echo 'success';
+            return $this->render('web_pages/resetPassword.html.twig', [
+                'token' =>  $token,
+            ]);
            
             }
              else{
                 $token= $request->query->get('token');
                 $this->addFlash('danger', 'sorry! your session expired ');
-               echo 'erreur';
+                return $this->render('web_pages/resetPassword.html.twig', [
+                    'token' =>  $token,
+                ]);
                
                
             }
