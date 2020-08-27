@@ -117,7 +117,7 @@ class RestApiDoctorAssignementController extends AbstractController
      * @Rest\Get("/api/showAssigned/{id}", name ="show_assignedID")
      * @Rest\View(serializerGroups={"doctors"})
      */
-    public function showAssignedById()
+    public function showAssignedById($id)
     {
         $user= $this->getUser();
         $data = array(
