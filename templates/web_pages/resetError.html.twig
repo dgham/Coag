@@ -44,8 +44,9 @@ p {
 	color: #B3B8CD;
 	padding-top: 30px;
 	position: relative;
-	width: 350px;
+	width: 500px;
 	max-width: 100%;
+    height: 500px;
 	text-align: center;
 }
 
@@ -68,8 +69,8 @@ p {
 }
 
 button.primary {
-	background-color: #03BFCB;
-	border: 1px solid #03BFCB;
+	background-color: #6ccda4;
+	border: 1px solid #6ccda4;
 	border-radius: 3px;
 	color: #231E39;
 	font-family: Montserrat, sans-serif;
@@ -130,41 +131,37 @@ footer a {
 }
 </style>
 <div class="card-container">
-	<span class="pro">PRO</span>
-	<img class="round" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
-	<h3>Ricky Park</h3>
-	<h6>New York</h6>
-	<p>User interface designer and <br/> front-end developer</p>
+	
+	<img  src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="150px" height="150px" alt="user" />
+	<br><br>
+    <h3>Hello,</h3>
+	
+	<p>    Please validate your choice, if you want <br>to accept the following invitation..
+       <br>Click the button below to confirm.</p>
+       <br>
 	<div class="buttons">
 		<button class="primary">
-			Message
+			Accept invitation
 		</button>
 		<button class="primary ghost">
-			Following
+			Refuse invitation
 		</button>
 	</div>
 	<div class="skills">
-		<h6>Skills</h6>
-		<ul>
-			<li>UI / UX</li>
-			<li>Front End Development</li>
-			<li>HTML</li>
-			<li>CSS</li>
-			<li>JavaScript</li>
-			<li>React</li>
-			<li>Node</li>
-		</ul>
+		<h6>Note: </h6>
+		<p> if you accept this request invitation you can remove the association with medical stuff.
+        If you run into problems, please contact <a href=""> <font color="6ccda4">&nbsp;&nbsp;<i class='fas fa-envelope-open'></i>&nbsp;amira.dgham@intern.continuousnet.com.</font></a>
+
 	</div>
 </div>
 
 <footer>
 	<p>
 		Created with <i class="fa fa-heart"></i> by
-		<a target="_blank" href="https://florin-pop.com">Florin Pop</a>
-		- Read how I created this
-		<a target="_blank" href="https://florin-pop.com/blog/2019/04/profile-card-design">here</a>
-		- Design made by
-		<a target="_blank" href="https://dribbble.com/shots/6276930-Profile-Card-UI-Design">Ildiesign</a>
+		<a target="_blank" href="">coagcare Team</a>
+	
+		© 2020 CoagCare App., All Rights Reserved</a>
+	
 	</p>
 </footer>
 {% endblock %}
