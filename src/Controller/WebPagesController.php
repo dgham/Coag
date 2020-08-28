@@ -116,16 +116,26 @@ class WebPagesController extends AbstractController
             }
              else{
                 $token= $_POST['token'];
-                $this->addFlash('danger', 'sorry! your session expired ');
-                return $this->render('web_pages/resetPassword.html.twig', [
-                    'token' =>  $token,
-                ]);
+                return $this->render('web_pages/resetError.html.twig', [
+                    'token' =>  $token]);  
+               
                
                
             }
-        }               
+       
+        
     }
-    
+
+         /**
+     * @Route("/Confirm/resetPassword/ResstPassword_error", name="resett_pages")
+     */
+
+    public function resetpassworddError(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
+    {
+        return $this->render('web_pages/resetError.html.twig');  
+    }
+}
+ 
 
 
 
