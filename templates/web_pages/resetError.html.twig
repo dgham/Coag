@@ -4,559 +4,167 @@
 
 {% block body %}
 <style>
-html {
-    height: 100%;
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+* {
+	box-sizing: border-box;
 }
+
 body {
-	background: #bcdee7 url("https://victory-design.ru/sandbox/codepen/profile_card/bg.png") no-repeat center center fixed;
-    background-size: 120% auto;
-    position: fixed;
-	padding: 0px;
-	margin: 0px;
-	width: 100%;
-	height: 100%;
-	font: normal 14px/1.618em "Roboto", sans-serif;
-	-webkit-font-smoothing: antialiased;
+	background-color: #28223F;
+	font-family: Montserrat, sans-serif;
+	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	min-height: 100vh;
+	margin: 0;
 }
 
- #container{
-                text-align: center;
-            }
-body:before {
+h3 {
+	margin: 10px 0;
+}
 
-    content: "";
-    height: 0px;
-    padding: 0px;
+h6 {
+	margin: 5px 0;
+	text-transform: uppercase;
+}
 
-	position: absolute;
-	left: 50%;
-	top: 100%;
-    z-index: 2;
-    display: block;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-	-webkit-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-    -webkit-animation: puff_portrait 0.5s 1.8s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, borderRadius 0.2s 2.3s linear forwards;
-    animation: puff_portrait 0.5s 1.8s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, borderRadius 0.2s 2.3s linear forwards;
-}
-h1, h2 {
-    font-weight: 400;
-    margin: 0px 0px 5px 0px;
-}
-h1 {
-    font-size: 24px;
-}
-h2 {
-    font-size: 16px;
-}
 p {
-    margin: 0px;
+	font-size: 14px;
+	line-height: 21px;
 }
-.profile-card {
-	background: #FFB300;
-	width: 200px;
-	height: 200px;
+
+.card-container {
+	background-color: #231E39;
+	border-radius: 5px;
+	box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+	color: #B3B8CD;
+	padding-top: 30px;
+	position: relative;
+	width: 350px;
+	max-width: 100%;
+	text-align: center;
+}
+
+.card-container .pro {
+	color: #231E39;
+	background-color: #FEBB0B;
+	border-radius: 3px;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 3px 7px;
 	position: absolute;
-	left: 50%;
-	top: 30%;
-    z-index: 2;
-	overflow: hidden;
-    opacity: 0;
-    margin-top: 70px;
-	-webkit-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	-webkit-border-radius: 50%;
+	top: 30px;
+	left: 30px;
+}
+
+.card-container .round {
+	border: 1px solid #03BFCB;
 	border-radius: 50%;
-	-webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);
-	box-shadow: 0px 3px 6px rgba(0 ,0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);
-    -webkit-animation: init 0.5s 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, moveDown 1s 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards, moveUp 1s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, materia_landscape 0.5s 2.7s cubic-bezier(0.86, 0, 0.07, 1) forwards;
-    animation: init 0.5s 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, moveDown 1s 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards, moveUp 1s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, materia_landscape 0.5s 2.7s cubic-bezier(0.86, 0, 0.07, 1) forwards;
-}
-.profile-card header {
-    width: 179px;
-    height: 280px;
-    padding: 40px 20px 30px 20px;
-    display: inline-block;
-    float: left;
-    border-right: 2px dashed #EEEEEE;
-	background: #FFFFFF;
-    color: #000000;
-    margin-top: 50px;
-    opacity: 0;
-    text-align: center;
-    -webkit-animation: moveIn 1s 3.1s ease forwards;
-    animation: moveIn 1s 3.1s ease forwards;
-}
-.profile-card header h1 {
-    color: #FF5722;
-}
-.profile-card header a {
-    display: inline-block;
-    text-align: center;
-    position: relative;
-    margin: 25px 30px;
-}
-.profile-card header a:after {
-	position: absolute;
-    content: "";
-	bottom: 3px;
-	right: 3px;
-	width: 20px;
-	height: 20px;
-    
-    -webkit-transform: scale(0);
-    transform: scale(0);
-  
-    
-    -webkit-animation: scaleIn 0.3s 3.5s ease forwards;
-    animation: scaleIn 0.3s 3.5s ease forwards;
-}
-.profile-card header a > img {
-    width: 120px;
-    max-width: 100%;
-  
-}
-.profile-card header a:hover > img {
-  
-}
-.profile-card .profile-bio {
-    width: 175px;        
-    height: 180px;
-    display: inline-block;
-    float: right;
-    padding: 50px 20px 30px 20px;
-	background: #FFFFFF;
-    color: #333333;
-    margin-top: 50px;
-    text-align: center;
-    opacity: 0;
-    -webkit-animation: moveIn 1s 3.1s ease forwards;
-    animation: moveIn 1s 3.1s ease forwards;
-}
-.profile-social-links {
-    width: 218px;        
-    display: inline-block;
-    float: right;
-    margin: 0px;
-    padding: 15px 20px;
-	background: #FFFFFF;
-    margin-top: 50px;
-    text-align: center;
-    opacity: 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-animation: moveIn 1s 3.1s ease forwards;
-    animation: moveIn 1s 3.1s ease forwards;
-}
-.profile-social-links li {
-    list-style: none;
-    margin: -5px 0px 0px 0px;
-    padding: 0px;
-    float: left;
-    width: 33.3%;
-    text-align: center;
-}
-.profile-social-links li a {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    padding: 6px;
-    position: relative;
-    overflow: hidden!important;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-}
-.profile-social-links li a img {
-    position: relative;
-    z-index: 1;
-}
-.profile-social-links li a:before {
-    display: block;
-    content: "";
-    background: rgba(0, 0, 0, 0.3);
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 36px;
-    height: 36px;
-    opacity: 1;
-    -webkit-transition: transform 0.4s ease, opacity 1s ease-out;
-    transition: transform 0.4s ease, opacity 1s ease-out;
-    -webkit-transform: scale3d(0, 0, 1);
-    transform: scale3d(0, 0, 1);
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-}
-.profile-social-links li a:hover:before {
-    -webkit-animation: ripple 1s ease forwards;
-    animation: ripple 1s ease forwards;
-}
-.profile-social-links li a img,
-.profile-social-links li a svg {
-    width: 24px;
+	padding: 7px;
 }
 
+button.primary {
+	background-color: #03BFCB;
+	border: 1px solid #03BFCB;
+	border-radius: 3px;
+	color: #231E39;
+	font-family: Montserrat, sans-serif;
+	font-weight: 500;
+	padding: 10px 25px;
+}
 
-@media screen and (min-aspect-ratio: 4/3) {
-    body {
-        background-size: 100% auto;
-    }
-    body:before {
-        width: 0px;
-    }
-    @-webkit-keyframes puff {
-        0% {
-            top: 100%;
-            width: 0px;
-            padding-bottom: 0px;
-        }
-    	100% {
-            top: 50%;
-            width: 100%;
-            padding-bottom: 100%;
-        }	
-    }
-    @keyframes puff {
-        0% {
-            top: 100%;
-            width: 0px;
-            padding-bottom: 0px;
-        }
-    	100% {
-            top: 50%;
-            width: 100%;
-            padding-bottom: 100%;
-        }	
-    }
+button.primary.ghost {
+	background-color: transparent;
+	color: #02899C;
 }
-@media screen and (min-height: 480px) {
-	.profile-card {
-		-webkit-animation: init 0.5s 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, moveDown 1s 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards, moveUp 1s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, materia_portrait 0.5s 2.7s cubic-bezier(0.86, 0, 0.07, 1) forwards;
-		animation: init 0.5s 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, moveDown 1s 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards, moveUp 1s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, materia_portrait 0.5s 2.7s cubic-bezier(0.86, 0, 0.07, 1) forwards;
-	}
-	.profile-card header {
-        width: auto;
-        height: auto;
-        padding: 30px 20px;
-        display: block;
-        float: none;
-        border-right: none;
-    }
-    .profile-card .profile-bio {
-        width: auto;
-        height: auto;
-        padding: 15px 20px 30px 20px;
-        display: block;
-        float: none; 
-    }
-    .profile-social-links {
-        width: 100%;       
-        display: block;
-        float: none; 
-    }
+
+.skills {
+	background-color: #1F1A36;
+	text-align: left;
+	padding: 15px;
+	margin-top: 30px;
 }
-@media screen and (min-aspect-ratio: 4/3) {
-    body {
-        background-size: 100% auto;
-    }
-    body:before {
-        width: 0px;
-		-webkit-animation: puff_landscape 0.5s 1.8s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, borderRadius 0.2s 2.3s linear forwards;
-		animation: puff_landscape 0.5s 1.8s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, borderRadius 0.2s 2.3s linear forwards;
-	}
+
+.skills ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
-@-webkit-keyframes init {
-    0% {
-    	width: 0px;
-    	height: 0px;
-    }
-	100% {
-        width: 56px;
-        height: 56px;
-        margin-top: 0px;
-        opacity: 1;
-    }	
+
+.skills ul li {
+	border: 1px solid #2D2747;
+	border-radius: 2px;
+	display: inline-block;
+	font-size: 12px;
+	margin: 0 7px 7px 0;
+	padding: 7px;
 }
-@keyframes init {
-    0% {
-    	width: 0px;
-    	height: 0px;
-    }
-	100% {
-        width: 56px;
-        height: 56px;
-        margin-top: 0px;
-        opacity: 1;
-    }	
+
+footer {
+    background-color: #222;
+    color: #fff;
+    font-size: 14px;
+    bottom: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 999;
 }
-@-webkit-keyframes puff_portrait {
-    0% {
-        top: 100%;
-        height: 0px;
-        padding: 0px;
-    }
-	100% {
-        top: 50%;
-        height: 100%;
-        padding: 0px 100%;
-    }	
+
+footer p {
+    margin: 10px 0;
 }
-@keyframes puff_portrait {
-    0% {
-        top: 100%;
-        height: 0px;
-        padding: 0px;
-    }
-	100% {
-        top: 50%;
-        height: 100%;
-        padding: 0px 100%;
-    }	
+
+footer i {
+    color: red;
 }
-@-webkit-keyframes puff_landscape {
-	0% {
-		top: 100%;
-		width: 0px;
-		padding-bottom: 0px;
-	}
-	100% {
-		top: 50%;
-		width: 100%;
-		padding-bottom: 100%;
-	}	
-}
-@keyframes puff_landscape {
-	0% {
-		top: 100%;
-		width: 0px;
-		padding-bottom: 0px;
-	}
-	100% {
-		top: 50%;
-		width: 100%;
-		padding-bottom: 100%;
-	}	
-}
-@-webkit-keyframes borderRadius {
-    0% {
-        -webkit-border-radius: 50%;
-    }
-	100% {
-        -webkit-border-radius: 0px;
-    }	
-}
-@keyframes borderRadius {
-    0% {
-        -webkit-border-radius: 50%;
-    }
-	100% {
-        border-radius: 0px;
-    }	
-}
-@-webkit-keyframes moveDown {
-    0% {
-   	    top: 50%;
-    }
-	50% {
-	   top: 40%;
-    }
-    100% {
-       top: 100%;
-    }	
-}
-@keyframes moveDown {
-    0% {
-   	    top: 50%;
-    }
-	50% {
-	   top: 40%;
-    }
-    100% {
-       top: 100%;
-    }	
-}
-@-webkit-keyframes moveUp {
-    0% {
-        background: #FFB300;
-        top: 100%;
-    }
-	50% {
-	   top: 40%;
-    }
-    100% {
-       top: 50%;
-       background: #E0E0E0;
-    }	
-}
-@keyframes moveUp {
-    0% {
-        background: #FFB300;
-        top: 100%;
-    }
-	50% {
-	   top: 40%;
-    }
-    100% {
-       top: 50%;
-       background: #E0E0E0;
-    }	
-}
-@-webkit-keyframes materia_landscape {
-    0% {
-        background: #E0E0E0;
-    }
-    50% {
-        -webkit-border-radius: 4px;
-    }
-    100% {
-        width: 440px;
-        height: 280px;
-        background: #FFFFFF;
-        -webkit-border-radius: 4px;
-    }
-}
-@keyframes materia_landscape {
-    0% {
-        background: #E0E0E0;
-    }
-    50% {
-        border-radius: 4px;
-    }
-    100% {
-        width: 440px;
-        height: 280px;
-        background: #FFFFFF;
-        border-radius: 4px;
-    }
-}
-@-webkit-keyframes materia_portrait {
-	0% {
-		background: #E0E0E0;
-	}
-	50% {
-		-webkit-border-radius: 4px;
-	}
-	100% {
-		width: 280px;
-		height: 440px;
-		background: #FFFFFF;
-		-webkit-border-radius: 4px;
-	}
-}
-@keyframes materia_portrait {
-	0% {
-		background: #E0E0E0;
-	}
-	50% {
-		border-radius: 4px;
-	}
-	100% {
-		width: 280px;
-		height: 440px;
-		background: #FFFFFF;
-		border-radius: 4px;
-	}
-}
-@-webkit-keyframes moveIn {
-    0% {
-        margin-top: 50px;
-        opacity: 0;
-    }
-	100% { 
-        opacity: 1;
-        margin-top: -20px;
-    }	
-}
-@keyframes moveIn {
-    0% {
-        margin-top: 50px;
-        opacity: 0;
-    }
-	100% { 
-        opacity: 1;
-        margin-top: -20px;
-    }	
-}
-@-webkit-keyframes scaleIn {
-    0% {
-        -webkit-transform: scale(0);
-    }
-	100% { 
-        -webkit-transform: scale(1);
-    }	
-}
-@keyframes scaleIn {
-    0% {
-        transform: scale(0);
-    }
-	100% { 
-        transform: scale(1);
-    }	
-}
-@-webkit-keyframes ripple {
-    0% {
-        transform: scale3d(0, 0, 0); 
-    }
-    50%, 100% {
-        -webkit-transform: scale3d(1, 1, 1);
-    }
-    100% {
-        opacity: 0;
-    }
-}
-@keyframes ripple {
-    0% {
-        transform: scale3d(0, 0, 0); 
-    }
-    50%, 100% {
-        transform: scale3d(1, 1, 1);
-    }
-    100% {
-        opacity: 0;
-    }
+
+footer a {
+    color: #3c97bf;
+    text-decoration: none;
 }
 </style>
-<!-- this is the markup. you can change the details (your own name, your own avatar etc.) but don’t change the basic structure! -->
-
-<aside class="profile-card">
-
-    <header>
-    
-        <!-- here’s the avatar -->
-        <a href="">
-            <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" />
-        </a>
-        
-        <!-- the username -->
-        <h2>Hello,</h2>
-        <!-- and role or location -->
-       
-    
-    </header>
-
-    <!-- bit of a bio; who are you? -->
-    <div class="profile-bio">
-    
-         <p>
-      Please validate your choice, if you want to accept the following invitation..
-       Click the button below to confirm.</p>
-	   <br>
-	   <br>
-	   <div id="container">
-	<center>
-    <button type="button" class="btn btn-info">Accept</button>
-<button type="button" class="btn btn-danger">refuse</button>
-<center>
+<div class="card-container">
+	<span class="pro">PRO</span>
+	<img class="round" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
+	<h3>Ricky Park</h3>
+	<h6>New York</h6>
+	<p>User interface designer and <br/> front-end developer</p>
+	<div class="buttons">
+		<button class="primary">
+			Message
+		</button>
+		<button class="primary ghost">
+			Following
+		</button>
+	</div>
+	<div class="skills">
+		<h6>Skills</h6>
+		<ul>
+			<li>UI / UX</li>
+			<li>Front End Development</li>
+			<li>HTML</li>
+			<li>CSS</li>
+			<li>JavaScript</li>
+			<li>React</li>
+			<li>Node</li>
+		</ul>
+	</div>
 </div>
-    <!-- some social links to show off -->
-    </div>
-	<br>
 
-	
-
-</aside>
-<!-- that’s all folks! -->
-
-
+<footer>
+	<p>
+		Created with <i class="fa fa-heart"></i> by
+		<a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+		- Read how I created this
+		<a target="_blank" href="https://florin-pop.com/blog/2019/04/profile-card-design">here</a>
+		- Design made by
+		<a target="_blank" href="https://dribbble.com/shots/6276930-Profile-Card-UI-Design">Ildiesign</a>
+	</p>
+</footer>
 {% endblock %}
