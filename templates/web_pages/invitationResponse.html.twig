@@ -44,9 +44,9 @@ p {
 	color: #B3B8CD;
 	padding-top: 30px;
 	position: relative;
-	width: 800px;
+	width: 500px;
 	max-width: 100%;
-    height: 800px;
+    height: 500px;
 	text-align: center;
 }
 
@@ -68,7 +68,7 @@ p {
 	padding: 7px;
 }
 
-button.primary {
+.primary {
 	background-color: #6ccda4;
 	border: 1px solid #6ccda4;
 	border-radius: 3px;
@@ -78,7 +78,7 @@ button.primary {
 	padding: 10px 25px;
 }
 
-button.primary.ghost {
+.primary.ghost {
 	background-color: transparent;
 	color: #02899C;
 }
@@ -139,14 +139,15 @@ footer a {
 	<p>    Please validate your choice, if you want <br>to accept the following invitation..
        <br>Click the button below to confirm.</p>
        <br>
+	     <form action="{{ path('invitation_page') }}" method="get">
 	<div class="buttons">
-		<button class="btn btn-info">
-			Accept invitation
-		</button>
-		<button class="btn btn-danger">
-			Refuse invitation
-		</button>
+		<input type="submit"  value ="Accept invitation" name="accept" class="primary">
+		
+		<input type="submit" value="Refuse invitation" name="accept" class="primary ghost">
+			
+		
 	</div>
+	</form>
 	<div class="skills">
 		<h6>Note: </h6>
 		<p> if you accept this request invitation you can remove the association with medical stuff.

@@ -126,12 +126,12 @@ class WebPagesController extends AbstractController
     }
 
          /**
-     * @Route("/InvitationResponse", name="resett_pages")
+     * @Route("/InvitationResponse", name="invitation_page")
      */
 
     public function resetpassworddError(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
     {
-        return $this->render('web_pages/resetError.html.twig');  
+        return $this->render('web_pages/invitationResponse.html.twig');  
     }
 }
  
