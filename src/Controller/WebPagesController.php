@@ -77,9 +77,6 @@ class WebPagesController extends AbstractController
             $token= $request->query->get('token');
             return $this->render('web_pages/resetError.html.twig', [
                 'token' =>  $token]);  
-           
-           
-
             }else{
                    $token= $request->query->get('token');
                 return $this->render('web_pages/resetPassword.html.twig', [

@@ -117,7 +117,7 @@ class RestApiAssetController  extends FOSRestController
                list($x, $y) = $info;
                $resolution=$info[0].'*'.$info[1];
               $imagetype=$file->guessExtension();
-               if ($imagetype == "jpeg" || $imagetype == "png" ){
+               if ($imagetype == "jpeg" || $imagetype == "png" || $imagetype == "gif" || $imagetype == "svg" ){
                 $path_uplaod='Assets/images/';
                     $file->move($path_uplaod,$imageName);
                     $asset->setTextValue($imageName);
@@ -282,7 +282,7 @@ class RestApiAssetController  extends FOSRestController
                             list($x, $y) = $info;
                             $resolution=$info[0].'*'.$info[1];
                             $imagetype=$file->guessExtension();
-                                if ($imagetype == "jpeg" || $imagetype == "png" ){
+                                if ($imagetype == "jpeg" || $imagetype == "png" || $imagetype == "gif" || $imagetype == "svg" ){
                                     $path_uplaod='Assets/images/';
                                     $file->move($path_uplaod,$imageName);
                                 $asset->setTextValue($imageName);
