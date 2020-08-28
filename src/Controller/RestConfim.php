@@ -55,12 +55,89 @@ class RestConfim extends FOSRestController
                     ->setTo($email)
                     ->setBody(
                         '<html>' .
+                        '<head>
+                        <style>
+                    .button {
+                    background-color: #56c596; /* Green */
+                    border: none;
+                    color: white;
+                    padding: 15px 32px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    width: 150px;
+                    text-align: center;
+                    color: white;
+                    }
+                    .btn {
+                        border: 2px solid #56c596;
+                        padding: 15px 32px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 4px 2px;
+                        cursor: pointer;
+                        width: 150px;
+                        text-align: center;
+                    }
+                    .button3 {background-color: #6ccda4;} /* Red */ 
+                    #container{
+                        text-align: center;
+                    }
+                    </style></head>'.
                         ' <body>' .
-                        '<center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="150px" height="150px">.<p> Dear ' . $name . ',<br><br> We got a request to reset
-                   you CoagCare password .Just click the link below and you will be on your way <a href=`https://api.coagcare.continuousnet.com/Confirm/resetPassword/' . $token . '`' . ' height="42" width="150"> Reset password </a> . If you did not make this request, please ignore this email and thanks .
-                   <br> If you need aditional assistance, or you did not make this change, please contact <a href=`mailto:CoagCareApp@gmail.com` style=`color:#ff6c37;text-decoration:unerline;font-weight:blod`>CoagCareApp@gmail.com</a>.<p> cheers, <br> the CoagCare App Team </p>
-                   <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
-                   © 2020 CoagCare . All Rights Reserved. Continuous Net </p></center>' .
+                        ' <div marginwidth="0" marginheight="0" style="width:100%;background-color:#ffffff;margin:0;padding:0;">
+
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="m_-3655858657801354087container" style="border-collapse:collapse;width:100%;min-width:100%;height:auto">
+                          <tbody><tr>
+                            <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+                        
+                              
+                              <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
+                                <tbody><tr>
+                                  <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
+                                   
+                                      <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                                   
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
+                                    <h1 style="text-align:center;font-weight:600;margin:30px 0 50px 0">PASSWORD RESET REQUEST</h1>
+                                    <p>Dear ' . $name . ',</p>
+                                      <p>We have received your request to reset your password. Please click the link below to complete the reset:</p>
+                                      </td>
+                                      </tr>
+                                      <tr>
+                                          <td style="padding-bottom:30px">
+                                          
+                   <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/Confirm/resetPassword/' . $token .  ' "  class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Reset Password</font> </a></center></div>
+
+
+
+
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                          <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">                    
+                                            <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                            <p>Cheers,<br>The coagcare Team</p>
+                                        </td>
+                                    </tr>
+                              </tbody></table>
+                            </td>
+                          </tr>
+                        </tbody></table> 
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="border-collapse:collapse;margin:0 auto">   <tbody>     <tr>       <td bgcolor="#ffffff" style="line-height:150%;padding-top:10px;padding-left:10px;padding-right:18px;padding-bottom:30px;text-align:left;border-bottom:0;font-size:10px;border-top:0">         <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left" style="border-collapse:collapse">           <tbody>             <tr>               <td valign="top" style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">This email was sent to <a style="color:#56c596;text-decoration:none;font-weight:600">' . $email . '</a>, which is associated with a CoagCare App account.  <br> <br>   © 2020 CoagCare App., All Rights Reserved                 <br> ContinuousNet., Residence ElAhmed 2nd Street Yesser Arafet, sahloul 4054                 <br>                 &nbsp;               </td>             </tr>           </tbody>         </table>       </td>     </tr>   </tbody> </table>
+                        
+                        <div style="display:none;white-space:nowrap;font:15px courier;color:#ffffff">
+                          - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                        </div>
+                        </div>'.
                         ' </body>' .
                         '</html>',
                         'text/html'
