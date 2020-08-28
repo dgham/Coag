@@ -53,17 +53,17 @@ class WebPagesController extends AbstractController
             $em->persist($user);
             $em->flush();
             $token= $_POST['token'];
-            $this->addFlash('success', 'your password updated!'); 
+            $this->addFlash('success', 'your password updated , Sign In again !'); 
             return $this->render('web_pages/resetPassword.html.twig', [
                 'token' =>  $token,
             ]);
             }
              else{
                 $token= $_POST['token'];
-                return $this->render('web_pages/resetError.html.twig', [
-                    'token' =>  $token]);  
-               
-               
+                $this->addFlash('danger', 'Unable to request password! your session expired ');
+                return $this->render('web_pages/resetPassword.html.twig', [
+                    'token' =>  $token,
+                ]);
                
                
             }
@@ -75,8 +75,11 @@ class WebPagesController extends AbstractController
         $user = $repository->findOneBy(array('confirmationToken' => $token));  
         if (is_null($user)) {
             $token= $request->query->get('token');
-            return $this->render('web_pages/resetError.html.twig', [
-                'token' =>  $token]);  
+            $this->addFlash('danger', 'Unable to request password! your session expired ');
+            return $this->render('web_pages/resetPassword.html.twig', [
+                'token' =>  $token,
+            ]);
+
             }else{
                    $token= $request->query->get('token');
                 return $this->render('web_pages/resetPassword.html.twig', [
@@ -113,8 +116,7 @@ class WebPagesController extends AbstractController
             }
              else{
                 $token= $_POST['token'];
-                return $this->render('web_pages/resetError.html.twig', [
-                    'token' =>  $token]);  
+                return $this->render('web_pages/resetError.html.twig');  
                
                
                
