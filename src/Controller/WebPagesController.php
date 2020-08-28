@@ -30,10 +30,10 @@ class WebPagesController extends AbstractController
 
 
    /**
-     * @Route("/Confirm/resetPassword", name="reset_pages")
+     * @Route("/Confirm/resetPassword/{token}", name="reset_pages")
      */
 
-    public function resetpassword(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
+    public function resetpassword(Request $request,string $token,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
     {
         $session = new Session(new PhpBridgeSessionStorage());
         $session->start();
@@ -70,18 +70,15 @@ class WebPagesController extends AbstractController
 
         }
         else{
-        $token= $request->query->get('token');
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->findOneBy(array('confirmationToken' => $token));  
         if (is_null($user)) {
-            $token= $request->query->get('token');
             $this->addFlash('danger', 'sorry! your session expired ');
             return $this->render('web_pages/resetPassword.html.twig', [
                 'token' =>  $token,
             ]);
 
             }else{
-                   $token= $request->query->get('token');
                 return $this->render('web_pages/resetPassword.html.twig', [
                     'token' =>  $token,
                 ]);
