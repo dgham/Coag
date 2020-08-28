@@ -126,7 +126,7 @@ class WebPagesController extends AbstractController
     }
 
          /**
-     * @Route("/Confirm/resetPassword/ResstPassword_error", name="resett_pages")
+     * @Route("/InvitationResponse", name="resett_pages")
      */
 
     public function resetpassworddError(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
