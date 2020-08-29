@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\User;
+use App\Entity\DoctorAssignement;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -131,7 +132,65 @@ class WebPagesController extends AbstractController
 
     public function resetpassworddError(Request $request,UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
     {
-        return $this->render('web_pages/invitationResponse.html.twig');  
+        $token=$request->query->get('token');
+        $id=$request->query->get('id');
+        $response=$request->query->get('response');
+        $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+        $invitationValidation = $repository->findOneBy(array('invitation_token' => $token,'created_by'=> $id, 'status'=> "Pending",'removed'=>false));  
+        
+
+        if(isset($response)){
+        if (!is_null($invitationValidation)) {
+           if ($response === "Accept invitation"){
+            $repository = $this->getDoctrine()->getRepository(User::class);
+            $user = $repository->findOneBy(array('id' => $id));  
+            $invitationValidation->setStatus("Accepted");
+            $invitationValidation->setInvitationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
+            $invitationValidation->setUpdatedBy($user);
+            $invitationValidation->setUpdatedAt(new \DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($invitationValidation);
+            $em->flush();
+            $this->addFlash('success', 'Welcome to CoagCare app ! Now you can join your coagcare health community'); 
+            return $this->render('web_pages/invitationResponse.html.twig', [
+                'token' =>  $token,
+                'id' => $id
+            ]);
+           }
+           if ($response === "Refuse invitation"){
+            $repository = $this->getDoctrine()->getRepository(User::class);
+            $user = $repository->findOneBy(array('id' => $id));  
+            $invitationValidation->setStatus("Refused");
+            $invitationValidation->setInvitationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
+            $invitationValidation->setUpdatedBy($user);
+            $invitationValidation->setUpdatedAt(new \DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($invitationValidation);
+            $em->flush();
+            $this->addFlash('success', 'Unfortunately ! you are descline one of coagcare health community. Maybe next time '); 
+            return $this->render('web_pages/invitationResponse.html.twig', [
+                'token' =>  $token,
+                'id' => $id
+            ]);
+           }
+
+
+        }
+        else{
+            $this->addFlash('danger', 'You are already take an action to this request'); 
+            return $this->render('web_pages/invitationResponse.html.twig', [
+                'token' =>  $token,
+                'id' => $id
+            ]); 
+        }
+        }
+        else{
+            return $this->render('web_pages/invitationResponse.html.twig', [
+                'token' =>  $token,
+                'id' => $id
+            ]);  
+        }
+       
     }
 }
  

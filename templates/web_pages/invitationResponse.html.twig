@@ -141,9 +141,11 @@ footer a {
        <br>
 	     <form action="{{ path('invitation_page') }}" method="get">
 	<div class="buttons">
-		<input type="submit"  value ="Accept invitation" name="accept" class="primary">
+	<input type="hidden"  value ={{ token }} name="token" class="primary">
+	<input type="hidden"  value ={{ id }} name="id" class="primary">
+		<input type="submit"  value ="Accept invitation" name="response" class="primary">
 		
-		<input type="submit" value="Refuse invitation" name="accept" class="primary ghost">
+		<input type="submit" value="Refuse invitation" name="response" class="primary ghost">
 			
 		
 	</div>
@@ -152,12 +154,29 @@ footer a {
 	<div class="skills">
 
 		<center><h6>Note: </h6></center>
-			<center><p> if you accept this request invitation you can remove the association with medical stuff.<br>
+			<center><p> if you accept this request invitation, you can remove the association with medical stuff.<br>
         If you run into problems, please contact <a href=""> <font color="6ccda4">&nbsp;&nbsp;<i class='fas fa-envelope-open'></i>&nbsp;amira.dgham@intern.continuousnet.com.</font></a>	</center>
 
 	</div>
 </div>
 
+		{% for message in app.flashes('danger') %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<span style='font-size:30px;'>&#10071;</span><strong>Oh Oopps !</strong> {{message}}
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		</div>
+					{% endfor %}
+				{% for message in app.flashes('success') %}
+		<div class="alert alert-info alert-dismissible fade show" role="alert">
+		<strong></strong><span style='font-size:30px;color:white'>&#10004;</span> {{message}}
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		</div>
+				{% endfor %}    
+          
 <footer>
 	<p>
 		Created with <i class="fa fa-heart"></i> by
