@@ -15,7 +15,7 @@ class Eatinghabits
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Serializer\Groups({"users","doctors"})
+     * @Serializer\Groups({"users","doctors","patients"})
      */
     private $id;
 
@@ -24,7 +24,7 @@ class Eatinghabits
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="eatinghabits")
      * @ORM\JoinColumn(nullable=false)
-     * @Serializer\Groups({"doctors"})
+     * @Serializer\Groups({"doctors","patients"})
      */
     private $created_by;
 

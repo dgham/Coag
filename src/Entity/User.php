@@ -26,7 +26,7 @@ class User extends BaseUser
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Expose
-     * @Serializer\Groups({"users","admin","doctors"})
+     * @Serializer\Groups({"users","admin","doctors","patients"})
      */
     protected $id;
 
@@ -34,7 +34,7 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Expose
-     * @Serializer\Groups({"users","doctors","admin","hospitals"})
+     * @Serializer\Groups({"users","doctors","admin","hospitals","patients"})
      */
     private $gender;
 
@@ -98,7 +98,7 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Expose
-     * @Serializer\Groups({"users","doctors","admin","hospitals"})
+     * @Serializer\Groups({"users","doctors","admin","hospitals","patients"})
      */
     private $picture;
 
@@ -147,7 +147,7 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Serializer\Groups({"users","doctors","admin","hospitals"})
+     * @Serializer\Groups({"users","doctors","admin","patients"})
      */
     private $QR_code;
 

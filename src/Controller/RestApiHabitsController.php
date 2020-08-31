@@ -23,7 +23,7 @@ class RestApiHabitsController extends FOSRestController
 {
     /**
      * @Rest\Get("/api/habits", name ="api_habits")
-     * @Rest\View(serializerGroups={"doctors"})
+     * @Rest\View(serializerGroups={"patients"})
      */
     public function index()
     {

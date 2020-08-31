@@ -14,25 +14,25 @@ class Foods
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Serializer\Groups({"users","admin","doctors"})
+     * @Serializer\Groups({"users","admin","doctors","patients"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Serializer\Groups({"users","admin","doctors"})
+     * @Serializer\Groups({"users","admin","doctors","patients"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Serializer\Groups({"users","admin","doctors"})
+     * @Serializer\Groups({"users","admin","doctors","patients"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
-     * @Serializer\Groups({"users","admin","doctors"})
+     * @Serializer\Groups({"users","admin","doctors","patients"})
      */
     private $quantity;
 

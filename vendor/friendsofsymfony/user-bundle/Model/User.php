@@ -30,13 +30,13 @@ abstract class User implements UserInterface, GroupableInterface
     /**
      * @var mixed
      * @Expose
-     * @Serializer\Groups({"users","admin"})
+     * @Serializer\Groups({"users","admin","patients"})
      */
     protected $id;
     /**
      * @var string
      * @Expose
-     * @Serializer\Groups({"users","doctors","admin","hospitals"})
+     * @Serializer\Groups({"users","doctors","admin","hospitals","patients"})
      */
     protected $username;
 
@@ -48,7 +48,7 @@ abstract class User implements UserInterface, GroupableInterface
     /**
      * @var string
      * @Expose
-     * @Serializer\Groups({"users","doctors","admin","hospitals"})
+     * @Serializer\Groups({"users","doctors","admin","hospitals","patients"})
      */
     protected $email;
 
