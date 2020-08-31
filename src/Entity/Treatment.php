@@ -89,10 +89,7 @@ class Treatment
      */
     private $patient;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $type;
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -253,17 +250,7 @@ class Treatment
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
+ 
 
     public function getMedicationType(): ?string
     {
