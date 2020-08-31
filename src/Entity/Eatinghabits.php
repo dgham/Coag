@@ -62,6 +62,7 @@ class Eatinghabits
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Foods")
      * @ORM\JoinColumn(nullable=false)
+     * @Serializer\Groups({"doctors"})
      */
     private $food_description;
 

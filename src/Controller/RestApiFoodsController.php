@@ -46,8 +46,6 @@ class RestApiFoodsController extends FOSRestController
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     }
-
-
      /**
      * @Rest\Get("/api/foods/{id}", name ="search_foods")
      * @Rest\View(serializerGroups={"admin"})
