@@ -129,10 +129,13 @@ class RestApiDoctorController extends AbstractController
             if (!is_null($doctor)) {
                 $affiliate = $request->request->get('affiliate');
                 if (isset($affiliate)) {
-                    if ($affiliate == true || $affiliate == false) {
+                    $typeaffiliate= gettype($affiliate);
+                    if($typename === "boolean"){
+                    if ($affiliate === true || $affiliate === false) {
                         if ($affiliate == false) {
                             $doctor->setHospital(null);
                         }
+
                         $doctor->setAffiliate($affiliate);
                         $doctor->setUpdatedBy($user);
                         $doctor->setUpdatedAt(new \DateTime());
@@ -144,6 +147,7 @@ class RestApiDoctorController extends AbstractController
 
                         );
                         return View::create($response, JsonResponse::HTTP_OK, []);
+                    }
                     } else {
                         return View::create('affiliate of doctor should be a boolean', JsonResponse::HTTP_BAD_REQUEST);
                     }
