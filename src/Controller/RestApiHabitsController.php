@@ -64,6 +64,9 @@ class RestApiHabitsController extends FOSRestController
             
             }
     }
+    else {
+        return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+    }
     }
      /**
      * @Rest\Get("/api/habits/{id}", name ="search_habits")
@@ -100,6 +103,9 @@ class RestApiHabitsController extends FOSRestController
         return View::create('Habits Not Found', JsonResponse::HTTP_NOT_FOUND);
               } 
             } 
+            else{
+                return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+            }
            
     }
     
@@ -143,6 +149,9 @@ class RestApiHabitsController extends FOSRestController
                             } else {
                                 return View::create('missing food_description_id !!', JsonResponse::HTTP_BAD_REQUEST);
                             }
+                        }
+                        else{
+                            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                         }
                     }catch (Exception $ex){
                         return View::create($ex->getMessage(), JsonResponse::HTTP_BAD_REQUEST, []);
@@ -196,6 +205,9 @@ class RestApiHabitsController extends FOSRestController
                  }
             }
         }
+        else{
+            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+        }
     }
    /**
     * @Rest\Delete("/api/habits/{id}", name ="delete_habits")
@@ -223,7 +235,9 @@ class RestApiHabitsController extends FOSRestController
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
             }   
            
-        }    
+        }
+       
+         
         
      }
 
