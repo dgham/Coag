@@ -100,10 +100,9 @@ class RestApiTreatmentController extends FOSRestController
             if ($user->getUserType() === UserType::TYPE_DOCTOR) {
                 $treatment = new Treatment();
                 $name= $request->request->get('name');
-            
                 $typname= gettype($name);
                 if (isset($name)) {
-                    if($typname == "string"){
+                if($typname == "string"){
                $treatment->setName($name);
             } else {
                 return View::create(' name of treatment should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
@@ -114,17 +113,9 @@ class RestApiTreatmentController extends FOSRestController
         }        
                 $type= $request->request->get('type');
                 $typetype= gettype($type);
-               
                 if (isset($type)) {
-                    if($typetype == "integer"){
-                        $repository = $this->getDoctrine()->getRepository(MedicationType::class);
-                        $medicationType = $repository->findOneBy(array('id' => $type,'removed' => false));
-                        if (!empty($medicationType)) {
-                         $treatment->setType($medicationType);
-                     
-                                } else {
-                                    return View::create('type of treatment not found!', JsonResponse::HTTP_NOT_FOUND, []);
-                                }
+                    if($typetype == "string"){
+                         $treatment->setType($type);
                             }
                             else{
                                 return View::create('type of treatment must be integer!', JsonResponse::HTTP_BAD_REQUEST, []);
@@ -197,18 +188,11 @@ class RestApiTreatmentController extends FOSRestController
                                 
                                 }else {
                                     return View::create('you should add patient to add his treatment !', JsonResponse::HTTP_BAD_REQUEST, []);
-                                
-                                }
-                            
-
+                                }                    
                     } 
-                        
-
                         else {
                             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-                        }   
-
-
+                        } 
                     }
       
      /**
@@ -235,7 +219,6 @@ class RestApiTreatmentController extends FOSRestController
                     $type= $request->request->get('type');
                     $typetype= gettype($type);
                     if (isset($type)) {
-                        
                         if($typetype == "string"){
                             $treatment->setType($type);
                         } else {

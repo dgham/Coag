@@ -27,9 +27,6 @@ class WebPagesController extends AbstractController
     }
 
 
-
-
-
    /**
      * @Route("/Confirm/resetPassword", name="reset_pages")
      */
@@ -80,7 +77,6 @@ class WebPagesController extends AbstractController
             return $this->render('web_pages/resetPassword.html.twig', [
                 'token' =>  $token,
             ]);
-
             }else{
                    $token= $request->query->get('token');
                 return $this->render('web_pages/resetPassword.html.twig', [
@@ -118,14 +114,8 @@ class WebPagesController extends AbstractController
              else{
                 $token= $_POST['token'];
                 return $this->render('web_pages/resetError.html.twig');  
-               
-               
-               
-            }
-       
-        
+            }  
     }
-
          /**
      * @Route("/InvitationResponse", name="invitation_page")
      */
@@ -137,8 +127,6 @@ class WebPagesController extends AbstractController
         $response=$request->query->get('response');
         $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
         $invitationValidation = $repository->findOneBy(array('invitation_token' => $token,'created_by'=> $id, 'status'=> "Pending",'removed'=>false));  
-        
-
         if(isset($response)){
         if (!is_null($invitationValidation)) {
            if ($response === "Accept invitation"){

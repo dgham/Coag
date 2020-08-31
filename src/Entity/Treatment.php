@@ -90,10 +90,11 @@ class Treatment
     private $patient;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\MedicationType")
-     * @Serializer\Groups({"users","doctors"})
+     * @ORM\Column(type="string", length=255)
      */
     private $type;
+
+
 
     public function getId(): ?int
     {
@@ -247,15 +248,17 @@ class Treatment
         return $this;
     }
 
-    public function getType(): ?MedicationType
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    public function setType(?MedicationType $type): self
+    public function setType(string $type): self
     {
         $this->type = $type;
 
         return $this;
     }
+
+   
 }
