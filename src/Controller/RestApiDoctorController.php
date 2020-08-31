@@ -98,7 +98,7 @@ class RestApiDoctorController extends AbstractController
             /**
              * @param Request $request
              *
-         * @Rest\Patch("/api/doctor/UpdateAffiliate", name ="patch_doctorr")
+         * @Rest\Patch("/api/doctor/updateAffiliate", name ="patch_doctorr")
          * @Rest\View(serializerGroups={"doctors"})
          */
             public function patchdoctor(Request $request)
@@ -173,7 +173,7 @@ class RestApiDoctorController extends AbstractController
         /**
          * @param Request $request
          *
-         * @Rest\Patch("/api/doctor/AddAffiliation/{id}", name ="patch_affiliate")
+         * @Rest\Patch("/api/doctor//{id}", name ="patch_affiliate")
          * @Rest\View(serializerGroups={"doctors"})
              */
             public function patchaffiliate(Request $request,$id)
