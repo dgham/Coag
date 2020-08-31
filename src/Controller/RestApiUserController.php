@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\User;
 use App\Entity\Doctor;
 use DateTimeInterface;
@@ -23,7 +24,6 @@ use Endroid\QrCode\Factory\QrCodeFactoryInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -82,8 +82,18 @@ class RestApiUserController extends FOSRestController
                }
                if ($usertype == "doctor"){
                      $doctor = new Doctor();
-                     $matricule= $request->request->get('matricule');
+                     $matricule= $request->request->get('medical_identity');
+                     $typematricule= gettype($matricule);
+                     if (isset($matricule)) {
+                     if($typematricule == "string"){
                        $doctor->setMatricule($matricule);
+                     }else{
+                        return View::create('Medical identity should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
+                     }
+                    }
+                     else{
+                        return View::create('missing medical identity of doctor !!', JsonResponse::HTTP_BAD_REQUEST, []);
+                     }
                         $doctor->setAffiliate(false);
                         $doctor->setCreatedBy($user);
                         $doctor->setCreatedAt(new \DateTime());
