@@ -58,7 +58,7 @@ class RestApiDoctorController extends AbstractController
             
             }
 
-        /**
+             /**
              * @Rest\Get("/api/doctor/NotAffiliate", name ="NotAffiliate_doctor")
              * @Rest\View(serializerGroups={"admin"})
              */
@@ -185,7 +185,7 @@ class RestApiDoctorController extends AbstractController
                         $a=$hospital->getId();
                     
                         $repository = $this->getDoctrine()->getRepository(Doctor::class);
-                        $doctor = $repository->findOneBy(array('id'=>$id,'hospital' => $a,'removed' => false));
+                        $doctor = $repository->findOneBy(array('created_by'=>$id,'hospital' => $a,'removed' => false));
 
                         if (!is_null($doctor)) {
                             $affiliate= $request->request->get('affiliate');
