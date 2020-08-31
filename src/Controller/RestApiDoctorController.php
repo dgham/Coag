@@ -130,6 +130,8 @@ class RestApiDoctorController extends AbstractController
                 $affiliate = $request->request->get('affiliate');
                 if (isset($affiliate)) {
                     $typeaffiliate= gettype($affiliate);
+                    dump($typeaffiliate);
+                    die;
                     if($typename === "boolean"){
                     if ($affiliate === true || $affiliate === false) {
                         if ($affiliate == false) {
