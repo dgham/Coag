@@ -39,7 +39,7 @@ class RestApiDoctorController extends AbstractController
             $repository = $this->getDoctrine()->getRepository(Doctor::class);
             $doctor = $repository->findBy(array('hospital' => $array['id'], 'removed' => false, 'affiliate' => true));
 
-            if (!is_null($hospital)) {
+            if (!empty($hospital)) {
                 return View::create($doctor, JsonResponse::HTTP_OK, []);
             } else {
                 return View::create('doctors Not Found', JsonResponse::HTTP_NOT_FOUND);
@@ -67,10 +67,9 @@ class RestApiDoctorController extends AbstractController
                 $array[$property->getName()] = $property->getValue($hospital);
                 $property->setAccessible(false);
             }
-
             $repository = $this->getDoctrine()->getRepository(Doctor::class);
             $doctor = $repository->findOneBy(array('created_by' => $id, 'hospital' => $array['id'], 'removed' => false));
-            if (!is_null($doctor)) {
+            if (!empty($doctor)) {
                 return View::create($doctor, JsonResponse::HTTP_OK, []);
             } else {
                 return View::create('doctors Not Found', JsonResponse::HTTP_NOT_FOUND);
@@ -97,10 +96,10 @@ class RestApiDoctorController extends AbstractController
                 $array[$property->getName()] = $property->getValue($hospital);
                 $property->setAccessible(false);
             }
-
             $repository = $this->getDoctrine()->getRepository(Doctor::class);
             $doctor = $repository->findBy(array('hospital' => $array['id'], 'removed' => false, 'affiliate' => false));
-
+            dump($doctor);
+            die;
             if (!is_null($doctor)) {
                 return View::create($doctor, JsonResponse::HTTP_OK, []);
             } else {
