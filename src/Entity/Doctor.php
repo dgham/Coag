@@ -62,7 +62,7 @@ class Doctor
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Hospital")
      * @ORM\JoinColumn(nullable=true)
-     * @Serializer\Groups({"users","admin","doctors"})
+     * @Serializer\Groups({"users","doctors"})
      * @Expose
      */
     private $hospital;
