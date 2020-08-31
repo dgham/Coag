@@ -115,7 +115,7 @@ class RestApiTreatmentController extends FOSRestController
                 $typetype= gettype($type);
                 if (isset($type)) {
                     if($typetype == "string"){
-                         $treatment->setType($type);
+                         $treatment->setMedicationType($type);
                             }
                             else{
                                 return View::create('type of treatment must be integer!', JsonResponse::HTTP_BAD_REQUEST, []);
@@ -220,7 +220,7 @@ class RestApiTreatmentController extends FOSRestController
                     $typetype= gettype($type);
                     if (isset($type)) {
                         if($typetype == "string"){
-                            $treatment->setType($type);
+                            $treatment->setMedicationType($type);
                         } else {
                             return View::create(' type of treatment should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
                         }

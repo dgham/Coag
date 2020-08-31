@@ -94,6 +94,11 @@ class Treatment
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $medicationType;
+
 
 
     public function getId(): ?int
@@ -256,6 +261,18 @@ class Treatment
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getMedicationType(): ?string
+    {
+        return $this->medicationType;
+    }
+
+    public function setMedicationType(?string $medicationType): self
+    {
+        $this->medicationType = $medicationType;
 
         return $this;
     }

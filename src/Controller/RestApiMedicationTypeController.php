@@ -33,7 +33,7 @@ class RestApiMedicationTypeController extends FOSRestController
         $data = array(
             'id' => $user->getId()
         );
-        if ($user->getUserType() === UserType::TYPE_ADMIN) {
+        if (($user->getUserType() === UserType::TYPE_ADMIN) || ($user->getUserType() === UserType::TYPE_DOCTOR)) {
             $repository = $this->getDoctrine()->getRepository(MedicationType::class);
             $speciality = $repository->findAll(array('id'=>'DESC','removed'=>false));
             if(!empty($speciality)){
@@ -50,13 +50,13 @@ class RestApiMedicationTypeController extends FOSRestController
 
 
      /**
-    * @Rest\Get("/api/MedicationType/{id}", name ="search_medication")
+     * @Rest\Get("/api/MedicationType/{id}", name ="search_medication")
      * @Rest\View(serializerGroups={"admin"})
      */
     public function searchMedication($id)
     {
         $user=$this->getUser();
-        if ($user->getUserType() === UserType::TYPE_ADMIN) {
+        if (($user->getUserType() === UserType::TYPE_ADMIN) || ($user->getUserType() === UserType::TYPE_DOCTOR)) {
             $repository = $this->getDoctrine()->getRepository(MedicationType::class);
             $medicationtype = $repository->findOneBy(array('id' => $id,'removed' => false));
             if (!empty($medicationtype)) {
