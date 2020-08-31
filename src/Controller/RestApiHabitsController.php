@@ -70,7 +70,7 @@ class RestApiHabitsController extends FOSRestController
     }
      /**
      * @Rest\Get("/api/habits/{id}", name ="search_habits")
-     * @Rest\View(serializerGroups={"doctors"})
+     * @Rest\View(serializerGroups={"patients"})
      */
     public function searchhabits($id){
         $user=$this->getUser();
@@ -111,7 +111,7 @@ class RestApiHabitsController extends FOSRestController
     
     /**
      * @Rest\Post("/api/habits", name ="post_habits")
-     * @Rest\View(serializerGroups={"users"})
+     * @Rest\View(serializerGroups={"patients"})
      */
     public function create(Request $request,EntityManagerInterface $entity){
         $user = $this->getUser();
@@ -161,7 +161,7 @@ class RestApiHabitsController extends FOSRestController
    /**
    * @param Request $request
    * @Rest\Patch("/api/habits/{id}", name ="patch_habits")
-   * @Rest\View(serializerGroups={"users"})
+   * @Rest\View(serializerGroups={"patients"})
    */
     public function patchAction(Request $request,$id)
     {
