@@ -88,11 +88,11 @@ class RestApiUserController extends FOSRestController
                      if($typematricule == "string"){
                        $doctor->setMatricule($matricule);
                      }else{
-                        return View::create('Medical identity should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
+                        return View::create('medical_identity should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
                      }
                     }
                      else{
-                        return View::create('missing medical identity of doctor !!', JsonResponse::HTTP_BAD_REQUEST, []);
+                        return View::create('missing medical_identity of doctor !!', JsonResponse::HTTP_BAD_REQUEST, []);
                      }
                         $doctor->setAffiliate(false);
                         $doctor->setCreatedBy($user);
@@ -101,9 +101,9 @@ class RestApiUserController extends FOSRestController
                         $entity ->persist($doctor);
                         $entity->flush();
                         $repository = $this->getDoctrine()->getRepository(User::class);
-                        $patient_id = $repository->findBy(array('id'=> 132));
+                        $patientid = $repository->findOneBy(array('id'=> 132));
                         $doctorAssignment=new DoctorAssignement();
-                        $doctorAssignment->setIdPatient($patient_id);
+                        $doctorAssignment->setIdPatient($patientid);
                         $doctorAssignment->setIdDoctor($user);
                         $doctorAssignment->setRequestDate(new \DateTime());
                         $doctorAssignment->setStatus("Accepted");
@@ -113,10 +113,7 @@ class RestApiUserController extends FOSRestController
                         $doctorAssignment->setCreatedAt(new \DateTime());
                         $doctorAssignment->setInvitationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
                         $entity ->persist($doctorAssignment);
-                        $entity->flush();
-
-                        
-                                          
+                        $entity->flush();                        
                 }
                     if ($usertype == "hospital"){
                         $hospital = new Hospital();
@@ -126,6 +123,7 @@ class RestApiUserController extends FOSRestController
                         $entity ->persist($hospital);
                         $entity->flush();
                     }
+
                     $response=array(
                         'message'=>"account created with success",
                         'result'=> $user,
