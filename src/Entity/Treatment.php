@@ -93,6 +93,7 @@ class Treatment
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Serializer\Groups({"doctors"})
      */
     private $medicationType;
 
