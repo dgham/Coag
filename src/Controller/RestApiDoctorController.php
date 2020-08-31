@@ -115,8 +115,8 @@ class RestApiDoctorController extends AbstractController
                         if (!is_null($doctor)) {
                             $affiliate= $request->request->get('affiliate');
                             if (isset($affiliate)){
-                            if ($affiliate == true || $affiliate == false){
-                            if ($affiliate == false){
+                            if ($affiliate === true || $affiliate === false){
+                            if ($affiliate === false){
                                     $doctor->setHospital(null);
                                 }
                             $doctor->setAffiliate($affiliate);
