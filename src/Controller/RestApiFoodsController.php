@@ -23,7 +23,7 @@ class RestApiFoodsController extends FOSRestController
 {
 
     /**
-     * @Rest\Get("/api/Foods", name ="api_foods")
+     * @Rest\Get("/api/foods", name ="api_foods")
      * @Rest\View(serializerGroups={"admin"})
      */
     public function index()
@@ -49,7 +49,7 @@ class RestApiFoodsController extends FOSRestController
 
 
      /**
-     * @Rest\Get("/api/Foods/{id}", name ="search_foods")
+     * @Rest\Get("/api/foods/{id}", name ="search_foods")
      * @Rest\View(serializerGroups={"admin"})
      */
     public function searchFoods($id)
@@ -71,7 +71,7 @@ class RestApiFoodsController extends FOSRestController
 
 
     /**
-    * @Rest\Post("/api/Foods", name ="post_foods")
+    * @Rest\Post("/api/foods", name ="post_foods")
      * @Rest\View(serializerGroups={"admin"})
      */
     public function create(Request $request,EntityManagerInterface $entity)
@@ -144,7 +144,7 @@ class RestApiFoodsController extends FOSRestController
         /**
              * @param Request $request
              *
-         * @Rest\PATCH("/api/Foods/{id}", name ="patch_foods")
+         * @Rest\PATCH("/api/foods/{id}", name ="patch_foods")
              * @Rest\View(serializerGroups={"admin"})
              */
             public function patchAction(Request $request,$id)
@@ -211,7 +211,7 @@ class RestApiFoodsController extends FOSRestController
                 }
             }
             /**
-            * @Rest\Delete("/api/Foods/{id}", name ="delete_foods")
+            * @Rest\Delete("/api/foods/{id}", name ="delete_foods")
             */
             public function delete($id){
                 $user = $this->getUser();
