@@ -37,9 +37,9 @@ class RestApiAssetController  extends FOSRestController
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                       }
         }
-      /**
+    /**
     * @Rest\Get("/api/asset/{id}", name ="search_asset")
-     * @Rest\View(serializerGroups={"admin"})
+    * @Rest\View(serializerGroups={"admin"})
      */
     public function searchAsset($id)
     {

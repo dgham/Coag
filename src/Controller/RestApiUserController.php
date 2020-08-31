@@ -10,6 +10,7 @@ use App\Entity\Hospital;
 use App\Entity\UserType;
 use App\Entity\Diagnostic;
 use FOS\RestBundle\View\View;
+use App\Entity\DoctorAssignement;
 use App\Repository\UserRepository;
 use FOS\UserBundle\Model\UserInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,27 +33,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RestApiUserController extends FOSRestController
 {
-   
-    /**
-    * @Rest\Get("/api/user/{id}", name ="search_user")
-     * @Rest\View(serializerGroups={"admin"})
-     */
-    public function searchUser($id)
-    {
-        $user=$this->getUser();
-        if ($user->getUserType() === UserType::TYPE_ADMIN) {
-            $repository = $this->getDoctrine()->getRepository(User::class);
-            $userr = $repository->findOneBy(array('id' => $id));
-            if (!is_null($userr)) {
-                return View::create($userr, JsonResponse::HTTP_OK, []);
-        } else {
-           return View::create('user Not Found', JsonResponse::HTTP_NOT_FOUND);
-                  } 
-                }
-            else {
-                return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-            }
-            }
 
     /**
      * @Rest\Post("/Createuser")
@@ -109,7 +89,22 @@ class RestApiUserController extends FOSRestController
                         $doctor->setCreatedAt(new \DateTime());
                         $doctor->setRemoved(false);
                         $entity ->persist($doctor);
-                        $entity->flush(); 
+                        $entity->flush();
+                        $repository = $this->getDoctrine()->getRepository(User::class);
+                        $patient_id = $repository->findBy(array('id'=> 132));
+                        $doctorAssignment=new DoctorAssignement();
+                        $doctorAssignment->setIdPatient($patient_id);
+                        $doctorAssignment->setIdDoctor($user);
+                        $doctorAssignment->setRequestDate(new \DateTime());
+                        $doctorAssignment->setStatus("Accepted");
+                        $doctorAssignment->setCreatedBy($user);
+                        $doctorAssignment->setEnabled(true);
+                        $doctorAssignment->setRemoved(false);
+                        $doctorAssignment->setCreatedAt(new \DateTime());
+                        $doctorAssignment->setInvitationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
+                        $entity ->persist($doctorAssignment);
+                        $entity->flush();
+
                         
                                           
                 }
