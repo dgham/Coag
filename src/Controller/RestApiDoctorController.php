@@ -29,16 +29,6 @@ class RestApiDoctorController extends AbstractController
             public function index()
             {
                 $user = $this->getUser();
-                if ($user->getUserType() === UserType::TYPE_ADMIN) {
-                    $repository = $this->getDoctrine()->getRepository(Doctor::class);
-                    $doctor = $repository->findAll();
-            if (!is_null($doctor)) {
-                return View::create($doctor, JsonResponse::HTTP_OK, []);
-            } else {
-                return View::create('doctors Not Found', JsonResponse::HTTP_NOT_FOUND);
-                    }
-                    }
-
                     if ($user->getUserType() === UserType::TYPE_HOSPITAL) {
                         $repository = $this->getDoctrine()->getRepository(Hospital::class);
                         $hospital = $repository->findOneBy(array('created_by' => $user->getId(),'removed' => false));
@@ -110,7 +100,7 @@ class RestApiDoctorController extends AbstractController
              *
          * @Rest\Patch("/api/doctor/UpdateAffiliate", name ="patch_doctorr")
          * @Rest\View(serializerGroups={"doctors"})
-             */
+         */
             public function patchdoctor(Request $request)
             {
                 $user = $this->getUser();
@@ -239,16 +229,6 @@ class RestApiDoctorController extends AbstractController
              */
             public function search($id){
                 $user = $this->getUser();
-                if ($user->getUserType() === UserType::TYPE_ADMIN) {
-                    $repository = $this->getDoctrine()->getRepository(Doctor::class);
-                    $doctor = $repository->findBy(array('id'=>$id));
-                
-            if (!is_null($doctor)) {
-                return View::create($doctor, JsonResponse::HTTP_OK, []);
-            } else {
-                return View::create('doctors Not Found', JsonResponse::HTTP_NOT_FOUND);
-                    }
-                    }
 
                     if ($user->getUserType() === UserType::TYPE_HOSPITAL) {
                         $repository = $this->getDoctrine()->getRepository(Hospital::class);
@@ -262,7 +242,7 @@ class RestApiDoctorController extends AbstractController
                         }
                     
                         $repository = $this->getDoctrine()->getRepository(Doctor::class);
-                        $doctor = $repository->findOneBy(array('id'=>$id,'hospital' =>$array['id'],'removed' => false));
+                        $doctor = $repository->findOneBy(array('created_by'=>$id,'hospital' =>$array['id'],'removed' => false));
                 if (!is_null($doctor)) {
                     return View::create($doctor, JsonResponse::HTTP_OK, []);
                 } else {

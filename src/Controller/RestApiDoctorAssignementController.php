@@ -1071,7 +1071,7 @@ class RestApiDoctorAssignementController extends AbstractController
                         $assignementpending->setUpdatedAt(new \DateTime());
                         $em = $this->getDoctrine()->getManager();
                         $em->flush(); 
-                        return View::create('congratulation, you are the doctor of this patient' , JsonResponse::HTTP_OK, []);
+                        return View::create('QrCode valid with success.Now, you are the doctor of this patient' , JsonResponse::HTTP_OK, []);
                       } 
                       if (!empty($assignementrefused)){
                         $assignementrefused->setStatus("Accepted");
