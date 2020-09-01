@@ -267,9 +267,97 @@ class RestApiDoctorAssignementController extends AbstractController
     return View::create($response, JsonResponse::HTTP_OK, []); 
                }
             }
+             if(!empty($Assignementacceptedremoved)){
+                $token= $Assignementacceptedremoved->getInvitationToken();
+                if($token !=null){
+                $token= $AssignementRefusedvalidation->getInvitationToken();
+                $AssignementRefusedvalidation->setRequestDate(new \DateTime());
+                $AssignementRefusedvalidation->setUpdatedBy($user);
+                $AssignementRefusedvalidation->setUpdatedAt(new \DateTime());
+                $AssignementRefusedvalidation->setStatus('Pending');
+                $em = $this->getDoctrine()->getManager();
+                $em->flush();
+                try {
+                    $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
+                        ->setUsername('amira.dgham@intern.continuousnet.com')
+                        ->setPassword('?qS^3igZ')
+                        ->setStreamOptions(array('ssl' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                    $mailer = new \Swift_Mailer($transport);
+            $message = (new \Swift_Message('CoagCare message'))
+            ->setFrom('amira.dgham@intern.continuousnet.com')
+            ->setTo($email)
+            ->setBody(
+                '<html>' .
+                '<head>
+                <style>
+            .button {
+            background-color: #56c596; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 150px;
+
+            text-align: center;
+            color: white;
+            
+            }
+            .btn {
+                border: 2px solid #56c596;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                width: 150px;
+            
+                text-align: center;
+            }
+            
+            
+            .button3 {background-color: #6ccda4;} /* Red */ 
+            #container{
+                text-align: center;
+            }
+            </style></head>'.
+                            ' <body><br>
+                        <center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="250px" height="250px"></center><br> <center><h2 style="color:#282828" > you have been invited to be assigned <br> by doctor '.$username.'</h2></center> <br><p> Dear '. $name .',<br><br> We got a request invitation from CoagCare Doctor '. $username .' 
+                        that wants to assigned you .Just click the link below and you
+                        you will be on your way. If you did not want to allow Dr '. $username .'to assigned you, please ignore this email by clicking on refuse button and thanks . </p>
+                        <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
+                        <br><div id=`container`><center><div class="container"><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
+                        <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
+                        © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
+                            ' </body>' .
+                            '</html>',
+                            'text/html' 
+                        );
+        $mailer->send($message);
+    } catch (\Exception $ex) {
+
+        return View::create($ex->getMessage(), Response::HTTP_BAD_REQUEST, []);
+    }
+        $response=array(
+            'message'=>'success',
+            'result'=>'Email was send successfuly, check your email to reset your password'
+        );
+    return View::create($response, JsonResponse::HTTP_OK, []); 
+                } 
+            }
              
 
-                 if ((!empty($AssignementRefusedvalidation)) || (!empty($Assignementacceptedremoved))){
+
+
+
+
+                 if ((!empty($AssignementRefusedvalidation))){
                         $token= $AssignementRefusedvalidation->getInvitationToken();
                         if($token !=null){
                         $token= $AssignementRefusedvalidation->getInvitationToken();
@@ -580,8 +668,94 @@ class RestApiDoctorAssignementController extends AbstractController
                     }
                   
                         }
+    if(!empty($Assignementacceptedromoved)){
+
+        $token= $Assignementacceptedromoved->getInvitationToken();
+        if($token !=null){
+        $token= $AssignementRefusedvalidation->getInvitationToken();
+        $AssignementRefusedvalidation->setRequestDate(new \DateTime());
+        $AssignementRefusedvalidation->setUpdatedBy($user);
+        $AssignementRefusedvalidation->setUpdatedAt(new \DateTime());
+        $AssignementRefusedvalidation->setStatus('Pending');
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        try {
+            $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
+                ->setUsername('amira.dgham@intern.continuousnet.com')
+                ->setPassword('?qS^3igZ')
+                ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+            $mailer = new \Swift_Mailer($transport);
+    $message = (new \Swift_Message('CoagCare message'))
+    ->setFrom('amira.dgham@intern.continuousnet.com')
+    ->setTo($email)
+    ->setBody(
+        '<html>' .
+        '<head>
+        <style>
+    .button {
+    background-color: #56c596; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 150px;
+
+    text-align: center;
+    color: white;
     
-                     if ((!empty($AssignementRefusedvalidation)) || (!empty($Assignementacceptedromoved))){
+    }
+    .btn {
+        border: 2px solid #56c596;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        width: 150px;
+    
+        text-align: center;
+    }
+    
+    
+    .button3 {background-color: #6ccda4;} /* Red */ 
+    #container{
+        text-align: center;
+    }
+    </style></head>'.
+                    ' <body><br>
+                <center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="250px" height="250px"></center><br> <center><h2 style="color:#282828" > you have been invited to be assigned <br> by the patient '.$username.'</h2></center> <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
+                that wants to be his/her doctor .Just click the button Accept below and you
+                you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
+                <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
+                <br><div id=`container`><center><div class="container"><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
+                <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
+                © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
+                    ' </body>' .
+                    '</html>',
+                    'text/html' 
+                );
+$mailer->send($message);
+} catch (\Exception $ex) {
+
+return View::create($ex->getMessage(), Response::HTTP_BAD_REQUEST, []);
+}
+$response=array(
+    'message'=>'success',
+    'result'=>'Email was send successfuly, check your email to reset your password'
+);
+return View::create($response, JsonResponse::HTTP_OK, []); 
+        } 
+
+
+    }
+                     if (!empty($AssignementRefusedvalidation)){
                             $token= $AssignementRefusedvalidation->getInvitationToken();
                             if($token !=null){
                             $token= $AssignementRefusedvalidation->getInvitationToken();
