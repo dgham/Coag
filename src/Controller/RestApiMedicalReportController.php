@@ -35,8 +35,11 @@ class RestApiMedicalReportController extends FOSRestController
         if ($user->getUserType() === UserType::TYPE_DOCTOR) {
             $notesrepository = $this->getDoctrine()->getRepository(Note::class);
             $notes = $notesrepository->findBy(array('created_by'=> $data,'remove' => false),array('created_at'=>'DESC'));
-            if (!is_null($notes)) {
+            if (!empty($notes)) {
                 return View::create($notes, JsonResponse::HTTP_OK, []);
+         }
+         else{
+            return View::create('No data found :)', JsonResponse::HTTP_OK, []);
          }
 
         }
@@ -44,8 +47,11 @@ class RestApiMedicalReportController extends FOSRestController
     if ($user->getUserType() === UserType::TYPE_PATIENT) {
         $notesrepository = $this->getDoctrine()->getRepository(Note::class);
         $notes = $notesrepository->findBy(array('patient_id'=> $data,'remove' => false));
-        if (!is_null($notes)) {
+        if (!empty($notes)) {
             return View::create($notes, JsonResponse::HTTP_OK, []);
+        }
+        else{
+            return View::create('No data found :)', JsonResponse::HTTP_OK, []);
         }
       
     }

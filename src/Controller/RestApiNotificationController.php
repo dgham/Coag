@@ -34,9 +34,16 @@ class RestApiNotificationController extends FOSRestController
             if (!is_null($notification)) {
                 return View::create($notification, JsonResponse::HTTP_OK, []);
     }
-    else {
-        return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-    }
+    
+        else {
+            return View::create('No data found', JsonResponse::HTTP_OK, []);
+        }
+       
+    
+
+}
+else{
+    return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
 } 
 
   }

@@ -45,7 +45,6 @@ class RestApiHabitsController extends FOSRestController
          if ($user->getUserType() === UserType::TYPE_DOCTOR) {
             $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
             $Assigned = $repository->findBy(array('id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>false));
-         
            foreach ($Assigned as $data) {
            $a[]= $data->getIdPatient();
            }
