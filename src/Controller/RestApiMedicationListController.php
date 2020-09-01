@@ -139,7 +139,8 @@ class RestApiMedicationListController extends FOSRestController
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     }
-       /**
+    
+    /**
      * @param Request $request
      * @Rest\Patch("/api/medicationList/{id}", name ="patch_medicationList")
      * @Rest\View(serializerGroups={"users"})
