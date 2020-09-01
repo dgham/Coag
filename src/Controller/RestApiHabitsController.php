@@ -117,9 +117,9 @@ class RestApiHabitsController extends FOSRestController
         $user = $this->getUser();
         try{
             if ($user->getUserType() === UserType::TYPE_PATIENT) {
-                $breakfast= $request->request->get('breakfastFood');
-                $launch= $request->request->get('launchFood');
-                $dinner= $request->request->get('dinnerFood');
+                $breakfast= $request->request->get('breakfast_food');
+                $launch= $request->request->get('lunch_food');
+                $dinner= $request->request->get('dinner_food');
                 $typebreakfast= gettype($breakfast);
                 $typelaunch= gettype($launch);
                 $typedinner= gettype($dinner);
