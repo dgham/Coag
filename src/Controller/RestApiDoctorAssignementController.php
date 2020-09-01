@@ -270,11 +270,11 @@ class RestApiDoctorAssignementController extends AbstractController
              if(!empty($Assignementacceptedremoved)){
                 $token= $Assignementacceptedremoved->getInvitationToken();
                 if($token !=null){
-                $token= $AssignementRefusedvalidation->getInvitationToken();
-                $AssignementRefusedvalidation->setRequestDate(new \DateTime());
-                $AssignementRefusedvalidation->setUpdatedBy($user);
-                $AssignementRefusedvalidation->setUpdatedAt(new \DateTime());
-                $AssignementRefusedvalidation->setStatus('Pending');
+                $token= $Assignementacceptedremoved->getInvitationToken();
+                $Assignementacceptedremoved->setRequestDate(new \DateTime());
+                $Assignementacceptedremoved->setUpdatedBy($user);
+                $Assignementacceptedremoved->setUpdatedAt(new \DateTime());
+                $Assignementacceptedremoved->setStatus('Pending');
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
                 try {
@@ -672,11 +672,11 @@ class RestApiDoctorAssignementController extends AbstractController
 
         $token= $Assignementacceptedromoved->getInvitationToken();
         if($token !=null){
-        $token= $AssignementRefusedvalidation->getInvitationToken();
-        $AssignementRefusedvalidation->setRequestDate(new \DateTime());
-        $AssignementRefusedvalidation->setUpdatedBy($user);
-        $AssignementRefusedvalidation->setUpdatedAt(new \DateTime());
-        $AssignementRefusedvalidation->setStatus('Pending');
+        $token= $Assignementacceptedromoved->getInvitationToken();
+        $Assignementacceptedromoved->setRequestDate(new \DateTime());
+        $Assignementacceptedromoved->setUpdatedBy($user);
+        $Assignementacceptedromoved->setUpdatedAt(new \DateTime());
+        $Assignementacceptedromoved->setStatus('Pending');
         $em = $this->getDoctrine()->getManager();
         $em->flush();
         try {
