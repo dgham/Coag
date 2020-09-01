@@ -18,9 +18,6 @@ class Eatinghabits
      * @Serializer\Groups({"users","doctors","patients"})
      */
     private $id;
-
-    
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="eatinghabits")
      * @ORM\JoinColumn(nullable=false)
@@ -59,12 +56,24 @@ class Eatinghabits
      */
     private $remove;
 
+
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Foods")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Serializer\Groups({"doctors","patients"})
      */
-    private $food_description;
+    private $breakfastFood;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+      * @Serializer\Groups({"doctors","patients"})
+     */
+    private $lunchFood;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+    * @Serializer\Groups({"doctors","patients"})
+     */
+    private $dinnerFood;
 
 
 
@@ -167,6 +176,42 @@ class Eatinghabits
     public function setFoodDescription(?Foods $food_description): self
     {
         $this->food_description = $food_description;
+
+        return $this;
+    }
+
+    public function getBreakfastFood(): ?string
+    {
+        return $this->breakfastFood;
+    }
+
+    public function setBreakfastFood(?string $breakfastFood): self
+    {
+        $this->breakfastFood = $breakfastFood;
+
+        return $this;
+    }
+
+    public function getLunchFood(): ?string
+    {
+        return $this->lunchFood;
+    }
+
+    public function setLunchFood(?string $lunchFood): self
+    {
+        $this->lunchFood = $lunchFood;
+
+        return $this;
+    }
+
+    public function getDinnerFood(): ?string
+    {
+        return $this->dinnerFood;
+    }
+
+    public function setDinnerFood(string $dinnerFood): self
+    {
+        $this->dinnerFood = $dinnerFood;
 
         return $this;
     }

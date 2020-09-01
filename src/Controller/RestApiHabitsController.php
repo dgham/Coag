@@ -117,38 +117,37 @@ class RestApiHabitsController extends FOSRestController
         $user = $this->getUser();
         try{
             if ($user->getUserType() === UserType::TYPE_PATIENT) {
-                $foodId= $request->request->get('food_description_id');
-                $typedescription= gettype($foodId);
-                if (isset($foodId)) {
-                    if($typedescription == "integer"){
-                        $repository = $this->getDoctrine()->getRepository(Foods::class);
-                        $foods = $repository->findOneBy(array('id' => $foodId,'removed' => false));
-                        if (!is_null($foods)) { 
-                            $habits = new Eatinghabits();
-                            $habits->setFoodDescription($foods);
-                            $habits->setCreatedBy($user);
-                            $habits->setCreatedAt(new \DateTime());
-                            $habits->setRemove(false);
-                            $entity ->persist($habits);
-                            $entity->flush();
-                            $response=array(
-                                'message'=>'health habits created',
-                                'result'=>$habits,
-                            
-                            );
-                            return View::create($response, Response::HTTP_CREATED, []);
-                                
-                            }
-                            else{
-                                return View::create('food description not exist !', JsonResponse::HTTP_BAD_REQUEST);
-                            }
-                        }
-                                else{
-                                    return View::create('health habit description must be an int', JsonResponse::HTTP_BAD_REQUEST); 
-                                }
-                            } else {
-                                return View::create('missing food_description_id !!', JsonResponse::HTTP_BAD_REQUEST);
-                            }
+                $breakfast= $request->request->get('breakfastFood');
+                $launch= $request->request->get('launchFood');
+                $dinner= $request->request->get('dinnerFood');
+                $typebreakfast= gettype($breakfast);
+                $typelaunch= gettype($launch);
+                $typedinner= gettype($dinner);
+                if ((isset($breakfast)) && (isset($launch)) && (isset($dinner))){
+                if (($typebreakfast === "string")|| ($typelaunch === "string") || ($typedinner === "string")){
+                    $habits = new Eatinghabits();
+                    $habits->setBreakfastFood($breakfast);
+                    $habits->setLunchFood($launch);
+                    $habits->setDinnerFood($dinner);
+                    $habits->setCreatedBy($user);
+                    $habits->setCreatedAt(new \DateTime());
+                    $habits->setRemove(false);
+                    $entity ->persist($habits);
+                    $entity->flush();
+                    $response=array(
+                        'message'=>'health habits created',
+                        'result'=>$habits,
+                    
+                    );
+                    return View::create($response, Response::HTTP_CREATED, []);
+                }
+                else{
+                    return View::create('Foods must be a type string', JsonResponse::HTTP_BAD_REQUEST, []);
+                }  
+            }
+            else{
+                return View::create('missing foods habits!', JsonResponse::HTTP_BAD_REQUEST, []);
+            }  
                         }
                         else{
                             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
@@ -157,6 +156,7 @@ class RestApiHabitsController extends FOSRestController
                         return View::create($ex->getMessage(), JsonResponse::HTTP_BAD_REQUEST, []);
                 }  
 }
+
 
    /**
    * @param Request $request
@@ -170,15 +170,17 @@ class RestApiHabitsController extends FOSRestController
             $repository = $this->getDoctrine()->getRepository(Eatinghabits::class);
             $habits = $repository->findOneBy(array('id' => $id,'created_by' => $user->getId(),'remove' => false));
                  if (!is_null($habits)){
-                    $foodId= $request->request->get('food_description_id');
-                    $typedescription= gettype($foodId);
-                    if (isset($foodId)) {
-                    if($typedescription == "integer"){
-                    $repository = $this->getDoctrine()->getRepository(Foods::class);
-                    $foods = $repository->findOneBy(array('id' => $foodId,'removed' => false));
-
-                    if (!is_null($foods)) { 
-                    $habits->setFoodDescription($foods);
+                    $breakfast= $request->request->get('breakfastFood');
+                    $launch= $request->request->get('launchFood');
+                    $dinner= $request->request->get('dinnerFood');
+                    $typebreakfast= gettype($breakfast);
+                    $typelaunch= gettype($launch);
+                    $typedinner= gettype($dinner);
+                    if ((isset($breakfast)) && (isset($launch)) && (isset($dinner))){
+                    if (($typebreakfast === "string")|| ($typelaunch === "string") || ($typedinner === "string")){
+                    $habits->setBreakfastFood($breakfast);
+                    $habits->setLunchFood($launch);
+                    $habits->setDinnerFood($dinner);
                     $habits->setUpdatedBy($user);
                     $habits->setUpdatedAt(new \DateTime());
                     $em = $this->getDoctrine()->getManager();
@@ -191,19 +193,17 @@ class RestApiHabitsController extends FOSRestController
                     return View::create($response, JsonResponse::HTTP_OK, []);
                      }  
                      else{
-                        return View::create('foods habits not exist', JsonResponse::HTTP_BAD_REQUEST); 
+                        return View::create('foods habits must be string', JsonResponse::HTTP_BAD_REQUEST); 
                     }  
                 }
-                    
-                    else{
-                        return View::create('health habit description must be a string', JsonResponse::HTTP_BAD_REQUEST); 
-                    }
+                else{
+                    return View::create('foods habits not found', JsonResponse::HTTP_NOT_FOUND);
                 }
-                     else {
-                        return View::create('Missing description', JsonResponse::HTTP_BAD_REQUEST);
-                    
-                 }
             }
+            else{
+                return View::create('missing foods habits', JsonResponse::HTTP_BAD_REQUEST);   
+            }
+                
         }
         else{
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
