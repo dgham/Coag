@@ -176,7 +176,6 @@ class RestApiHabitsController extends FOSRestController
                     $typebreakfast= gettype($breakfast);
                     $typelaunch= gettype($launch);
                     $typedinner= gettype($dinner);
-                    if ((isset($breakfast)) && (isset($launch)) && (isset($dinner))){
                     if (($typebreakfast === "string")|| ($typelaunch === "string") || ($typedinner === "string")){
                     $habits->setBreakfastFood($breakfast);
                     $habits->setLunchFood($launch);
@@ -199,11 +198,8 @@ class RestApiHabitsController extends FOSRestController
                 else{
                     return View::create('foods habits not found', JsonResponse::HTTP_NOT_FOUND);
                 }
-            }
-            else{
-                return View::create('missing foods habits', JsonResponse::HTTP_BAD_REQUEST);   
-            }
-                
+            
+           
         }
         else{
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
