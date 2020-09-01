@@ -330,7 +330,7 @@ class RestApiMesureINRController extends FOSRestController
 
 ///////////get all mesure of INR By of one patient/////////////////////
      /**
-     * @Rest\Get("/api/doctor/PatientDiagnostic/{id}", name ="patient_diagnostic")
+     * @Rest\Get("/api/DiagnosticByPatient/{id}", name ="patient_diagnostic")
      * @Rest\View(serializerGroups={"users"})
      */
     public function ResultbyPatient($id)
@@ -341,16 +341,26 @@ class RestApiMesureINRController extends FOSRestController
         );
         if ($user->getUserType() === UserType::TYPE_DOCTOR) {
 
-            $repository = $this->getDoctrine()->getRepository(Patient::class);
+            $repository = $this->getDoctrine()->getRepository(User::class);
             $patient = $repository->findOneBy(array('id' => $id));
             if (!is_null($patient)) {
-                $createduser=$patient->getCreatedBy()->getId();
+                $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                $doctorassignement = $repository->findOneBy(array('id_patient' => $patient->getId(),'id_doctor' => $user->getId(),'status'=> 'Accepted','removed'=> false));
+                if (!is_null($doctorassignement)) {
                 $repository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnostic = $repository->findBy(array('created_by' => $createduser));
+                $diagnostic = $repository->findBy(array('created_by' => $patient));
                return View::create($diagnostic, JsonResponse::HTTP_OK, []);
                
             }
+            else{
+                return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+            }
         }
+
+    else{
+        return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+    }
+}
             else {
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
             }
