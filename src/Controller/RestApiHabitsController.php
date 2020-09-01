@@ -229,6 +229,9 @@ class RestApiHabitsController extends FOSRestController
                     );
                     return View::create($response, JsonResponse::HTTP_OK, []);
                      }  
+                     else{
+                        return View::create('error', JsonResponse::HTTP_OK, []); 
+                     }
                     }
                 else{
                     return View::create('foods habits not found', JsonResponse::HTTP_NOT_FOUND);
