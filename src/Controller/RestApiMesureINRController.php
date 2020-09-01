@@ -562,19 +562,14 @@ class RestApiMesureINRController extends FOSRestController
                         if ($dataa->getCreatedBy()->getGender() == "Male") {
                             $NBMale = $NBMale + 1;
                         }
-
                     }
-                
-                    
                     $purcentageMale = strval(intval(round($NBMale * 100 / $total))) . "%";
                     $NBFemale = 0;
                     foreach ($diagnostic as $dataa) {
                         if ($dataa->getCreatedBy()->getGender() == "Female") {
                             $NBFemale = $NBFemale + 1;
                         }
-
                     }
-
                     $purcentaFemale = strval(intval(round($NBFemale * 100 / $total))) . "%";
 
                     $response = array(
@@ -624,7 +619,16 @@ class RestApiMesureINRController extends FOSRestController
                         }
                     }
 
+                    if($total===0){
+                        $response = array(
+                            'Anormal_MaleMesure' => "0%",
+                            'Anormal_FemaleMesure' => "0%",
+                        );
+                        return View::create($response, JsonResponse::HTTP_OK, []);
+    
+                    }
                     if($NBMale===0){
+                        $purcentaFemale = strval(intval(round($NBFemale * 100 / $total))) . "%";
                         $response = array(
                             'Anormal_MaleMesure' => "0%",
                             'Anormal_FemaleMesure' => $purcentaFemale,
@@ -633,6 +637,7 @@ class RestApiMesureINRController extends FOSRestController
     
                     }
                     if($NBFemale===0){
+                        $purcentageMale = strval(intval(round($NBMale * 100 / $total))) . "%";
                         $response = array(
                             'Anormal_MaleMesure' => $purcentageMale,
                             'Anormal_FemaleMesure' => "0%",
