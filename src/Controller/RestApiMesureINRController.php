@@ -751,4 +751,65 @@ class RestApiMesureINRController extends FOSRestController
                 
 
     
+
+
+
+
+  /**
+        * @Rest\Get("/api/DoctorActivity", name ="DoctorUser_Activity")
+        * @Rest\View(serializerGroups={"doctors"})
+        */
+        public function doctorActivityhistory(){
+            $a=array();
+            $user=$this->getUser();
+            $data = array(
+                'id' => $user->getId()
+            );
+            if ($user->getUserType() === UserType::TYPE_DOCTOR) {
+                $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                $Assigned = $repository->findBy(array('id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>false));
+                if (!is_null($Assigned)) {
+                    foreach ($Assigned as $data){
+                    $a[]= $data->getIdPatient();
+                    }
+                
+                $patientrepository = $this->getDoctrine()->getRepository(User::class);
+                $patient = $patientrepository->findBy(array('id'=>$a));
+                
+                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
+                $diagnostic = $diagnosticrepository->findBy(array('created_by'=>$a));
+                $reportrepository = $this->getDoctrine()->getRepository(Note::class);
+                $report = $reportrepository->findBy(array('created_by'=>$user->getId() ,'remove'=>false));
+                $treatmentrepository = $this->getDoctrine()->getRepository(Treatment::class);
+                $treatment = $treatmentrepository->findBy(array('created_by'=>$user->getId(),'remove'=>false));
+    
+                $patientNumber=count($patient);
+                $diagnosticnumber=count($diagnostic);
+                $reportNumber=count($report);
+                $treatment=count($treatment);
+    
+                $response=array(
+                    'PatientNumber'=>$patientNumber,
+                    'ResultINRNumber'=>$diagnosticnumber,
+                    'MedicationNumber'=>$treatment,
+                    'MedicalReport'=>$reportNumber,
+                
+                );
+                    return View::create($response, JsonResponse::HTTP_OK, []);
+                }
+                else{
+                    return View::create('patient not found', JsonResponse::HTTP_NOT_FOUND, []); 
+                }
+            }
+            
+    
+        else {
+            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+            
+    
+        }
+    
+        }
+
+
     }
