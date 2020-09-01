@@ -185,6 +185,7 @@ class RestApiDoctorAssignementController extends AbstractController
                 $Assignementvalidation = $repository->findOneBy(array('id_doctor'=>$idDoctor,'id_patient'=>$idpatient,'created_by'=>$user->getId(),'status'=>'Pending','removed'=>false));
                 $AssignementRefusedvalidation = $repository->findOneBy(array('id_doctor'=>$idDoctor,'id_patient'=>$idpatient,'created_by'=>$user->getId(),'status'=>'Refused','removed'=>false));
                 $Assignementacceptedvalidation = $repository->findOneBy(array('id_doctor'=>$idDoctor,'id_patient'=>$idpatient,'status'=>'Accepted','removed'=>false));
+                $Assignementacceptedremoved = $repository->findOneBy(array('id_doctor'=>$idDoctor,'id_patient'=>$idpatient,'status'=>'Accepted','removed'=>true));
                 if (!empty($Assignementacceptedvalidation)){
                     return View::create('you are already accepted by this patient ', JsonResponse::HTTP_FORBIDDEN, []);
                 }
@@ -268,7 +269,7 @@ class RestApiDoctorAssignementController extends AbstractController
             }
              
 
-                 if (!empty($AssignementRefusedvalidation)){
+                 if ((!empty($AssignementRefusedvalidation)) || (!empty($Assignementacceptedremoved))){
                         $token= $AssignementRefusedvalidation->getInvitationToken();
                         if($token !=null){
                         $token= $AssignementRefusedvalidation->getInvitationToken();
@@ -482,6 +483,7 @@ class RestApiDoctorAssignementController extends AbstractController
                     $Assignementvalidation = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$idpatient,'created_by'=>$user->getId(),'status'=>'Pending','removed'=>false));
                     $AssignementRefusedvalidation = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$idpatient,'created_by'=>$user->getId(),'status'=>'Refused','removed'=>false));
                     $Assignementacceptedvalidation = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$idpatient,'status'=>'Accepted','removed'=>false));
+                    $Assignementacceptedromoved = $repository->findOneBy(array('id_doctor'=>$iddoctor,'id_patient'=>$idpatient,'status'=>'Accepted','removed'=>true));
                     if (!empty($Assignementacceptedvalidation)){
                         return View::create('you are already accepted by this doctor ', JsonResponse::HTTP_FORBIDDEN, []);
                     }
@@ -579,7 +581,7 @@ class RestApiDoctorAssignementController extends AbstractController
                   
                         }
     
-                     if (!empty($AssignementRefusedvalidation)){
+                     if ((!empty($AssignementRefusedvalidation)) || (!empty($Assignementacceptedromoved))){
                             $token= $AssignementRefusedvalidation->getInvitationToken();
                             if($token !=null){
                             $token= $AssignementRefusedvalidation->getInvitationToken();
@@ -978,6 +980,7 @@ class RestApiDoctorAssignementController extends AbstractController
                     else {
                         return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                         } 
+                        
                     }
                 else {
                     return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
