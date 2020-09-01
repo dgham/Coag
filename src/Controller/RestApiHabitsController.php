@@ -194,21 +194,22 @@ class RestApiHabitsController extends FOSRestController
                     $typebreakfast= gettype($breakfast);
                     $typelaunch= gettype($launch);
                     $typedinner= gettype($dinner);
-                    if ((isset($breakfast)) || (isset($launch)) || (isset($dinner))){
+                    if (isset($breakfast)){  
                         if (($typebreakfast === "string")){
                             $habits->setBreakfastFood($breakfast);
                         }
                         else{
                             return View::create('breakfast habits must be string', JsonResponse::HTTP_BAD_REQUEST); 
                         }  
-
+                        if (isset($launch)) {
                      if ($typelaunch === "string"){
                         $habits->setLunchFood($launch);
                      } 
                      else{
                         return View::create('lunch habits must be string', JsonResponse::HTTP_BAD_REQUEST); 
                     }  
-              
+                }
+                    if (isset($dinner)){
                         if($typedinner === "string"){
                         $habits->setDinnerFood($dinner);
                     }
@@ -216,6 +217,7 @@ class RestApiHabitsController extends FOSRestController
                         return View::create('dinner habits must be string', JsonResponse::HTTP_BAD_REQUEST); 
                      
                      }
+                    }
                   
                    
                     $habits->setUpdatedBy($user);
@@ -229,9 +231,7 @@ class RestApiHabitsController extends FOSRestController
                     );
                     return View::create($response, JsonResponse::HTTP_OK, []);
                      }  
-                     else{
-                        return View::create('error', JsonResponse::HTTP_OK, []); 
-                     }
+                    
                     }
                 else{
                     return View::create('foods habits not found', JsonResponse::HTTP_NOT_FOUND);
