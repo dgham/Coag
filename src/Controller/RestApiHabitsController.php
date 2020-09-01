@@ -133,7 +133,7 @@ class RestApiHabitsController extends FOSRestController
                     }  
                 }
                 else{
-                    return View::create('missing dinner!', JsonResponse::HTTP_BAD_REQUEST, []);
+                    return View::create('missing breakfast!', JsonResponse::HTTP_BAD_REQUEST, []);
                 }  
                 if (isset($launch)){
                     if ($typelaunch === "string"){
