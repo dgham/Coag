@@ -66,6 +66,9 @@ class RestApiMesureINRController extends FOSRestController
             }
         
          }
+         else {
+            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+        }
     }
     /**
      * @Rest\Get("/api/diagnostic/{id}", name ="search_diagnostic")
