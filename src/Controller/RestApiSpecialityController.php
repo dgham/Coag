@@ -32,7 +32,7 @@ class RestApiSpecialityController extends FOSRestController
         $data = array(
             'id' => $user->getId()
         );
-        if ($user->getUserType() === UserType::TYPE_ADMIN) {
+        if (($user->getUserType() === UserType::TYPE_ADMIN) ||  ($user->getUserType() === UserType::TYPE_DOCTOR)) {
             $repository = $this->getDoctrine()->getRepository(Speciality::class);
             $speciality = $repository->findAll(array('id'=>'DESC','removed'=>false));
             if(!empty($speciality)){
@@ -55,7 +55,7 @@ class RestApiSpecialityController extends FOSRestController
     public function searchSpeciality($id)
     {
         $user=$this->getUser();
-        if ($user->getUserType() === UserType::TYPE_ADMIN) {
+        if (($user->getUserType() === UserType::TYPE_ADMIN) ||  ($user->getUserType() === UserType::TYPE_DOCTOR)){
             $repository = $this->getDoctrine()->getRepository(Speciality::class);
             $speciality = $repository->findOneBy(array('id' => $id,'removed' => false));
             if (!empty($speciality)) {
