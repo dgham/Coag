@@ -331,7 +331,7 @@ class RestApiMesureINRController extends FOSRestController
 ///////////get all mesure of INR By of one patient/////////////////////
      /**
      * @Rest\Get("/api/DiagnosticByPatient/{id}", name ="patient_diagnostic")
-     * @Rest\View(serializerGroups={"users"})
+     * @Rest\View(serializerGroups={"doctors"})
      */
     public function ResultbyPatient($id)
     {
