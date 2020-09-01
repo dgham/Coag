@@ -275,6 +275,7 @@ class RestApiDoctorAssignementController extends AbstractController
                 $Assignementacceptedremoved->setUpdatedBy($user);
                 $Assignementacceptedremoved->setUpdatedAt(new \DateTime());
                 $Assignementacceptedremoved->setStatus('Pending');
+                $Assignementacceptedremoved->setRemoved(false);
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
                 try {
@@ -677,6 +678,7 @@ class RestApiDoctorAssignementController extends AbstractController
         $Assignementacceptedromoved->setUpdatedBy($user);
         $Assignementacceptedromoved->setUpdatedAt(new \DateTime());
         $Assignementacceptedromoved->setStatus('Pending');
+        $Assignementacceptedromoved->setRemoved(false);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
         try {
