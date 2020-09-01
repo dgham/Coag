@@ -32,7 +32,7 @@ class RestApiFoodsController extends FOSRestController
         $data = array(
             'id' => $user->getId()
         );
-        if ($user->getUserType() === UserType::TYPE_ADMIN) {
+        if (($user->getUserType() === UserType::TYPE_ADMIN) || ($user->getUserType() === UserType::TYPE_PATIENT)) {
             $repository = $this->getDoctrine()->getRepository(Foods::class);
             $foods = $repository->findAll(array('id'=>'DESC','removed'=>false));
             if(!empty($foods)){
@@ -53,7 +53,7 @@ class RestApiFoodsController extends FOSRestController
     public function searchFoods($id)
     {
         $user=$this->getUser();
-        if ($user->getUserType() === UserType::TYPE_ADMIN) {
+        if (($user->getUserType() === UserType::TYPE_ADMIN) || ($user->getUserType() === UserType::TYPE_PATIENT)){
             $repository = $this->getDoctrine()->getRepository(Foods::class);
             $foods = $repository->findOneBy(array('id' => $id,'removed' => false));
             if (!empty($foods)) {
