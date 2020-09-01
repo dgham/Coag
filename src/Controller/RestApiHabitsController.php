@@ -201,6 +201,7 @@ class RestApiHabitsController extends FOSRestController
                         else{
                             return View::create('breakfast habits must be string', JsonResponse::HTTP_BAD_REQUEST); 
                         }  
+                    }
                         if (isset($launch)) {
                      if ($typelaunch === "string"){
                         $habits->setLunchFood($launch);
@@ -215,7 +216,6 @@ class RestApiHabitsController extends FOSRestController
                     }
                     else{
                         return View::create('dinner habits must be string', JsonResponse::HTTP_BAD_REQUEST); 
-                     
                      }
                     }
                   
@@ -232,7 +232,7 @@ class RestApiHabitsController extends FOSRestController
                     return View::create($response, JsonResponse::HTTP_OK, []);
                      }  
                     
-                    }
+                    
                 else{
                     return View::create('foods habits not found', JsonResponse::HTTP_NOT_FOUND);
                 } 
