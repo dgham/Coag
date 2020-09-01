@@ -139,7 +139,7 @@ class RestApiMedicationListController extends FOSRestController
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     }
-    
+
     /**
      * @param Request $request
      * @Rest\Patch("/api/medicationList/{id}", name ="patch_medicationList")
@@ -205,7 +205,7 @@ class RestApiMedicationListController extends FOSRestController
             $repository = $this->getDoctrine()->getRepository(MedicationList::class);
             $treatment = $repository->findOneBy(array('id' => $id,'removed' => false));
             if (!is_null($treatment)) {
-                    $treatment->setRemove(true);
+                    $treatment->setRemoved(true);
                     $treatment->setRemovedBy($user);
                     $treatment->setRemovedAt(new \DateTime());
                     $em = $this->getDoctrine()->getManager();
