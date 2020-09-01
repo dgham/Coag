@@ -183,17 +183,16 @@ class RestApiFoodsController extends FOSRestController
                                 else {
                                     return View::create('Food quantity must be a string', JsonResponse::HTTP_BAD_REQUEST);
                                 }
-                        }
-
-                            
+                            }
                             $foods->setUpdatedBy($user);
                             $foods->setUpdatedAt(new \DateTime());
                             $em = $this->getDoctrine()->getManager();
                             $em->flush();
+                            dump($foods);
+                            die;
                             $response=array(
                                 'message'=>'food updated',
                                 'result'=>$foods,
-                            
                             );
                             return View::create($response, JsonResponse::HTTP_OK, []);
                             }    

@@ -188,14 +188,15 @@ class RestApiHabitsController extends FOSRestController
             $repository = $this->getDoctrine()->getRepository(Eatinghabits::class);
             $habits = $repository->findOneBy(array('id' => $id,'created_by' => $user->getId(),'remove' => false));
                  if (!is_null($habits)){
-                    $breakfast= $request->request->get('breakfastFood');
-                    $launch= $request->request->get('launchFood');
-                    $dinner= $request->request->get('dinnerFood');
+                    $breakfast= $request->request->get('breakfast_food');
+                    $launch= $request->request->get('launch_food');
+                    $dinner= $request->request->get('dinner_food');
                     $typebreakfast= gettype($breakfast);
                     $typelaunch= gettype($launch);
                     $typedinner= gettype($dinner);
                     if (isset($breakfast)){  
                         if (($typebreakfast === "string")){
+                        
                             $habits->setBreakfastFood($breakfast);
                         }
                         else{
@@ -229,6 +230,7 @@ class RestApiHabitsController extends FOSRestController
                         'result'=>$habits,
                        
                     );
+                  
                     return View::create($response, JsonResponse::HTTP_OK, []);
                      }  
                     
