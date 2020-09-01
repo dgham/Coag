@@ -194,46 +194,31 @@ class RestApiHabitsController extends FOSRestController
                     $typebreakfast= gettype($breakfast);
                     $typelaunch= gettype($launch);
                     $typedinner= gettype($dinner);
-                    if (isset($breakfast)){
+                    if ((isset($breakfast)) || (isset($launch)) || (isset($dinner))){
                         if (($typebreakfast === "string")){
                             $habits->setBreakfastFood($breakfast);
-                            $habits->setUpdatedBy($user);
-                             $habits->setUpdatedAt(new \DateTime());
-                             $em = $this->getDoctrine()->getManager();
-                             $em->flush();
-                            $response=array(
-                            'message'=>'Health habits updated',
-                            'result'=>$habits,
-                       
-                    );
-                    return View::create($response, JsonResponse::HTTP_OK, []);
                         }
                         else{
                             return View::create('breakfast habits must be string', JsonResponse::HTTP_BAD_REQUEST); 
                         }  
-                    }
-                    if (isset($launch)){
-                     if($typelaunch === "string"){
+
+                     if ($typelaunch === "string"){
                         $habits->setLunchFood($launch);
-                        $habits->setUpdatedBy($user);
-                         $habits->setUpdatedAt(new \DateTime());
-                         $em = $this->getDoctrine()->getManager();
-                         $em->flush();
-                         $response=array(
-                        'message'=>'Health habits updated',
-                        'result'=>$habits,
-                       
-                    );
-                    return View::create($response, JsonResponse::HTTP_OK, []);
                      } 
                      else{
                         return View::create('lunch habits must be string', JsonResponse::HTTP_BAD_REQUEST); 
                     }  
-                    }
-                    if (isset($dinner)){
+              
                         if($typedinner === "string"){
                         $habits->setDinnerFood($dinner);
-                        $habits->setUpdatedBy($user);
+                    }
+                    else{
+                        return View::create('dinner habits must be string', JsonResponse::HTTP_BAD_REQUEST); 
+                     
+                     }
+                  
+                   
+                    $habits->setUpdatedBy($user);
                     $habits->setUpdatedAt(new \DateTime());
                     $em = $this->getDoctrine()->getManager();
                     $em->flush();
@@ -243,15 +228,8 @@ class RestApiHabitsController extends FOSRestController
                        
                     );
                     return View::create($response, JsonResponse::HTTP_OK, []);
-                    }
-                    else{
-                        return View::create('dinner habits must be string', JsonResponse::HTTP_BAD_REQUEST); 
-                    }  
-                }
-                  
-                   
-                   
                      }  
+                    }
                 else{
                     return View::create('foods habits not found', JsonResponse::HTTP_NOT_FOUND);
                 } 
