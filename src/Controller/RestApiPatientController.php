@@ -182,7 +182,7 @@ class RestApiPatientController extends FOSRestController
 }
 
  /**
-     * @Rest\Get("/api/latestMesure", name ="hospital_latest")
+     * @Rest\Get("/api/latestMesure", name ="mesure_latest")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function getLatestMesure()
@@ -192,33 +192,34 @@ class RestApiPatientController extends FOSRestController
         $data = array(
             'id' => $user->getId()
         );
-        if ($user->getUserType() === UserType::TYPE_HOSPITAL) {
-            $patientrepository = $this->getDoctrine()->getRepository(Hospital::class);
-            $hospital = $patientrepository->findOneBy(array('created_by'=> $user->getId()));
-            $patientrepository = $this->getDoctrine()->getRepository(Doctor::class);
-            $doctor = $patientrepository->findBy(array('hospital'=> $hospital->getId(),'affiliate'=>true));
-            foreach ($doctor as $dataa) {
-                $doctors[] = $dataa->getCreatedBy()->getId();
+            if ($user->getUserType() === UserType::TYPE_DOCTOR) {
+                $patientrepository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                $Assigned = $patientrepository->findBy(array('doctor_id'=> $user->getId(),'removed'=>false,'status'=>'Accepted'));
+                foreach ($Assigned as $dataa) {
+               array_push($a,$dataa->getIdPatient());
                 }
-
-
-            $patientrepository = $this->getDoctrine()->getRepository(Patient::class);
-            $Assigned = $patientrepository->findBy(array('assignedBy'=> $doctors));
-            foreach ($Assigned as $dataa) {
-           array_push($a,$dataa->getCreatedBy()->getId());
-            }
-            
-                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $latestdate = $diagnosticrepository->findByMesuremaxDate($a);
-             
-                $response=array(
-                    'latest_result'=>$latestdate
-                   
-                );
-
-                return View::create($response, JsonResponse::HTTP_OK, []);
-            }
+                    $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
+                    $latestdate = $diagnosticrepository->findByMesuremaxDate($a);
+                     $response=array(
+                        'latest_result'=>$latestdate
+                       
+                    );
     
+                    return View::create($response, JsonResponse::HTTP_OK, []);
+                }
+    
+                if ($user->getUserType() === UserType::TYPE_PATIENT) {
+                    
+                        $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
+                        $latestdate = $diagnosticrepository->findByMesuremaxDate($user->getId());
+                         $response=array(
+                            'latest_result'=>$latestdate
+                           
+                        );
+        
+                        return View::create($response, JsonResponse::HTTP_OK, []);
+                    }
+        
     else {
         return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         } 
