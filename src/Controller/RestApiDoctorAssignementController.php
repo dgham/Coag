@@ -261,7 +261,7 @@ class RestApiDoctorAssignementController extends AbstractController
                       <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
                         <h2 style="text-align:center;font-weight:600;margin:30px 0 50px 0">  you have been invited to join <br> doctor '.$username.'</h2>
                         <br><p> Dear '. $name .',<br><br> We got a request invitation from CoagCare Doctor '. $username .' 
-                        that wants to assigned you .Just click the link below and you
+                       .Just click the link below and 
                         you will be on your way. If you did not want to allow Dr '. $username .'to assigned you, please ignore this email by clicking on refuse button and thanks . </p>
                         <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
                           </td>
@@ -383,7 +383,7 @@ class RestApiDoctorAssignementController extends AbstractController
                       <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
                       <h2 style="text-align:center;font-weight:600;margin:30px 0 50px 0">  you have been invited to join <br> doctor '.$username.'</h2>
                         <br><p> Dear '. $name .',<br><br> We got a request invitation from CoagCare Doctor '. $username .' 
-                        that wants to assigned you .Just click the link below and you
+                         .Just click the link below and
                         you will be on your way. If you did not want to allow Dr '. $username .'to assigned you, please ignore this email by clicking on refuse button and thanks . </p>
                         <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
                           </td>
@@ -509,7 +509,7 @@ class RestApiDoctorAssignementController extends AbstractController
                               <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
                               <h2 style="text-align:center;font-weight:600;margin:30px 0 50px 0">  you have been invited to join <br> doctor '.$username.'</h2>
                                 <br><p> Dear '. $name .',<br><br> We got a request invitation from CoagCare Doctor '. $username .' 
-                                that wants to assigned you .Just click the link below and you
+                                .Just click the link below and
                                 you will be on your way. If you did not want to allow Dr '. $username .'to assigned you, please ignore this email by clicking on refuse button and thanks . </p>
                                 <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
                                   </td>
@@ -635,7 +635,7 @@ class RestApiDoctorAssignementController extends AbstractController
                       <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
                       <h2 style="text-align:center;font-weight:600;margin:30px 0 50px 0">  you have been invited to join <br> doctor '.$username.'</h2>
                        <br><p> Dear '. $name .',<br><br> We got a request invitation from CoagCare Doctor '. $username .' 
-                        that wants to assigned you .Just click the link below and you
+                        .Just click the link below and
                         you will be on your way. If you did not want to allow Dr '. $username .'to assigned you, please ignore this email by clicking on refuse button and thanks . </p>
                         <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
                           </td>
@@ -808,8 +808,8 @@ class RestApiDoctorAssignementController extends AbstractController
                         <tr>
                           <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
                           <h2 style="text-align:center;font-weight:600;margin:30px 0 50px 0">  you have been invited to join <br> doctor '.$username.'</h2>
-                        <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
-                          that wants to be his/her doctor .Just click the button Accept below and you
+                        <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application from the patient '. $username .' 
+                        .Just click the button Accept below and
                           you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
                           <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
                               </td>
@@ -933,8 +933,8 @@ class RestApiDoctorAssignementController extends AbstractController
             <tr>
               <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
               <h2 style="text-align:center;font-weight:600;margin:30px 0 50px 0">  you have been invited to join <br> doctor '.$username.'</h2>
-             <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
-              that wants to be his/her doctor .Just click the button Accept below and you
+             <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application from the patient '. $username .' 
+              .Just click the button Accept below and 
               you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
               <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
                   </td>
@@ -1056,8 +1056,8 @@ return View::create($response, JsonResponse::HTTP_OK, []);
                                 <tr>
                                   <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
                                   <h2 style="text-align:center;font-weight:600;margin:30px 0 50px 0">  you have been invited to join <br> doctor '.$username.'</h2>
-                                <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
-                                  that wants to be his/her doctor .Just click the button Accept below and you
+                                <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application from the patient '. $username .' 
+                                 .Just click the button Accept below and
                                   you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
                                   <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
                                       </td>
@@ -1175,8 +1175,8 @@ return View::create($response, JsonResponse::HTTP_OK, []);
                                     <tr>
                                       <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
                                       <h2 style="text-align:center;font-weight:600;margin:30px 0 50px 0">  you have been invited to join <br> doctor '.$username.'</h2>
-                                    <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
-                                      that wants to be his/her doctor .Just click the button Accept below and you
+                                    <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application from the patient '. $username .' 
+                                     .Just click the button Accept below and
                                       you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
                                       <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
                                           </td>
@@ -1296,8 +1296,8 @@ return View::create($response, JsonResponse::HTTP_OK, []);
                         <tr>
                           <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
                           <h2 style="text-align:center;font-weight:600;margin:30px 0 50px 0">  you have been invited to join <br> doctor '.$username.'</h2>
-                        <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
-                          that wants to be his/her doctor .Just click the button Accept below and you
+                        <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application from the patient '. $username .' 
+                         .Just click the button Accept below and
                           you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
                           <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
                               </td>
