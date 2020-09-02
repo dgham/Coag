@@ -25,10 +25,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class RestApiUserController extends FOSRestController
 {
 
-
-
-
-
     /**
      * @Rest\Post("/Createuser")
      * @Rest\View(serializerGroups={"users"})
@@ -229,8 +225,57 @@ class RestApiUserController extends FOSRestController
             $user->setRemove(false);
             $entity->persist($user);
             $entity->flush();
-            if ($usertype == "patient") {
+            if ($usertype === "patient") {
                 $patient = new Patient();
+                $weight = $request->request->get('weight');
+                $typeweight = gettype($weight);
+                if(isset($weight)){
+                    if($typeweight === "double"){
+                $patient->setWeight($weight); 
+                    }else{
+                        return View::create("weight must be double!", JsonResponse::HTTP_BAD_REQUEST, []);
+                    }  
+                }
+                else{
+                    return View::create("missing weight!", JsonResponse::HTTP_BAD_REQUEST, []);
+                }
+                $size = $request->request->get('size');
+                $typesize = gettype($size);
+                if(isset($size)){
+                    if($typesize === "double"){
+                    $patient->setSize($size);   
+                }
+                else{
+                    return View::create("size must be double!", JsonResponse::HTTP_BAD_REQUEST, []);
+                }
+            }
+                else{
+                    return View::create("missing size!", JsonResponse::HTTP_BAD_REQUEST, []);
+                }
+                $pathology = $request->request->get('pathology');
+                $typepathology = gettype($pathology);
+                if(isset($pathology)){
+                    if($typepathology === "string"){
+                    $patient->setPathology($pathology);   
+                }
+                else{
+                    return View::create("pathology must be string!", JsonResponse::HTTP_BAD_REQUEST, []);
+                }
+            }
+                else{
+                    return View::create("missing pathology!", JsonResponse::HTTP_BAD_REQUEST, []);
+                }
+                $proffesion = $request->request->get('proffesion');
+                $typeprofesion = gettype($proffesion);
+                if(isset($proffesion)){
+                    if($typeprofesion === "string"){
+                    $patient->setProffesion($proffesion);   
+                }
+                else {
+                    return View::create("proffesion must be string!", JsonResponse::HTTP_BAD_REQUEST, []);
+                }
+            }
+            
                 $patient->setCreatedBy($user);
                 $patient->setCreatedAt(new \DateTime());
                 $entity->persist($patient);
@@ -238,6 +283,17 @@ class RestApiUserController extends FOSRestController
             }
             if ($usertype == "doctor") {
                 $doctor = new Doctor();
+                $speciality = $request->request->get('speciality');
+                $typespeciality = gettype($speciality);
+                if (isset($speciality)) {
+                    if ($typespeciality == "string") {
+                        $doctor->setSpeciality($speciality);
+                    } else {
+                        return View::create('speciality should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
+                    }
+                } else {
+                    return View::create('missing speciality!', JsonResponse::HTTP_BAD_REQUEST, []);
+                }
                 $matricule = $request->request->get('medical_identity');
                 $typematricule = gettype($matricule);
                 if (isset($matricule)) {
