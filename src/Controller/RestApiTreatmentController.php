@@ -345,9 +345,10 @@ class RestApiTreatmentController extends FOSRestController
               $size = $image->getSize();
                $imagetype=$image->guessExtension();
               $path= $this->getParameter('treatment_directory'); 
+              $path_uplaod='Assets/Treatments/';
               if ($imagetype == "jpeg" || $imagetype == "png" ){
-                   $image->move($path,$imageName);
-                   $image_url=$path.$imageName;
+                   $image->move($path_uplaod,$imageName);
+                   $image_url=$path_uplaod.$imageName;
                    $treatment->setPicture($image_url);   
                    $treatment->setUpdatedBy($user);
                    $treatment->setUpdatedAt(new \DateTime());
