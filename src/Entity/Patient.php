@@ -84,6 +84,11 @@ class Patient
      */
     private $assignedBy;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $pathology;
+
  
 
     public function __construct()
@@ -212,6 +217,18 @@ class Patient
     public function setAssignedBy(?User $assignedBy): self
     {
         $this->assignedBy = $assignedBy;
+
+        return $this;
+    }
+
+    public function getPathology(): ?string
+    {
+        return $this->pathology;
+    }
+
+    public function setPathology(string $pathology): self
+    {
+        $this->pathology = $pathology;
 
         return $this;
     }
