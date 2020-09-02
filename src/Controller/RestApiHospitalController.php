@@ -95,15 +95,18 @@ class RestApiHospitalController extends FOSRestController
     public function searchHospital($id)
     {
         $user=$this->getUser();
-        if ($user->getUserType() === UserType::TYPE_ADMIN)  {
-            $repository = $this->getDoctrine()->getRepository(Hospital::class);
-            $hospital = $repository->findOneBy(array('id' => $id,'removed' => false));
-            if (!is_null($hospital)) {
-                return View::create($hospital, JsonResponse::HTTP_OK, []);
-        } else {
-            return View::create('hospital not Found', JsonResponse::HTTP_NOT_FOUND);
-                  } 
-                
-            }
+            if ($user->getUserType() === UserType::TYPE_DOCTOR)  {
+                $repository = $this->getDoctrine()->getRepository(Hospital::class);
+                $hospital = $repository->findOneBy(array('id' => $id,'removed' => false));
+                if (!is_null($hospital)) {
+                    return View::create($hospital, JsonResponse::HTTP_OK, []);
+            } else {
+                return View::create('hospital not Found', JsonResponse::HTTP_NOT_FOUND);
+                      } 
+                    
+                }
+                else{
+                    return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);  
+                }
         }
 }
