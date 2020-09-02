@@ -1451,13 +1451,15 @@ return View::create($response, JsonResponse::HTTP_OK, []);
           public function delete($id){
             $user = $this->getUser();
             if ($user->getUserType() === UserType::TYPE_DOCTOR) {
+                if ($id === 132){
+                    return View::create('sorry ! you cannot delete the default patient John Doe try another', JsonResponse::HTTP_FORBIDDEN, []);
+                }
+                else{
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
                 $assignement = $repository->findOneBy(array('id_patient'=>$id,'id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>false));
                 $assignementDeleted = $repository->findOneBy(array('id_patient'=>$id,'id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>true));
-                $assignementDeletedDefault = $repository->findOneBy(array('id_patient'=>132,'id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>false));
-                if(!is_null($assignementDeletedDefault)){
-                    return View::create('sorry ! you cannot delete the default patient John Doe try another', JsonResponse::HTTP_FORBIDDEN, []);
-                }
+            
+            
                 if(!is_null($assignementDeleted)){
                     return View::create('sorry ! you are already remove this doctor from your list', JsonResponse::HTTP_FORBIDDEN, []);
                    }
@@ -1470,6 +1472,7 @@ return View::create($response, JsonResponse::HTTP_OK, []);
                     return View::create('you delete the assignement, you are not allowed to see the medical information about this patient', JsonResponse::HTTP_OK, []);
                 }
                 }
+            }
                 if ($user->getUserType() === UserType::TYPE_PATIENT) {
                     $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
                     $assignement = $repository->findOneBy(array('id_doctor'=>$id,'id_patient'=>$user->getId(),'status'=>'Accepted','removed'=>false));
