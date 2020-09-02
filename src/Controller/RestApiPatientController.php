@@ -194,7 +194,7 @@ class RestApiPatientController extends FOSRestController
         );
             if ($user->getUserType() === UserType::TYPE_DOCTOR) {
                 $patientrepository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
-                $Assigned = $patientrepository->findBy(array('doctor_id'=> $user->getId(),'removed'=>false,'status'=>'Accepted'));
+                $Assigned = $patientrepository->findBy(array('id_doctor'=> $user->getId(),'removed'=>false,'status'=>'Accepted'));
                 foreach ($Assigned as $dataa) {
                array_push($a,$dataa->getIdPatient());
                 }
