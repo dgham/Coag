@@ -136,6 +136,7 @@ class WebPagesController extends AbstractController
                     $repository = $this->getDoctrine()->getRepository(User::class);
                     $userr = $repository->findOneBy(array('id' => $id));
                     $name= $userr->getUsername();
+                    $email= $userr->getEmail();
                     $invitationValidation->setStatus("Accepted");
                     $invitationValidation->setInvitationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
                     $invitationValidation->setUpdatedBy($user);
@@ -249,6 +250,7 @@ class WebPagesController extends AbstractController
                     $repository = $this->getDoctrine()->getRepository(User::class);
                     $userr = $repository->findOneBy(array('id' => $id));
                     $name= $userr->getUsername();
+                    $email= $userr->getEmail();
                     $invitationValidation->setStatus("Accepted");
                     $invitationValidation->setInvitationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
                     $invitationValidation->setUpdatedBy($user);
