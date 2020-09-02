@@ -177,56 +177,13 @@ class RestApiNotificationController extends FOSRestController
         }
 
     }
-
-
-
-    /**
-     * @Rest\Patch("/api/notification", name ="patch_notifications")
-     * @Rest\View(serializerGroups={"users"})
-     *
-     * @return array
-     */
-    public function patchNotificationAction(Request $request)
-    {
-        $user = $this->getUser();
-        if (($user->getUserType() === UserType::TYPE_PATIENT) || ($user->getUserType() === UserType::TYPE_DOCTOR)) {
-            $data = $request->request->all();
-            $repository = $this->getDoctrine()->getRepository(Notification::class);
-            $notification = $repository->findBy(array('created_by' => $user->getId(), 'removed' => false, "readed" => false));
-            if (!is_null($notification)) {
-                $readed= $request->request->get('readed');
-                if (isset($readed)) {
-                    $notification->setReaded($readed);
-
-                } else {
-                    return View::create('notification read missing', JsonResponse::HTTP_BAD_REQUEST, []);
-                }
-                $enabled= $request->request->get('enabled');
-                if (isset($enabled)) {
-                    $notification->setEnabled($enabled);
-                }
-
-                $notification->setUpdatedBy($user);
-                $notification->setUpdatedAt(new \DateTime());
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
-                return View::create('notification updated', JsonResponse::HTTP_OK, []);
-
-            } else {
-                return View::create('Not Found', JsonResponse::HTTP_NOT_FOUND);
-            }
-
-        } else {
-            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-        }
-
-    }
+    
 
 
 
 
     /**
-     * @Rest\Get("/api/ReadedNotification", name ="readed_notifications")
+     * @Rest\Get("/api/NotReadedNotification", name ="readed_notifications")
      * @Rest\View(serializerGroups={"users"})
      */
     public function readed()
