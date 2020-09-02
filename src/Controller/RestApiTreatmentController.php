@@ -354,7 +354,12 @@ class RestApiTreatmentController extends FOSRestController
                    $treatment->setUpdatedAt(new \DateTime());
                    $em = $this->getDoctrine()->getManager();
                    $em->flush();
-                   return View::create('picture of treatment updated', JsonResponse::HTTP_OK, []);
+                   $response=array(
+                    'message'=>'picture of treatment updated',
+                    'result'=>$treatment,
+                   
+                );
+                   return View::create($response, JsonResponse::HTTP_OK, []);
               }
               else {
                 return View::create('there is something wrong with this file!,select picture!', JsonResponse::HTTP_BAD_REQUEST, []);
