@@ -179,7 +179,7 @@ class RestApiTreatmentController extends FOSRestController
                                             return View::create('this doctor is not assigned to this patient!!', JsonResponse::HTTP_BAD_REQUEST, []);
                                         }
                                     }else {
-                                        return View::create('sorry , this patient is not exist!', JsonResponse::HTTP_BAD_REQUEST, []);
+                                        return View::create('sorry, you are not the doctor of this patient!', JsonResponse::HTTP_BAD_REQUEST, []);
                                         
                                     }
                                 

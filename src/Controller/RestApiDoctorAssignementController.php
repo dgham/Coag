@@ -1121,6 +1121,10 @@ return View::create($response, JsonResponse::HTTP_OK, []);
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
                 $assignement = $repository->findOneBy(array('id_patient'=>$id,'id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>false));
                 $assignementDeleted = $repository->findOneBy(array('id_patient'=>$id,'id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>true));
+                $assignementDeletedDefault = $repository->findOneBy(array('id_patient'=>132,'id_doctor'=>$user->getId(),'status'=>'Accepted','removed'=>true));
+                if(!is_null($assignementDeletedDefault)){
+                    return View::create('sorry ! you cannot delete the default patient John Doe try another', JsonResponse::HTTP_FORBIDDEN, []);
+                }
                 if(!is_null($assignementDeleted)){
                     return View::create('sorry ! you are already remove this doctor from your list', JsonResponse::HTTP_FORBIDDEN, []);
                    }

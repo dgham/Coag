@@ -67,9 +67,9 @@ class RestApiSessionController extends FOSRestController
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                       }
         }
- /**
+     /**
      * 
-      * @Rest\Post("/api/session", name ="post_session")
+     * @Rest\Post("/api/session", name ="post_session")
      * @Rest\View(serializerGroups={"admin"})
      *
      * @return array
