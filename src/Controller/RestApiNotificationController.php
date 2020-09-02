@@ -82,7 +82,7 @@ class RestApiNotificationController extends FOSRestController
                         if (!empty($pushDevice)) {
                             $notification->setPushDeviceId($pushDevice);
                         } else {
-                            return View::create('device Not Found', JsonResponse::HTTP_NOT_FOUND);
+                            return View::create('error !Not the correct device', JsonResponse::HTTP_NOT_FOUND);
                         }
                     } else {
                         return View::create('device_id should be integer ', JsonResponse::HTTP_BAD_REQUEST, []);
@@ -151,14 +151,16 @@ class RestApiNotificationController extends FOSRestController
             $repository = $this->getDoctrine()->getRepository(Notification::class);
             $notification = $repository->findOneBy(array('id' => $id, 'created_by' => $this->getUser()->getId(), 'removed' => false, "readed" => false));
             if (!is_null($notification)) {
-                if (isset($data['readed'])) {
-                    $notification->setReaded($data['readed']);
+                $readed= $request->request->get('readed');
+                if (isset($readed)) {
+                    $notification->setReaded($readed);
 
                 } else {
                     return View::create('notification read missing', JsonResponse::HTTP_BAD_REQUEST, []);
                 }
-                if (isset($data['enabled'])) {
-                    $notification->setEnabled($data['enabled']);
+                $enabled= $request->request->get('enabled');
+                if (isset($enabled)) {
+                    $notification->setEnabled($enabled);
                 }
                 $notification->setUpdatedBy($user);
                 $notification->setUpdatedAt(new \DateTime());
