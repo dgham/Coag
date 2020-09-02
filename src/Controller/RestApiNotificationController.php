@@ -194,14 +194,16 @@ class RestApiNotificationController extends FOSRestController
             $repository = $this->getDoctrine()->getRepository(Notification::class);
             $notification = $repository->findBy(array('created_by' => $user->getId(), 'removed' => false, "readed" => false));
             if (!is_null($notification)) {
-                if (isset($data['readed'])) {
-                    $notification->setReaded($data['readed']);
+                $readed= $request->request->get('readed');
+                if (isset($readed)) {
+                    $notification->setReaded($readed);
 
                 } else {
                     return View::create('notification read missing', JsonResponse::HTTP_BAD_REQUEST, []);
                 }
-                if (isset($data['enabled'])) {
-                    $notification->setEnabled($data['enabled']);
+                $enabled= $request->request->get('enabled');
+                if (isset($enabled)) {
+                    $notification->setEnabled($enabled);
                 }
 
                 $notification->setUpdatedBy($user);
