@@ -1469,10 +1469,6 @@ return View::create($response, JsonResponse::HTTP_OK, []);
                     $em->flush();
                     return View::create('you delete the assignement, you are not allowed to see the medical information about this patient', JsonResponse::HTTP_OK, []);
                 }
-                
-                else {
-                    return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-                    } 
                 }
                 if ($user->getUserType() === UserType::TYPE_PATIENT) {
                     $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
