@@ -242,15 +242,52 @@ class RestApiDoctorAssignementController extends AbstractController
                 text-align: center;
             }
             </style></head>'.
-                            ' <body><br>
-                        <center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="250px" height="250px"></center><br> <center><h2 style="color:#282828" > you have been invited to be assigned <br> by doctor '.$username.'</h2></center> <br><p> Dear '. $name .',<br><br> We got a request invitation from CoagCare Doctor '. $username .' 
+
+            ' <body>' .
+            ' <div marginwidth="0" marginheight="0" style="width:100%;background-color:#ffffff;margin:0;padding:0;">
+
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="m_-3655858657801354087container" style="border-collapse:collapse;width:100%;min-width:100%;height:auto">
+              <tbody><tr>
+                <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+
+
+                  <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
+                    <tbody><tr>
+                      <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
+                          <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
+                        <h1 style="text-align:center;font-weight:600;margin:30px 0 50px 0">PASSWORD RESET REQUEST</h1>
+                        you have been invited to be assigned <br> by doctor '.$username.'</h2></center> <br><p> Dear '. $name .',<br><br> We got a request invitation from CoagCare Doctor '. $username .' 
                         that wants to assigned you .Just click the link below and you
                         you will be on your way. If you did not want to allow Dr '. $username .'to assigned you, please ignore this email by clicking on refuse button and thanks . </p>
                         <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                        <br><div id=`container`><center><div class="container"><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
-                        <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
-                        © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
-                            ' </body>' .
+                          </td>
+                          </tr>
+                          <tr>
+                              <td style="padding-bottom:30px">
+       <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></center></div>
+                            </td>
+                          </tr>
+                          <tr>
+                              <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
+                                <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                <p>Cheers,<br>The coagcare Team</p>
+                            </td>
+                        </tr>
+                  </tbody></table>
+                </td>
+              </tr>
+            </tbody></table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="border-collapse:collapse;margin:0 auto">   <tbody>     <tr>       <td bgcolor="#ffffff" style="line-height:150%;padding-top:10px;padding-left:10px;padding-right:18px;padding-bottom:30px;text-align:left;border-bottom:0;font-size:10px;border-top:0">         <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left" style="border-collapse:collapse">           <tbody>             <tr>               <td valign="top" style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">This email was sent to <a style="color:#56c596;text-decoration:none;font-weight:600">' . $email . '</a>, which is associated with a CoagCare App account.  <br> <br>   © 2020 CoagCare App., All Rights Reserved                 <br> ContinuousNet., Residence ElAhmed 2nd Street Yesser Arafet, sahloul 4054                 <br>                 &nbsp;               </td>             </tr>           </tbody>         </table>       </td>     </tr>   </tbody> </table>
+
+            <div style="display:none;white-space:nowrap;font:15px courier;color:#ffffff">
+              - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            </div>
+            </div>' .
+            ' </body>' .
                             '</html>',
                             'text/html' 
                         );
@@ -328,15 +365,51 @@ class RestApiDoctorAssignementController extends AbstractController
                 text-align: center;
             }
             </style></head>'.
-                            ' <body><br>
-                        <center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="250px" height="250px"></center><br> <center><h2 style="color:#282828" > you have been invited to be assigned <br> by doctor '.$username.'</h2></center> <br><p> Dear '. $name .',<br><br> We got a request invitation from CoagCare Doctor '. $username .' 
+            ' <body>' .
+            ' <div marginwidth="0" marginheight="0" style="width:100%;background-color:#ffffff;margin:0;padding:0;">
+
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="m_-3655858657801354087container" style="border-collapse:collapse;width:100%;min-width:100%;height:auto">
+              <tbody><tr>
+                <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+
+
+                  <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
+                    <tbody><tr>
+                      <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
+                          <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
+                        <h1 style="text-align:center;font-weight:600;margin:30px 0 50px 0">PASSWORD RESET REQUEST</h1>
+                        you have been invited to be assigned <br> by doctor '.$username.'</h2></center> <br><p> Dear '. $name .',<br><br> We got a request invitation from CoagCare Doctor '. $username .' 
                         that wants to assigned you .Just click the link below and you
                         you will be on your way. If you did not want to allow Dr '. $username .'to assigned you, please ignore this email by clicking on refuse button and thanks . </p>
                         <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                        <br><div id=`container`><center><div class="container"><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
-                        <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
-                        © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
-                            ' </body>' .
+                          </td>
+                          </tr>
+                          <tr>
+                              <td style="padding-bottom:30px">
+       <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></center></div>
+                            </td>
+                          </tr>
+                          <tr>
+                              <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
+                                <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                <p>Cheers,<br>The coagcare Team</p>
+                            </td>
+                        </tr>
+                  </tbody></table>
+                </td>
+              </tr>
+            </tbody></table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="border-collapse:collapse;margin:0 auto">   <tbody>     <tr>       <td bgcolor="#ffffff" style="line-height:150%;padding-top:10px;padding-left:10px;padding-right:18px;padding-bottom:30px;text-align:left;border-bottom:0;font-size:10px;border-top:0">         <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left" style="border-collapse:collapse">           <tbody>             <tr>               <td valign="top" style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">This email was sent to <a style="color:#56c596;text-decoration:none;font-weight:600">' . $email . '</a>, which is associated with a CoagCare App account.  <br> <br>   © 2020 CoagCare App., All Rights Reserved                 <br> ContinuousNet., Residence ElAhmed 2nd Street Yesser Arafet, sahloul 4054                 <br>                 &nbsp;               </td>             </tr>           </tbody>         </table>       </td>     </tr>   </tbody> </table>
+
+            <div style="display:none;white-space:nowrap;font:15px courier;color:#ffffff">
+              - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            </div>
+            </div>' .
+            ' </body>' .
                             '</html>',
                             'text/html' 
                         );
@@ -418,15 +491,51 @@ class RestApiDoctorAssignementController extends AbstractController
                         text-align: center;
                     }
                     </style></head>'.
-                                    ' <body><br>
-                                <center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="250px" height="250px"></center><br> <center><h2 style="color:#282828" > you have been invited to be assigned <br> by doctor '.$username.'</h2></center> <br><p> Dear '. $name .',<br><br> We got a request invitation from CoagCare Doctor '. $username .' 
+                    ' <body>' .
+                    ' <div marginwidth="0" marginheight="0" style="width:100%;background-color:#ffffff;margin:0;padding:0;">
+        
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="m_-3655858657801354087container" style="border-collapse:collapse;width:100%;min-width:100%;height:auto">
+                      <tbody><tr>
+                        <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+        
+        
+                          <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
+                            <tbody><tr>
+                              <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
+                                  <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
+                                <h1 style="text-align:center;font-weight:600;margin:30px 0 50px 0">PASSWORD RESET REQUEST</h1>
+                                you have been invited to be assigned <br> by doctor '.$username.'</h2></center> <br><p> Dear '. $name .',<br><br> We got a request invitation from CoagCare Doctor '. $username .' 
                                 that wants to assigned you .Just click the link below and you
                                 you will be on your way. If you did not want to allow Dr '. $username .'to assigned you, please ignore this email by clicking on refuse button and thanks . </p>
                                 <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                                <br><div id=`container`><center><div class="container"><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
-                                <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
-                                © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
-                                    ' </body>' .
+                                  </td>
+                                  </tr>
+                                  <tr>
+                                      <td style="padding-bottom:30px">
+               <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></center></div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                      <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
+                                        <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                        <p>Cheers,<br>The coagcare Team</p>
+                                    </td>
+                                </tr>
+                          </tbody></table>
+                        </td>
+                      </tr>
+                    </tbody></table>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="border-collapse:collapse;margin:0 auto">   <tbody>     <tr>       <td bgcolor="#ffffff" style="line-height:150%;padding-top:10px;padding-left:10px;padding-right:18px;padding-bottom:30px;text-align:left;border-bottom:0;font-size:10px;border-top:0">         <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left" style="border-collapse:collapse">           <tbody>             <tr>               <td valign="top" style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">This email was sent to <a style="color:#56c596;text-decoration:none;font-weight:600">' . $email . '</a>, which is associated with a CoagCare App account.  <br> <br>   © 2020 CoagCare App., All Rights Reserved                 <br> ContinuousNet., Residence ElAhmed 2nd Street Yesser Arafet, sahloul 4054                 <br>                 &nbsp;               </td>             </tr>           </tbody>         </table>       </td>     </tr>   </tbody> </table>
+        
+                    <div style="display:none;white-space:nowrap;font:15px courier;color:#ffffff">
+                      - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                    </div>
+                    </div>' .
+                    ' </body>' .
                                     '</html>',
                                     'text/html' 
                                 );
@@ -508,15 +617,51 @@ class RestApiDoctorAssignementController extends AbstractController
                 text-align: center;
             }
             </style></head>'.
-                            ' <body><br>
-                        <center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="250px" height="250px"></center><br> <center><h2 style="color:#282828" > you have been invited to be assigned <br> by doctor '.$username.'</h2></center> <br><p> Dear '. $name .',<br><br> We got a request invitation from CoagCare Doctor '. $username .' 
+            ' <body>' .
+            ' <div marginwidth="0" marginheight="0" style="width:100%;background-color:#ffffff;margin:0;padding:0;">
+
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="m_-3655858657801354087container" style="border-collapse:collapse;width:100%;min-width:100%;height:auto">
+              <tbody><tr>
+                <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+
+
+                  <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
+                    <tbody><tr>
+                      <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
+                          <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
+                        <h1 style="text-align:center;font-weight:600;margin:30px 0 50px 0">PASSWORD RESET REQUEST</h1>
+                        you have been invited to be assigned <br> by doctor '.$username.'</h2></center> <br><p> Dear '. $name .',<br><br> We got a request invitation from CoagCare Doctor '. $username .' 
                         that wants to assigned you .Just click the link below and you
                         you will be on your way. If you did not want to allow Dr '. $username .'to assigned you, please ignore this email by clicking on refuse button and thanks . </p>
                         <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                        <br><div id=`container`><center><div class="container"><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
-                        <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
-                        © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
-                            ' </body>' .
+                          </td>
+                          </tr>
+                          <tr>
+                              <td style="padding-bottom:30px">
+       <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></center></div>
+                            </td>
+                          </tr>
+                          <tr>
+                              <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
+                                <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                <p>Cheers,<br>The coagcare Team</p>
+                            </td>
+                        </tr>
+                  </tbody></table>
+                </td>
+              </tr>
+            </tbody></table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="border-collapse:collapse;margin:0 auto">   <tbody>     <tr>       <td bgcolor="#ffffff" style="line-height:150%;padding-top:10px;padding-left:10px;padding-right:18px;padding-bottom:30px;text-align:left;border-bottom:0;font-size:10px;border-top:0">         <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left" style="border-collapse:collapse">           <tbody>             <tr>               <td valign="top" style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">This email was sent to <a style="color:#56c596;text-decoration:none;font-weight:600">' . $email . '</a>, which is associated with a CoagCare App account.  <br> <br>   © 2020 CoagCare App., All Rights Reserved                 <br> ContinuousNet., Residence ElAhmed 2nd Street Yesser Arafet, sahloul 4054                 <br>                 &nbsp;               </td>             </tr>           </tbody>         </table>       </td>     </tr>   </tbody> </table>
+
+            <div style="display:none;white-space:nowrap;font:15px courier;color:#ffffff">
+              - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            </div>
+            </div>' .
+            ' </body>' .
                             '</html>',
                             'text/html' 
                         );
@@ -644,15 +789,54 @@ class RestApiDoctorAssignementController extends AbstractController
                     text-align: center;
                 }
                 </style></head>'.
-                                ' <body><br>
-                            <center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="250px" height="250px"></center><br> <center><h2 style="color:#282828" > you have been invited to be assigned <br> by the patient '.$username.'</h2></center> <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
-                            that wants to be his/her doctor .Just click the button Accept below and you
-                            you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
-                            <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                            <br><div id=`container`><center><div class="container"><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
-                            <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
-                            © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
-                                ' </body>' .
+
+
+                ' <body>' .
+                ' <div marginwidth="0" marginheight="0" style="width:100%;background-color:#ffffff;margin:0;padding:0;">
+    
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="m_-3655858657801354087container" style="border-collapse:collapse;width:100%;min-width:100%;height:auto">
+                  <tbody><tr>
+                    <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+    
+    
+                      <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
+                        <tbody><tr>
+                          <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
+                              <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
+                          you have been invited to be assigned <br> by the patient '.$username.'</h2></center> <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
+                          that wants to be his/her doctor .Just click the button Accept below and you
+                          you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
+                          <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
+                              </td>
+                              </tr>
+                              <tr>
+                                  <td style="padding-bottom:30px">
+           <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
+                                </td>
+                              </tr>
+                              <tr>
+                                  <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
+                                    <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                    <p>Cheers,<br>The coagcare Team</p>
+                                </td>
+                            </tr>
+                      </tbody></table>
+                    </td>
+                  </tr>
+                </tbody></table>
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="border-collapse:collapse;margin:0 auto">   <tbody>     <tr>       <td bgcolor="#ffffff" style="line-height:150%;padding-top:10px;padding-left:10px;padding-right:18px;padding-bottom:30px;text-align:left;border-bottom:0;font-size:10px;border-top:0">         <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left" style="border-collapse:collapse">           <tbody>             <tr>               <td valign="top" style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">This email was sent to <a style="color:#56c596;text-decoration:none;font-weight:600">' . $email . '</a>, which is associated with a CoagCare App account.  <br> <br>   © 2020 CoagCare App., All Rights Reserved                 <br> ContinuousNet., Residence ElAhmed 2nd Street Yesser Arafet, sahloul 4054                 <br>                 &nbsp;               </td>             </tr>           </tbody>         </table>       </td>     </tr>   </tbody> </table>
+    
+                <div style="display:none;white-space:nowrap;font:15px courier;color:#ffffff">
+                  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                </div>
+                </div>' .
+                ' </body>' .
+
+                                
                                 '</html>',
                                 'text/html' 
                             );
@@ -731,15 +915,51 @@ class RestApiDoctorAssignementController extends AbstractController
         text-align: center;
     }
     </style></head>'.
-                    ' <body><br>
-                <center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="250px" height="250px"></center><br> <center><h2 style="color:#282828" > you have been invited to be assigned <br> by the patient '.$username.'</h2></center> <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
-                that wants to be his/her doctor .Just click the button Accept below and you
-                you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
-                <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                <br><div id=`container`><center><div class="container"><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
-                <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
-                © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
-                    ' </body>' .
+    ' <body>' .
+    ' <div marginwidth="0" marginheight="0" style="width:100%;background-color:#ffffff;margin:0;padding:0;">
+
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="m_-3655858657801354087container" style="border-collapse:collapse;width:100%;min-width:100%;height:auto">
+      <tbody><tr>
+        <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+
+
+          <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
+            <tbody><tr>
+              <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
+                  <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+              </td>
+            </tr>
+            <tr>
+              <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
+              you have been invited to be assigned <br> by the patient '.$username.'</h2></center> <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
+              that wants to be his/her doctor .Just click the button Accept below and you
+              you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
+              <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
+                  </td>
+                  </tr>
+                  <tr>
+                      <td style="padding-bottom:30px">
+<div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
+                    </td>
+                  </tr>
+                  <tr>
+                      <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
+                        <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                        <p>Cheers,<br>The coagcare Team</p>
+                    </td>
+                </tr>
+          </tbody></table>
+        </td>
+      </tr>
+    </tbody></table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="border-collapse:collapse;margin:0 auto">   <tbody>     <tr>       <td bgcolor="#ffffff" style="line-height:150%;padding-top:10px;padding-left:10px;padding-right:18px;padding-bottom:30px;text-align:left;border-bottom:0;font-size:10px;border-top:0">         <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left" style="border-collapse:collapse">           <tbody>             <tr>               <td valign="top" style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">This email was sent to <a style="color:#56c596;text-decoration:none;font-weight:600">' . $email . '</a>, which is associated with a CoagCare App account.  <br> <br>   © 2020 CoagCare App., All Rights Reserved                 <br> ContinuousNet., Residence ElAhmed 2nd Street Yesser Arafet, sahloul 4054                 <br>                 &nbsp;               </td>             </tr>           </tbody>         </table>       </td>     </tr>   </tbody> </table>
+
+    <div style="display:none;white-space:nowrap;font:15px courier;color:#ffffff">
+      - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    </div>
+    </div>' .
+    ' </body>' .
+
                     '</html>',
                     'text/html' 
                 );
@@ -817,15 +1037,51 @@ return View::create($response, JsonResponse::HTTP_OK, []);
                             text-align: center;
                         }
                         </style></head>'.
-                                        ' <body><br>
-                                    <center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="250px" height="250px"></center><br> <center><h2 style="color:#282828" > you have been invited to be assigned <br> by the patient '.$username.'</h2></center> <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
-                                    that wants to be his/her doctor .Just click the button Accept below and you
-                                    you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
-                                    <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                                    <br><div id=`container`><center><div class="container"><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
-                                    <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
-                                    © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
-                                        ' </body>' .
+                        ' <body>' .
+                        ' <div marginwidth="0" marginheight="0" style="width:100%;background-color:#ffffff;margin:0;padding:0;">
+            
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="m_-3655858657801354087container" style="border-collapse:collapse;width:100%;min-width:100%;height:auto">
+                          <tbody><tr>
+                            <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+            
+            
+                              <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
+                                <tbody><tr>
+                                  <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
+                                      <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
+                                  you have been invited to be assigned <br> by the patient '.$username.'</h2></center> <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
+                                  that wants to be his/her doctor .Just click the button Accept below and you
+                                  you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
+                                  <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
+                                      </td>
+                                      </tr>
+                                      <tr>
+                                          <td style="padding-bottom:30px">
+                   <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                          <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
+                                            <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                            <p>Cheers,<br>The coagcare Team</p>
+                                        </td>
+                                    </tr>
+                              </tbody></table>
+                            </td>
+                          </tr>
+                        </tbody></table>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="border-collapse:collapse;margin:0 auto">   <tbody>     <tr>       <td bgcolor="#ffffff" style="line-height:150%;padding-top:10px;padding-left:10px;padding-right:18px;padding-bottom:30px;text-align:left;border-bottom:0;font-size:10px;border-top:0">         <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left" style="border-collapse:collapse">           <tbody>             <tr>               <td valign="top" style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">This email was sent to <a style="color:#56c596;text-decoration:none;font-weight:600">' . $email . '</a>, which is associated with a CoagCare App account.  <br> <br>   © 2020 CoagCare App., All Rights Reserved                 <br> ContinuousNet., Residence ElAhmed 2nd Street Yesser Arafet, sahloul 4054                 <br>                 &nbsp;               </td>             </tr>           </tbody>         </table>       </td>     </tr>   </tbody> </table>
+            
+                        <div style="display:none;white-space:nowrap;font:15px courier;color:#ffffff">
+                          - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                        </div>
+                        </div>' .
+                        ' </body>' .
+        
                                         '</html>',
                                         'text/html' 
                                     );
@@ -899,15 +1155,51 @@ return View::create($response, JsonResponse::HTTP_OK, []);
                                 text-align: center;
                             }
                             </style></head>'.
-                                            ' <body><br>
-                                        <center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="250px" height="250px"></center><br> <center><h2 style="color:#282828" > you have been invited to be assigned <br> by the patient '.$username.'</h2></center> <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
-                                        that wants to be his/her doctor .Just click the button Accept below and you
-                                        you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
-                                        <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                                        <br><div id=`container`><center><div class="container"><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
-                                        <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
-                                        © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
-                                            ' </body>' .
+                            ' <body>' .
+                            ' <div marginwidth="0" marginheight="0" style="width:100%;background-color:#ffffff;margin:0;padding:0;">
+                
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="m_-3655858657801354087container" style="border-collapse:collapse;width:100%;min-width:100%;height:auto">
+                              <tbody><tr>
+                                <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+                
+                
+                                  <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
+                                    <tbody><tr>
+                                      <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
+                                          <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
+                                      you have been invited to be assigned <br> by the patient '.$username.'</h2></center> <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
+                                      that wants to be his/her doctor .Just click the button Accept below and you
+                                      you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
+                                      <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
+                                          </td>
+                                          </tr>
+                                          <tr>
+                                              <td style="padding-bottom:30px">
+                       <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                              <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
+                                                <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                                <p>Cheers,<br>The coagcare Team</p>
+                                            </td>
+                                        </tr>
+                                  </tbody></table>
+                                </td>
+                              </tr>
+                            </tbody></table>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="border-collapse:collapse;margin:0 auto">   <tbody>     <tr>       <td bgcolor="#ffffff" style="line-height:150%;padding-top:10px;padding-left:10px;padding-right:18px;padding-bottom:30px;text-align:left;border-bottom:0;font-size:10px;border-top:0">         <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left" style="border-collapse:collapse">           <tbody>             <tr>               <td valign="top" style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">This email was sent to <a style="color:#56c596;text-decoration:none;font-weight:600">' . $email . '</a>, which is associated with a CoagCare App account.  <br> <br>   © 2020 CoagCare App., All Rights Reserved                 <br> ContinuousNet., Residence ElAhmed 2nd Street Yesser Arafet, sahloul 4054                 <br>                 &nbsp;               </td>             </tr>           </tbody>         </table>       </td>     </tr>   </tbody> </table>
+                
+                            <div style="display:none;white-space:nowrap;font:15px courier;color:#ffffff">
+                              - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                            </div>
+                            </div>' .
+                            ' </body>' .
+            
                                             '</html>',
                                             'text/html' 
                                         );
@@ -983,15 +1275,51 @@ return View::create($response, JsonResponse::HTTP_OK, []);
                     text-align: center;
                 }
                 </style></head>'.
-                                ' <body><br>
-                            <center><img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" width="250px" height="250px"></center><br> <center><h2 style="color:#282828" > you have been invited to be assigned <br> by the patient '.$username.'</h2></center> <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
-                            that wants to be his/her doctor .Just click the button Accept below and you
-                            you will be on your way. If you did not want to follow INR measurements of the patient '. $username .',  please ignore this email by clicking on refuse button and thanks . </p>
-                            <p> If you need aditional information about the patient, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
-                            <br><div id=`container`><center><div class="container"><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></div></center> <p> cheers, <br> the CoagCare App Team </p>
-                            <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
-                            © 2020 CoagCare . All Rights Reserved. Continuous Net </p>'.
-                                ' </body>' .
+                ' <body>' .
+                ' <div marginwidth="0" marginheight="0" style="width:100%;background-color:#ffffff;margin:0;padding:0;">
+    
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="m_-3655858657801354087container" style="border-collapse:collapse;width:100%;min-width:100%;height:auto">
+                  <tbody><tr>
+                    <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+    
+    
+                      <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
+                        <tbody><tr>
+                          <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
+                              <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
+                          you have been invited to be assigned <br> by the patient '.$username.'</h2></center> <br><p> Dear Dr '. $name .',<br><br> We got a request invitation from CoagCare application that the patient '. $username .' 
+                          that wants to be his/her doctor .Just click the button Accept below and you
+                          you will be on your way. If you did not want to follow INR measurements of the patient '. $username .', please ignore this email by clicking on refuse button and thanks . </p>
+                          <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:'. $emaill .'` style=`color:#56c596;text-decoration:unerline;font-weight:blod`>'. $emaill .'</a>. <br>
+                              </td>
+                              </tr>
+                              <tr>
+                                  <td style="padding-bottom:30px">
+           <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token='.$token.'&id='.$id.' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
+                                </td>
+                              </tr>
+                              <tr>
+                                  <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
+                                    <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                    <p>Cheers,<br>The coagcare Team</p>
+                                </td>
+                            </tr>
+                      </tbody></table>
+                    </td>
+                  </tr>
+                </tbody></table>
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="border-collapse:collapse;margin:0 auto">   <tbody>     <tr>       <td bgcolor="#ffffff" style="line-height:150%;padding-top:10px;padding-left:10px;padding-right:18px;padding-bottom:30px;text-align:left;border-bottom:0;font-size:10px;border-top:0">         <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left" style="border-collapse:collapse">           <tbody>             <tr>               <td valign="top" style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">This email was sent to <a style="color:#56c596;text-decoration:none;font-weight:600">' . $email . '</a>, which is associated with a CoagCare App account.  <br> <br>   © 2020 CoagCare App., All Rights Reserved                 <br> ContinuousNet., Residence ElAhmed 2nd Street Yesser Arafet, sahloul 4054                 <br>                 &nbsp;               </td>             </tr>           </tbody>         </table>       </td>     </tr>   </tbody> </table>
+    
+                <div style="display:none;white-space:nowrap;font:15px courier;color:#ffffff">
+                  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                </div>
+                </div>' .
+                ' </body>' .
+
                                 '</html>',
                                 'text/html' 
                             );

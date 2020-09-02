@@ -84,25 +84,23 @@ class RestConfim extends FOSRestController
                         width: 150px;
                         text-align: center;
                     }
-                    .button3 {background-color: #6ccda4;} /* Red */ 
+                    .button3 {background-color: #6ccda4;} /* Red */
                     #container{
                         text-align: center;
                     }
-                    </style></head>'.
+                    </style></head>' .
                         ' <body>' .
                         ' <div marginwidth="0" marginheight="0" style="width:100%;background-color:#ffffff;margin:0;padding:0;">
 
                         <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="m_-3655858657801354087container" style="border-collapse:collapse;width:100%;min-width:100%;height:auto">
                           <tbody><tr>
                             <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
-                        
-                              
+
+
                               <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
                                 <tbody><tr>
                                   <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
-                                   
                                       <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
-                                   
                                   </td>
                                 </tr>
                                 <tr>
@@ -114,16 +112,11 @@ class RestConfim extends FOSRestController
                                       </tr>
                                       <tr>
                                           <td style="padding-bottom:30px">
-                                          
-                   <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/Confirm/resetPassword?token=' . $token .  ' "  class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Reset Password</font> </a></center></div>
-
-
-
-
+                   <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/Confirm/resetPassword?token=' . $token . ' "  class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Reset Password</font> </a></center></div>
                                         </td>
                                       </tr>
                                       <tr>
-                                          <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">                    
+                                          <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
                                             <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
                                             <p>Cheers,<br>The coagcare Team</p>
                                         </td>
@@ -131,13 +124,13 @@ class RestConfim extends FOSRestController
                               </tbody></table>
                             </td>
                           </tr>
-                        </tbody></table> 
+                        </tbody></table>
                         <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="border-collapse:collapse;margin:0 auto">   <tbody>     <tr>       <td bgcolor="#ffffff" style="line-height:150%;padding-top:10px;padding-left:10px;padding-right:18px;padding-bottom:30px;text-align:left;border-bottom:0;font-size:10px;border-top:0">         <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left" style="border-collapse:collapse">           <tbody>             <tr>               <td valign="top" style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">This email was sent to <a style="color:#56c596;text-decoration:none;font-weight:600">' . $email . '</a>, which is associated with a CoagCare App account.  <br> <br>   © 2020 CoagCare App., All Rights Reserved                 <br> ContinuousNet., Residence ElAhmed 2nd Street Yesser Arafet, sahloul 4054                 <br>                 &nbsp;               </td>             </tr>           </tbody>         </table>       </td>     </tr>   </tbody> </table>
-                        
+
                         <div style="display:none;white-space:nowrap;font:15px courier;color:#ffffff">
                           - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                         </div>
-                        </div>'.
+                        </div>' .
                         ' </body>' .
                         '</html>',
                         'text/html'
@@ -251,12 +244,12 @@ class RestConfim extends FOSRestController
                                 ->setPassword('?qS^3igZ')
                                 ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
                             $mailer = new \Swift_Mailer($transport);
-                        $message = (new \Swift_Message('CoagCare message'))
-                            ->setFrom('amira.dgham@intern.continuousnet.com')
-                            ->setTo($email)
-                            ->setBody(
-                                '<html>' .
-                                '<head>
+                            $message = (new \Swift_Message('CoagCare message'))
+                                ->setFrom('amira.dgham@intern.continuousnet.com')
+                                ->setTo($email)
+                                ->setBody(
+                                    '<html>' .
+                                    '<head>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -269,16 +262,16 @@ class RestConfim extends FOSRestController
                <br> <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:' . $emaill . '` style=`color:#ff6c37;text-decoration:unerline;font-weight:blod`>' . $emaill . '</a>.<p> cheers, <br> the CoagCare App Team </p>
                <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
                © 2020 CoagCare . All Rights Reserved. Continuous Net </p>' .
-                                ' </body>' .
-                                '</html>',
-                                'text/html'
-                            );
+                                    ' </body>' .
+                                    '</html>',
+                                    'text/html'
+                                );
 
-                        $mailer->send($message);
-                    } catch (\Exception $ex) {
+                            $mailer->send($message);
+                        } catch (\Exception $ex) {
 
-                        return View::create($ex->getMessage(), Response::HTTP_BAD_REQUEST, []);
-                    }
+                            return View::create($ex->getMessage(), Response::HTTP_BAD_REQUEST, []);
+                        }
                         $patientid = $patientValidation->getId();
 
                         //$doctor_id= $doctorvalidation->getId();
