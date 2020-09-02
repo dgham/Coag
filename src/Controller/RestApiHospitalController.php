@@ -17,7 +17,7 @@ class RestApiHospitalController extends FOSRestController
 {
 
  /**
-    * @Rest\Get("/api/getAllhospital", name ="getAll_hosptital")
+    * @Rest\Get("/api/hospital", name ="getAll_hosptital")
     * @Rest\View(serializerGroups={"admin"})
      */
     public function getAllHospital()
