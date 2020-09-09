@@ -206,7 +206,7 @@ class WebPagesController extends AbstractController
                                           <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
                                             <h1 style="text-align:center;font-weight:600;margin:30px 0 50px 0">YOUR COAGCARE PATIENT WAS UPDATED</h1>
                                             <p>Dear ' . $name . ',</p>
-                                              <p>The patient '. $patientName.' has accepted your invitation to join your Coagcare patient member. </p>
+                                              <p>The patient '. $patientName.' has accepted your invitation to join Coagcare patient member. </p>
                                               </td>
                                               </tr>
                                               <tr>
@@ -234,7 +234,7 @@ class WebPagesController extends AbstractController
                             );
         
                         $mailer->send($message);
-                    $this->addFlash('success', 'Welcome to CoagCare app ! Now you can join your coagcare health community');
+                    $this->addFlash('success', 'Welcome to CoagCare app ! Now you can join coagcare health community');
                     return $this->render('web_pages/invitationResponse.html.twig', [
                         'token' => $token,
                         'id' => $id,
@@ -318,9 +318,9 @@ class WebPagesController extends AbstractController
                                         </tr>
                                         <tr>
                                           <td style="font-size:13px;color:#282828;font-weight:normal;text-align:left;line-height:24px;vertical-align:top;padding:15px 8px 10px 8px" bgcolor="#ffffff">
-                                            <h1 style="text-align:center;font-weight:600;margin:30px 0 50px 0">YOUR COAGCARE Doctor WAS UPDATED</h1>
+                                            <h1 style="text-align:center;font-weight:600;margin:30px 0 50px 0"> COAGCARE Doctor WAS UPDATED</h1>
                                             <p>Dear ' . $name . ',</p>
-                                              <p>The doctor '. $doctorName.' has accepted your invitation to join your Coagcare doctor member. </p>
+                                              <p>The doctor '. $doctorName.' has accepted your invitation to join Coagcare doctor member. </p>
                                               </td>
                                               </tr>
                                               <tr>
@@ -348,7 +348,7 @@ class WebPagesController extends AbstractController
                             );
         
                         $mailer->send($message);
-                    $this->addFlash('success', 'Welcome to CoagCare app ! Now you can join your coagcare health community');
+                    $this->addFlash('success', 'Welcome to CoagCare app ! Now you can join coagcare health community');
                     return $this->render('web_pages/invitationResponse.html.twig', [
                         'token' => $token,
                         'id' => $id,

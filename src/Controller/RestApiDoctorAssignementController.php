@@ -1452,7 +1452,7 @@ return View::create($response, JsonResponse::HTTP_OK, []);
             $user = $this->getUser();
             if ($user->getUserType() === UserType::TYPE_DOCTOR) {
                 if ($id === 132){
-                    return View::create('sorry ! you cannot delete the default patient John Doe try another', JsonResponse::HTTP_FORBIDDEN, []);
+                    return View::create('Error !you cannot delete the default patient John Doe try another', JsonResponse::HTTP_FORBIDDEN, []);
                 }
                 else{
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
