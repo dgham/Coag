@@ -254,7 +254,7 @@ class RestApiDoctorAssignementController extends AbstractController
                   <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
                     <tbody><tr>
                       <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
-                          <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                          <img src="https://api.coagcare.continuousnet.com/Assets/images/4448b54b5015cf433e02a578933a9925.png" alt="" border="0" width="125" style="display:block">
                       </td>
                     </tr>
                     <tr>
@@ -376,7 +376,7 @@ class RestApiDoctorAssignementController extends AbstractController
                   <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
                     <tbody><tr>
                       <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
-                          <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                          <img src="https://api.coagcare.continuousnet.com/Assets/images/4448b54b5015cf433e02a578933a9925.png" alt="" border="0" width="125" style="display:block">
                       </td>
                     </tr>
                     <tr>
@@ -502,7 +502,7 @@ class RestApiDoctorAssignementController extends AbstractController
                           <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
                             <tbody><tr>
                               <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
-                                  <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                                  <img src="https://api.coagcare.continuousnet.com/Assets/images/4448b54b5015cf433e02a578933a9925.png" alt="" border="0" width="125" style="display:block">
                               </td>
                             </tr>
                             <tr>
@@ -628,7 +628,7 @@ class RestApiDoctorAssignementController extends AbstractController
                   <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
                     <tbody><tr>
                       <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
-                          <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                          <img src="https://api.coagcare.continuousnet.com/Assets/images/4448b54b5015cf433e02a578933a9925.png" alt="" border="0" width="125" style="display:block">
                       </td>
                     </tr>
                     <tr>
@@ -802,7 +802,7 @@ class RestApiDoctorAssignementController extends AbstractController
                       <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
                         <tbody><tr>
                           <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
-                              <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                              <img src="https://api.coagcare.continuousnet.com/Assets/images/4448b54b5015cf433e02a578933a9925.png" alt="" border="0" width="125" style="display:block">
                           </td>
                         </tr>
                         <tr>
@@ -927,7 +927,7 @@ class RestApiDoctorAssignementController extends AbstractController
           <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
             <tbody><tr>
               <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
-                  <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                  <img src="https://api.coagcare.continuousnet.com/Assets/images/4448b54b5015cf433e02a578933a9925.png" alt="" border="0" width="125" style="display:block">
               </td>
             </tr>
             <tr>
@@ -1050,7 +1050,7 @@ return View::create($response, JsonResponse::HTTP_OK, []);
                               <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
                                 <tbody><tr>
                                   <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
-                                      <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                                      <img src="https://api.coagcare.continuousnet.com/Assets/images/4448b54b5015cf433e02a578933a9925.png" alt="" border="0" width="125" style="display:block">
                                   </td>
                                 </tr>
                                 <tr>
@@ -1169,7 +1169,7 @@ return View::create($response, JsonResponse::HTTP_OK, []);
                                   <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
                                     <tbody><tr>
                                       <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
-                                          <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                                          <img src="https://api.coagcare.continuousnet.com/Assets/images/4448b54b5015cf433e02a578933a9925.png" alt="" border="0" width="125" style="display:block">
                                       </td>
                                     </tr>
                                     <tr>
@@ -1290,7 +1290,7 @@ return View::create($response, JsonResponse::HTTP_OK, []);
                       <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
                         <tbody><tr>
                           <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
-                              <img src="https://api.coagcare.continuousnet.com/profile/images/35b862f275f071b3d3465bbd845145d4.png" alt="" border="0" width="125" style="display:block">
+                              <img src="https://api.coagcare.continuousnet.com/Assets/images/4448b54b5015cf433e02a578933a9925.png" alt="" border="0" width="125" style="display:block">
                           </td>
                         </tr>
                         <tr>
