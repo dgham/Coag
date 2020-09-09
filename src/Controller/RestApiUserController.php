@@ -34,8 +34,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
             try {
             $usertype = $request->request->get('user_type');
             if (isset($usertype)) {
-            if ($usertype == "patient" || $usertype == "doctor" || $usertype
-            == "hospital" || $usertype == "admin") {
+            if ($usertype == "patient" || $usertype == "doctor" || $usertype == "hospital" || $usertype == "admin") {
             $user->setUserType($usertype);} else {
             return View::create("user type must be one of patient/doctor
             /hospital/admin", JsonResponse::HTTP_BAD_REQUEST, []);
