@@ -81,7 +81,7 @@ class RestApiTreatmentController extends FOSRestController
     }
     /**
      * @Rest\Post("/api/medication", name ="create_treatment")
-     * @Rest\View(serializerGroups={"users"})
+     * @Rest\View(serializerGroups={"doctors"})
      */
     public function create(Request $request, EntityManagerInterface $entity)
     {
