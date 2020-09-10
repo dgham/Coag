@@ -825,11 +825,6 @@ class RestApiMesureINRController extends FOSRestController
 
     }
 
-
-
-
-
-
     /**
      * @Rest\Get("/api/latestMesureByPatient/{id}", name ="count_latestMesure")
      * @Rest\View(serializerGroups={"users"})

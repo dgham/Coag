@@ -136,6 +136,36 @@ class RestApiTreatmentController extends FOSRestController
                 return View::create('missing periode!!', JsonResponse::HTTP_BAD_REQUEST, []);
             }
 
+
+            $uploadedImage = $request->files->get('picture');
+            if (!is_null($uploadedImage)) {
+
+                /**
+                 * @var UploadedFile $image
+                 */
+                $image = $uploadedImage;
+
+                $imageName = md5(uniqid()) . '.' . $image->guessExtension();
+                $type = $image->getType();
+                $size = $image->getSize();
+                $imagetype = $image->guessExtension();
+                $path = $this->getParameter('treatment_directory');
+                $path_uplaod = 'Assets/Treatments/';
+                if ($imagetype == "jpeg" || $imagetype == "png") {
+                    $image->move($path_uplaod, $imageName);
+                    $image_url = $path_uplaod . $imageName;
+                    $treatment->setPicture($image_url);
+    
+            } else {
+    
+                return View::create("select picture please !", JsonResponse::HTTP_BAD_REQUEST, []);
+            }
+    
+        }
+
+
+
+
             $patientid = $request->request->get('patient_id');
             if (isset($patientid)) {
                 //   Get user if exist or not   //
