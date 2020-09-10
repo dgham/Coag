@@ -1451,7 +1451,7 @@ return View::create($response, JsonResponse::HTTP_OK, []);
           public function delete($id){
             $user = $this->getUser();
             if ($user->getUserType() === UserType::TYPE_DOCTOR) {
-                if ($id === 132){
+                if ($id == 132){
                     return View::create('Error !you cannot delete the default patient John Doe try another', JsonResponse::HTTP_FORBIDDEN, []);
                 }
                 else{
