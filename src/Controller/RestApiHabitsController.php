@@ -34,7 +34,7 @@ class RestApiHabitsController extends FOSRestController
         
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
             $habitsrepository = $this->getDoctrine()->getRepository(Eatinghabits::class);
-            $habits = $habitsrepository->findBy(array('created_by'=> $data,'remove' => false));
+            $habits = $habitsrepository->findBy(array('created_by'=> $data,'remove' => false),array('id' => 'DESC'));
             if(!empty($habits)){
             return View::create($habits, JsonResponse::HTTP_OK, []);
          }
@@ -50,7 +50,7 @@ class RestApiHabitsController extends FOSRestController
            }
            if (!empty($Assigned)){
                 $habitsrepository = $this->getDoctrine()->getRepository(Eatinghabits::class);
-                $habits = $habitsrepository->findBy(array('created_by'=> $a ,'remove' => false));
+                $habits = $habitsrepository->findBy(array('created_by'=> $a ,'remove' => false),array('id' => 'DESC'));
                 if (!empty($habits)){
                 return View::create($habits, JsonResponse::HTTP_OK, []);
             }
