@@ -21,8 +21,31 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-            class RestApiUserController extends FOSRestController
-            {
+         class RestApiUserController extends FOSRestController
+
+         {
+            /**
+            * @Rest\Post("/api/user")
+            * @Rest\View(serializerGroups={"admin"})
+            */
+            public function showUser(){
+            $user=$this->getUser();
+            $data = array(
+                'id' => $user->getId()
+            );
+            if (($user->getUserType() === UserType::TYPE_ADMIN)) {
+               $repository = $this->getDoctrine()->getRepository(User::class);
+               $user = $repository->findAll(array('id'=>'DESC','remove'=>false));
+               if (!empty($user)){
+                  return View::create($user, Response::HTTP_OK);
+               }
+               else{
+                  return View::create("No data found", JsonResponse::HTTP_OK, []);
+               }
+            }
+
+
+         }
             /**
             * @Rest\Post("/auth/register")
             * @Rest\View(serializerGroups={"users"})
