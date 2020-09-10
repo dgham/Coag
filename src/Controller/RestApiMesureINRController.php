@@ -861,17 +861,37 @@ class RestApiMesureINRController extends FOSRestController
                 else{
                     return View::create('user not found', JsonResponse::HTTP_NOT_FOUND, []);    
                 }
-
-                if ($user->getUserType() === UserType::TYPE_PATIENT) {
-                                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                                $diagnostic = $diagnosticrepository->findByLatestMesureByPatient($user->getId());
-                                return View::create($diagnostic, JsonResponse::HTTP_OK, []);
-                } 
-
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     }
+
+
+
+    /**
+     * @Rest\Get("/api/latestMesureByPatient", name ="countUser_latestMesure")
+     * @Rest\View(serializerGroups={"users"})
+     */
+    public function countMesureByuser()
+    {
+        $a = array();
+        $user = $this->getUser();
+        $data = array(
+            'id' => $user->getId(),
+        );
+        if ($user->getUserType() === UserType::TYPE_PATIENT) {
+               $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
+               $diagnostic = $diagnosticrepository->findByLatestMesureByPatient($user->getId());
+                if (!empty($diagnostic)){
+                return View::create($diagnostic, JsonResponse::HTTP_OK, []);
+                 }
+                else{
+                return View::create('there is no latest measure !', JsonResponse::HTTP_NOT_FOUND []);
+                }
+                } else {
+                    return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+                }
+    }
+
 
 }
