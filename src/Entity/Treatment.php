@@ -85,7 +85,7 @@ class Treatment
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
-     * @Serializer\Groups({"doctors"})
+     * @Serializer\Groups({"users","doctors"})
      */
     private $patient;
 
