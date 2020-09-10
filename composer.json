@@ -52,8 +52,8 @@
         "webmozart/assert": "^1.7"
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.14"
-        
+        "symfony/maker-bundle": "^1.14",
+        "symfony/web-server-bundle": "4.4.*"
     },
     "config": {
         "preferred-install": {

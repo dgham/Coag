@@ -1361,9 +1361,7 @@ return View::create($response, JsonResponse::HTTP_OK, []);
         else{
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
-    }
-
-    
+    }    
      /**
      * @Rest\POST("/invitationResponse", name ="invitation_response")
      */

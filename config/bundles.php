@@ -1,4 +1,3 @@
-
 <?php
 
 return [
@@ -18,5 +17,5 @@ return [
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     Dubture\FFmpegBundle\DubtureFFmpegBundle::class => ['all' => true],
     FOS\RestBundle\FOSRestBundle::class => ['all' => true],
-
+    Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
 ];

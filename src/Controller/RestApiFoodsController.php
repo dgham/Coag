@@ -114,9 +114,6 @@ class RestApiFoodsController extends FOSRestController
                 else {
                     return View::create('missing food quantiyy!', JsonResponse::HTTP_BAD_REQUEST);
                 }
-              
-
-              
                         $foods->setCreatedBy($user);
                         $foods->setCreatedAt(new \DateTime());
                         $foods->setRemoved(false);
@@ -127,22 +124,16 @@ class RestApiFoodsController extends FOSRestController
                             'result'=> $foods,
                            
                         );
-                        return View::create($response, JsonResponse::HTTP_CREATED, []);
-                    
-                      
+                        return View::create($response, JsonResponse::HTTP_CREATED, []); 
             }
-           
                 else {
-               
                     return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                     }
             }
-
-
-        /**
+            /**
              * @param Request $request
              *
-         * @Rest\PATCH("/api/foods/{id}", name ="patch_foods")
+             * @Rest\PATCH("/api/foods/{id}", name ="patch_foods")
              * @Rest\View(serializerGroups={"admin"})
              */
             public function patchAction(Request $request,$id)
