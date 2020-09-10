@@ -24,7 +24,7 @@ class WebPagesController extends AbstractController
         $response = new Response(
             $this->render('web_pages/index.html.twig', [
                 'controller_name' => 'WebPagesController',
-            ]),200);
+            ]));
           $response->headers->set('Content-Type', 'text/html');
           return $response;
     
@@ -59,7 +59,7 @@ class WebPagesController extends AbstractController
                 $response = new Response(
                     $this->render('web_pages/resetPassword.html.twig', [
                         'token' => $token,
-                    ]),200);
+                    ]));
                   $response->headers->set('Content-Type', 'text/html');
                   return $response;
 
@@ -71,7 +71,7 @@ class WebPagesController extends AbstractController
                 $response = new Response(
                     $this->render('web_pages/resetPassword.html.twig', [
                         'token' => $token,
-                    ]),200);
+                    ]));
                   $response->headers->set('Content-Type', 'text/html');
                   return $response;
              
@@ -88,7 +88,7 @@ class WebPagesController extends AbstractController
                 $response = new Response(
                     $this->render('web_pages/resetPassword.html.twig', [
                         'token' => $token,
-                    ]),200);
+                    ]));
                   $response->headers->set('Content-Type', 'text/html');
                   return $response;
             } else {
@@ -96,7 +96,7 @@ class WebPagesController extends AbstractController
                 $response = new Response(
                     $this->render('web_pages/resetPassword.html.twig', [
                         'token' => $token,
-                    ]),200);
+                    ]));
                   $response->headers->set('Content-Type', 'text/html');
                   return $response;
             }
@@ -124,12 +124,21 @@ class WebPagesController extends AbstractController
             $em->flush();
             $token = $_POST['token'];
             $this->addFlash('success', 'your password updated!');
-            return $this->render('web_pages/resetPassword.html.twig', [
-                'token' => $token,
-            ]);
+
+            $response = new Response(
+                $this->render('web_pages/resetPassword.html.twig', [
+                    'token' => $token,
+                ]));
+              $response->headers->set('Content-Type', 'text/html');
+              return $response;
+
         } else {
             $token = $_POST['token'];
-            return $this->render('web_pages/resetError.html.twig');
+            $response = new Response(
+                $this->render('web_pages/resetError.html.twig'));
+              $response->headers->set('Content-Type', 'text/html');
+              return $response;
+           
         }
     }
     /**
@@ -257,10 +266,15 @@ class WebPagesController extends AbstractController
         
                         $mailer->send($message);
                     $this->addFlash('success', 'Welcome to CoagCare app ! Now you can join coagcare health community');
-                    return $this->render('web_pages/invitationResponse.html.twig', [
-                        'token' => $token,
-                        'id' => $id,
-                    ]);
+                    
+                    $response = new Response(
+                        $this->render('web_pages/invitationResponse.html.twig', [
+                            'token' => $token,
+                            'id' => $id,
+                        ]));
+                      $response->headers->set('Content-Type', 'text/html');
+                      return $response;
+                
                     }
 
                     $idpatient= $invitationValidation->getIdPatient()->getId();
@@ -371,10 +385,13 @@ class WebPagesController extends AbstractController
         
                         $mailer->send($message);
                     $this->addFlash('success', 'Welcome to CoagCare app ! Now you can join coagcare health community');
-                    return $this->render('web_pages/invitationResponse.html.twig', [
-                        'token' => $token,
-                        'id' => $id,
-                    ]);
+                    $response = new Response(
+                        $this->render('web_pages/invitationResponse.html.twig', [
+                            'token' => $token,
+                            'id' => $id,
+                        ]));
+                      $response->headers->set('Content-Type', 'text/html');
+                      return $response;
                     }
 
                 }
@@ -390,24 +407,33 @@ class WebPagesController extends AbstractController
                     $em->persist($invitationValidation);
                     $em->flush();
                     $this->addFlash('success', 'Unfortunately! you are descline one of coagcare health community. Maybe next time ');
-                    return $this->render('web_pages/invitationResponse.html.twig', [
-                        'token' => $token,
-                        'id' => $id,
-                    ]);
+                    $response = new Response(
+                        $this->render('web_pages/invitationResponse.html.twig', [
+                            'token' => $token,
+                            'id' => $id,
+                        ]));
+                      $response->headers->set('Content-Type', 'text/html');
+                      return $response;
                 }
 
             } else {
                 $this->addFlash('danger', 'You are already take an action to this request');
-                return $this->render('web_pages/invitationResponse.html.twig', [
-                    'token' => $token,
-                    'id' => $id,
-                ]);
+                $response = new Response(
+                    $this->render('web_pages/invitationResponse.html.twig', [
+                        'token' => $token,
+                        'id' => $id,
+                    ]));
+                  $response->headers->set('Content-Type', 'text/html');
+                  return $response;
             }
         } else {
-            return $this->render('web_pages/invitationResponse.html.twig', [
-                'token' => $token,
-                'id' => $id,
-            ]);
+            $response = new Response(
+                $this->render('web_pages/invitationResponse.html.twig', [
+                    'token' => $token,
+                    'id' => $id,
+                ]));
+              $response->headers->set('Content-Type', 'text/html');
+              return $response;
         }
 
     }
