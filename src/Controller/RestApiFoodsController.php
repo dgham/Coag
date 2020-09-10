@@ -205,6 +205,12 @@ class RestApiFoodsController extends FOSRestController
                         return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                     
                 }
+
+                }
+                
+                    else {
+                        return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+                
                 }
             }
             /**
