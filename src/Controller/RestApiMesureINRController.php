@@ -563,14 +563,25 @@ class RestApiMesureINRController extends FOSRestController
                             $NBMale = $NBMale + 1;
                         }
                     }
+                    if($NBMale == 0){
+                        $purcentageMale = "0%"; 
+                    }
+                    else{
                     $purcentageMale = strval(intval(round($NBMale * 100 / $total))) . "%";
+                    }
                     $NBFemale = 0;
                     foreach ($diagnostic as $dataa) {
                         if ($dataa->getCreatedBy()->getGender() == "Female") {
                             $NBFemale = $NBFemale + 1;
                         }
                     }
-                    $purcentaFemale = strval(intval(round($NBFemale * 100 / $total))) . "%";
+                    if($NBFemale == 0){
+                        $purcentaFemale = "0%";
+                    }
+                    else{
+                        $purcentaFemale = strval(intval(round($NBFemale * 100 / $total))) . "%";
+                    }
+                  
 
                     $response = array(
                         'Anormal_MaleMesure' => $purcentageMale,
@@ -805,6 +816,49 @@ class RestApiMesureINRController extends FOSRestController
 
         }
 
+    }
+
+
+
+
+
+
+    /**
+     * @Rest\Get("/api/latestMesureByPatient/{id}", name ="count_latestMesure")
+     * @Rest\View(serializerGroups={"users"})
+     */
+    public function countMesureBypatient($id)
+    {
+        $a = array();
+        $user = $this->getUser();
+        $data = array(
+            'id' => $user->getId(),
+        );
+
+        if ($user->getUserType() === UserType::TYPE_DOCTOR) {
+            $repository = $this->getDoctrine()->getRepository(User::class);
+            $userverife = $repository->findBy(array('id' => $id));
+            if (!is_null($userverife)) {
+                $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                $Assigned = $repository->findBy(array('id_doctor' => $user->getId(), 'id_patient' => $id, 'status' => 'Accepted', 'removed' => false));
+                if (!is_null($Assigned)) {
+                        $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
+                        $diagnostic = $diagnosticrepository->findByLatestMesureByPatient($id);
+                        return View::create($diagnostic, JsonResponse::HTTP_OK, []);
+                    }
+                    else{
+                        return View::create('you are not allowed', JsonResponse::HTTP_FORBIDDEN, []);  
+                    }
+
+                }
+                else{
+                    return View::create('user not found', JsonResponse::HTTP_NOT_FOUND, []);    
+                }
+
+
+        } else {
+            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+        }
     }
 
 }

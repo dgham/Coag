@@ -92,6 +92,21 @@ public function findByMesuremaxDate($value)
          ->groupBy('p.created_by')
         ->getQuery()
         ->getResult();
+}
+
+
+
+public function findByLatestMesureByPatient($value)
+{
+    return $this->createQueryBuilder('p')
+         ->select('p')
+         ->Where('p.created_by  IN (:val) ')
+         ->setParameter('val',$value)
+         ->orderBy('p.id', 'DESC')
+         ->groupBy('p.created_by')
+         ->setMaxResults( 5 )
+        ->getQuery()
+        ->getResult();
 
 
         
