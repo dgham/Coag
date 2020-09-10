@@ -20,9 +20,13 @@ class WebPagesController extends AbstractController
      */
     public function index()
     {
-        return $this->render('web_pages/index.html.twig', [
-            'controller_name' => 'WebPagesController',
-        ]);
+        $response = new Response(
+            $this->render('web_pages/index.html.twig', [
+                'controller_name' => 'WebPagesController',
+            ]),200);
+          $response->headers->set('Content-Type', 'text/html');
+          return $response;
+    
     }
 
     /**
@@ -50,15 +54,26 @@ class WebPagesController extends AbstractController
                 $em->flush();
                 $token = $_POST['token'];
                 $this->addFlash('success', 'your password updated , Sign In again !');
-                return $this->render('web_pages/resetPassword.html.twig', [
-                    'token' => $token,
-                ]);
+
+                $response = new Response(
+                    $this->render('web_pages/resetPassword.html.twig', [
+                        'token' => $token,
+                    ]),200);
+                  $response->headers->set('Content-Type', 'text/html');
+                  return $response;
+
+            
             } else {
                 $token = $_POST['token'];
                 $this->addFlash('danger', 'Unable to request password! your session expired ');
-                return $this->render('web_pages/resetPassword.html.twig', [
-                    'token' => $token,
-                ]);
+
+                $response = new Response(
+                    $this->render('web_pages/resetPassword.html.twig', [
+                        'token' => $token,
+                    ]),200);
+                  $response->headers->set('Content-Type', 'text/html');
+                  return $response;
+             
 
             }
 
@@ -69,14 +84,20 @@ class WebPagesController extends AbstractController
             if (is_null($user)) {
                 $token = $request->query->get('token');
                 $this->addFlash('danger', 'Unable to request password! your session expired ');
-                return $this->render('web_pages/resetPassword.html.twig', [
-                    'token' => $token,
-                ]);
+                $response = new Response(
+                    $this->render('web_pages/resetPassword.html.twig', [
+                        'token' => $token,
+                    ]),200);
+                  $response->headers->set('Content-Type', 'text/html');
+                  return $response;
             } else {
                 $token = $request->query->get('token');
-                return $this->render('web_pages/resetPassword.html.twig', [
-                    'token' => $token,
-                ]);
+                $response = new Response(
+                    $this->render('web_pages/resetPassword.html.twig', [
+                        'token' => $token,
+                    ]),200);
+                  $response->headers->set('Content-Type', 'text/html');
+                  return $response;
             }
         }
     }
