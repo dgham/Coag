@@ -182,7 +182,6 @@ class RestApiMesureINRController extends FOSRestController
                 $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
                 $diagnostic = $diagnosticrepository->findBy(array('created_by' => $a));
                 $nb = count($diagnostic);
-
                 $normall = 'normal mesure';
                 $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
                 $diagnosticNormal = $diagnosticrepository->findByINRMesureNormal($a, $normall);
@@ -263,17 +262,38 @@ class RestApiMesureINRController extends FOSRestController
                 $normal = count($diagnosticNormal);
                 $anormal = count($diagnosticANormal);
                 $nbdiagtotal = count($diagnostic);
-                $nbnormal = $normal * 100 / $total;
+                if ($total == 0){
+                    $response = array(
+                        'Total_INRmesure' => 0,
+                        'INR_Normal' => "0%",
+                        'INR_Anormal' => "0%",
+                    );
+                    return View::create($response, JsonResponse::HTTP_OK, []); 
+                }
+                else{
+                if ($normal == 0){
+                    $nbnormal  == "0%";
+                }
+                else{
+                    $nbnormal = $normal * 100 / $total;
+                    $normall = strval(intval(round($nbnormal))) . "%";
+                }
+                if($anormal == 0){
+                    $nbanormal= "0%";
+                }
+              else{
                 $nbanormal = $anormal * 100 / $total;
-                $normall = strval(intval(round($nbnormal))) . "%";
                 $anormall = strval(intval(round($nbanormal))) . "%";
+              }
+    
+             
                 $response = array(
                     'Total_INRmesure' => $total,
                     'INR_Normal' => $normall,
                     'INR_Anormal' => $anormall,
                 );
                 return View::create($response, JsonResponse::HTTP_OK, []);
-
+            }
             } else {
                 return View::create('No measurements found ', JsonResponse::HHTP_NOT_FOUND, []);
             }
