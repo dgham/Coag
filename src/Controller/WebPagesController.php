@@ -22,7 +22,7 @@ class WebPagesController extends AbstractController
     public function index()
     {
         $response = new Response(
-            $this->render('web_pages/index.html.twig', [
+            $this->renderView('web_pages/index.html.twig', [
                 'controller_name' => 'WebPagesController',
             ]));
           $response->headers->set('Content-Type', 'text/html');
@@ -57,7 +57,7 @@ class WebPagesController extends AbstractController
                 $this->addFlash('success', 'your password updated , Sign In again !');
 
                 $response = new Response(
-                    $this->render('web_pages/resetPassword.html.twig', [
+                    $this->renderView('web_pages/resetPassword.html.twig', [
                         'token' => $token,
                     ]));
                   $response->headers->set('Content-Type', 'text/html');
@@ -69,7 +69,7 @@ class WebPagesController extends AbstractController
                 $this->addFlash('danger', 'Unable to request password! your session expired ');
 
                 $response = new Response(
-                    $this->render('web_pages/resetPassword.html.twig', [
+                    $this->renderView('web_pages/resetPassword.html.twig', [
                         'token' => $token,
                     ]));
                   $response->headers->set('Content-Type', 'text/html');
@@ -86,7 +86,7 @@ class WebPagesController extends AbstractController
                 $token = $request->query->get('token');
                 $this->addFlash('danger', 'Unable to request password! your session expired ');
                 $response = new Response(
-                    $this->render('web_pages/resetPassword.html.twig', [
+                    $this->renderView('web_pages/resetPassword.html.twig', [
                         'token' => $token,
                     ]));
                   $response->headers->set('Content-Type', 'text/html');
@@ -94,7 +94,7 @@ class WebPagesController extends AbstractController
             } else {
                 $token = $request->query->get('token');
                 $response = new Response(
-                    $this->render('web_pages/resetPassword.html.twig', [
+                    $this->renderView('web_pages/resetPassword.html.twig', [
                         'token' => $token,
                     ]));
                   $response->headers->set('Content-Type', 'text/html');
@@ -126,7 +126,7 @@ class WebPagesController extends AbstractController
             $this->addFlash('success', 'your password updated!');
 
             $response = new Response(
-                $this->render('web_pages/resetPassword.html.twig', [
+                $this->renderView('web_pages/resetPassword.html.twig', [
                     'token' => $token,
                 ]));
               $response->headers->set('Content-Type', 'text/html');
@@ -135,7 +135,7 @@ class WebPagesController extends AbstractController
         } else {
             $token = $_POST['token'];
             $response = new Response(
-                $this->render('web_pages/resetError.html.twig'));
+                $this->renderView('web_pages/resetError.html.twig'));
               $response->headers->set('Content-Type', 'text/html');
               return $response;
            
@@ -268,7 +268,7 @@ class WebPagesController extends AbstractController
                     $this->addFlash('success', 'Welcome to CoagCare app ! Now you can join coagcare health community');
                     
                     $response = new Response(
-                        $this->render('web_pages/invitationResponse.html.twig', [
+                        $this->renderView('web_pages/invitationResponse.html.twig', [
                             'token' => $token,
                             'id' => $id,
                         ]));
@@ -386,7 +386,7 @@ class WebPagesController extends AbstractController
                         $mailer->send($message);
                     $this->addFlash('success', 'Welcome to CoagCare app ! Now you can join coagcare health community');
                     $response = new Response(
-                        $this->render('web_pages/invitationResponse.html.twig', [
+                        $this->renderView('web_pages/invitationResponse.html.twig', [
                             'token' => $token,
                             'id' => $id,
                         ]));
@@ -408,7 +408,7 @@ class WebPagesController extends AbstractController
                     $em->flush();
                     $this->addFlash('success', 'Unfortunately! you are descline one of coagcare health community. Maybe next time ');
                     $response = new Response(
-                        $this->render('web_pages/invitationResponse.html.twig', [
+                        $this->renderView('web_pages/invitationResponse.html.twig', [
                             'token' => $token,
                             'id' => $id,
                         ]));
@@ -419,7 +419,7 @@ class WebPagesController extends AbstractController
             } else {
                 $this->addFlash('danger', 'You are already take an action to this request');
                 $response = new Response(
-                    $this->render('web_pages/invitationResponse.html.twig', [
+                    $this->renderView('web_pages/invitationResponse.html.twig', [
                         'token' => $token,
                         'id' => $id,
                     ]));
@@ -428,7 +428,7 @@ class WebPagesController extends AbstractController
             }
         } else {
             $response = new Response(
-                $this->render('web_pages/invitationResponse.html.twig', [
+                $this->renderView('web_pages/invitationResponse.html.twig', [
                     'token' => $token,
                     'id' => $id,
                 ]));
