@@ -95,6 +95,10 @@ p {
 	margin: 0;
 	padding: 0;
 }
+.flashes{
+
+
+}
 
 .skills ul li {
 	border: 1px solid #2D2747;
@@ -132,7 +136,28 @@ footer a {
 </style>
 <br><br>
 <div class="card-container">
-	
+<div style="margin-right:30px;">
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-info alert-dismissible fade show" role="alert">
+		<strong>welcome </strong> {{message}}
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		</div>
+		<br>
+				{% endfor %}  	 
+          
+
+		{% for message in app.flashes('danger') %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<strong>Oh Oopps !</strong> {{message}}
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		</div>
+					{% endfor %}
+			</div>
+
 				<br><br> 
 	<img  src="https://api.coagcare.continuousnet.com/Assets/images/4448b54b5015cf433e02a578933a9925.png" width="150px" height="150px" alt="user" />
 	<br><br>
@@ -161,26 +186,7 @@ footer a {
 
 	</div>
 
-	{% for message in app.flashes('success') %}
-		<div class="alert alert-info alert-dismissible fade show" role="alert">
-		<strong>oh</strong> {{message}}
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-		</div>
-				{% endfor %}  	 
-          
-
-		{% for message in app.flashes('danger') %}
-				<div class="alert alert-danger alert-dismissible fade show" role="alert">
-		<strong>Oh Oopps !</strong> {{message}}
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-		</div>
-					{% endfor %}
-			
-
+	
 </div>
 
 <footer>

@@ -105,10 +105,7 @@ public function findByLatestMesureByPatient($value)
          ->orderBy('p.created_at', 'DESC')
          ->setMaxResults( 5 )
         ->getQuery()
-        ->getResult();
-
-
-        
+        ->getResult();        
 
 }
 
