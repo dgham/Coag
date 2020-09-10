@@ -604,9 +604,10 @@ class RestApiMesureINRController extends FOSRestController
                 $a[] = $dataa->getIdPatient();
             }
             if (!is_null($Assigned)) {
+                $indication = 'anormal mesure';
                 $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
                 $diagnostic = $diagnosticrepository->getassigned($a, $indication);
-                dump($dignostic);
+                dump($diagnostic);
                 die;
                 $diagnosticttotal = $diagnosticrepository->findBy(array('created_by' => $a));
                 $total = count($diagnostic);
