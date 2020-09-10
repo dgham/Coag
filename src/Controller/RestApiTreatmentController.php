@@ -39,7 +39,7 @@ class RestApiTreatmentController extends FOSRestController
         }
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
             $repository = $this->getDoctrine()->getRepository(Treatment::class);
-            $treatment = $repository->findBy(array('patient' => $data, 'remove' => false, array('id' => 'DESC')));
+            $treatment = $repository->findBy(array('patient' => $user->getId(), 'remove' => false), array('id' => 'DESC'));
             if (!empty($treatment)) {
                 return View::create($treatment, JsonResponse::HTTP_OK, []);
 
