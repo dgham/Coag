@@ -103,7 +103,6 @@ public function findByLatestMesureByPatient($value)
          ->Where('p.created_by  IN (:val) ')
          ->setParameter('val',$value)
          ->orderBy('p.created_at', 'DESC')
-         ->groupBy('p.created_by')
          ->setMaxResults( 5 )
         ->getQuery()
         ->getResult();
