@@ -367,7 +367,7 @@ class WebPagesController extends AbstractController
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($invitationValidation);
                     $em->flush();
-                    $this->addFlash('success', 'Unfortunately ! you are descline one of coagcare health community. Maybe next time ');
+                    $this->addFlash('success', 'Unfortunately! you are descline one of coagcare health community. Maybe next time ');
                     return $this->render('web_pages/invitationResponse.html.twig', [
                         'token' => $token,
                         'id' => $id,
