@@ -845,10 +845,11 @@ class RestApiMesureINRController extends FOSRestController
         if ($user->getUserType() === UserType::TYPE_DOCTOR) {
             $repository = $this->getDoctrine()->getRepository(User::class);
             $userverife = $repository->findBy(array('id' => $id));
-            if (!is_null($userverife)) {
+            if (!empty($userverife)) {
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
-                $Assigned = $repository->findBy(array('id_doctor' => $user->getId(), 'id_patient' => $id, 'status' => 'Accepted', 'removed' => false));
-                if (!is_null($Assigned)) {
+                $Assigned = $repository->findBy(array('id_doctor' => $user->getId(), 'id_patient' => $id,
+                 'status' => 'Accepted', 'removed' => false));
+                if (!empty($Assigned)) {
                         $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
                         $diagnostic = $diagnosticrepository->findByLatestMesureByPatient($id);
                         return View::create($diagnostic, JsonResponse::HTTP_OK, []);
@@ -856,11 +857,16 @@ class RestApiMesureINRController extends FOSRestController
                     else{
                         return View::create('you are not allowed', JsonResponse::HTTP_FORBIDDEN, []);  
                     }
-
                 }
                 else{
                     return View::create('user not found', JsonResponse::HTTP_NOT_FOUND, []);    
                 }
+
+                if ($user->getUserType() === UserType::TYPE_PATIENT) {
+                                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
+                                $diagnostic = $diagnosticrepository->findByLatestMesureByPatient($user->getId());
+                                return View::create($diagnostic, JsonResponse::HTTP_OK, []);
+                } 
 
 
         } else {
