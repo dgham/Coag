@@ -620,14 +620,24 @@ class RestApiMesureINRController extends FOSRestController
                         }
 
                     }
-
+                    if($NBMale == 0){
+                        $purcentageMale = "0%"; 
+                    }
+                    else{
                     $purcentageMale = strval(intval(round($NBMale * 100 / $total))) . "%";
+                    }
                     $NBFemale = 0;
                     foreach ($diagnostic as $dataa) {
                         if ($dataa->getCreatedBy()->getGender() == "Female") {
                             $NBFemale = $NBFemale + 1;
                         }
                     }
+                    if ($NBFemale == 0) {
+                        $purcentaFemale = "0%";
+                    }
+                        else{
+                            $purcentaFemale = strval(intval(round($NBFemale * 100 / $total))) . "%";
+                        }
 
                     if ($total === 0) {
                         $response = array(
@@ -637,33 +647,14 @@ class RestApiMesureINRController extends FOSRestController
                         return View::create($response, JsonResponse::HTTP_OK, []);
 
                     }
-                    if ($NBMale === 0) {
-                        $purcentaFemale = strval(intval(round($NBFemale * 100 / $total))) . "%";
-                        $response = array(
-                            'Anormal_MaleMesure' => "0%",
-                            'Anormal_FemaleMesure' => $purcentaFemale,
-                        );
-                        return View::create($response, JsonResponse::HTTP_OK, []);
 
-                    }
-                    if ($NBFemale === 0) {
-                        $purcentageMale = strval(intval(round($NBMale * 100 / $total))) . "%";
-                        $response = array(
-                            'Anormal_MaleMesure' => $purcentageMale,
-                            'Anormal_FemaleMesure' => "0%",
-                        );
-                        return View::create($response, JsonResponse::HTTP_OK, []);
-
-                    } else {
-
-                        $purcentaFemale = strval(intval(round($NBFemale * 100 / $total))) . "%";
                         $response = array(
                             'Anormal_MaleMesure' => $purcentageMale,
                             'Anormal_FemaleMesure' => $purcentaFemale,
                         );
                         return View::create($response, JsonResponse::HTTP_OK, []);
                     }
-                }
+                
             }
 
         } else {
