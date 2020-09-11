@@ -32,7 +32,7 @@ class RestApiDeviceController extends FOSRestController
             if (!is_null($device)) {
                 return View::create($device, JsonResponse::HTTP_OK, []);
             } else {
-                return View::create('device not found', JsonResponse::HTTP_NOT_FOUND);
+                return View::create('device not found', JsonResponse::HTTP_OK);
             }
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);

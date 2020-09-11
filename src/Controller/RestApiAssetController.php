@@ -29,7 +29,7 @@ class RestApiAssetController  extends FOSRestController
         if (!is_null($asset)) {
             return View::create($asset, JsonResponse::HTTP_OK, []);
         } else {
-            return View::create('no assets Found', JsonResponse::HTTP_NOT_FOUND);  
+            return View::create('no assets Found', JsonResponse::HTTP_OK);  
                   } 
         
             } 
@@ -369,38 +369,38 @@ class RestApiAssetController  extends FOSRestController
                     
                             }
      }
-     /**
-      * @Rest\Delete("/api/asset/{id}", name ="selete_asset")
-     */
-    public function delete($id){
-        $user = $this->getUser();
-        if ($user->getUserType() === UserType::TYPE_ADMIN) {
-            $repository = $this->getDoctrine()->getRepository(Asset::class);
-            $asset = $repository->findOneBy(array('id' => $id,'created_by' => $user->getId(),'remove' => false));
-            if (!is_null($asset)) {
-                    $asset->setRemove(true);
-                    $asset->setRemovedBy($user);
-                    $asset->setRemovedAt(new \DateTime());
-                    $em = $this->getDoctrine()->getManager();
-                    $em->flush();
-                    return View::create('asset deleted with success!', JsonResponse::HTTP_OK, []);
-                 } 
-                
-                else {
+            /**
+             * @Rest\Delete("/api/asset/{id}", name ="selete_asset")
+            */
+            public function delete($id){
+                $user = $this->getUser();
+                if ($user->getUserType() === UserType::TYPE_ADMIN) {
+                    $repository = $this->getDoctrine()->getRepository(Asset::class);
+                    $asset = $repository->findOneBy(array('id' => $id,'created_by' => $user->getId(),'remove' => false));
+                    if (!is_null($asset)) {
+                            $asset->setRemove(true);
+                            $asset->setRemovedBy($user);
+                            $asset->setRemovedAt(new \DateTime());
+                            $em = $this->getDoctrine()->getManager();
+                            $em->flush();
+                            return View::create('asset deleted with success!', JsonResponse::HTTP_OK, []);
+                        } 
+                        
+                        else {
 
-                    return View::create('not Found', JsonResponse::HTTP_NOT_FOUND);  
-               
-       
-           }
-        }
-                 else {
-                    return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-                
-        
+                            return View::create('not Found', JsonResponse::HTTP_NOT_FOUND);  
+                    
             
-           
-        }    
-}
+                }
+                }
+                        else {
+                            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+                        
+                
+                    
+                
+                }    
+        }
                 
 
 }

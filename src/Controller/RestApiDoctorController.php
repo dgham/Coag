@@ -47,7 +47,7 @@ class RestApiDoctorController extends AbstractController
                 if (!is_null($hospital)) {
                     return View::create($doctor, JsonResponse::HTTP_OK, []);
                 } else {
-                    return View::create('doctors Not Found', JsonResponse::HTTP_NOT_FOUND);
+                    return View::create('doctors Not Found', JsonResponse::HTTP_OK);
                         } 
                 } 
 
