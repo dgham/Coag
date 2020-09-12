@@ -36,7 +36,7 @@ class RestApiMesureINRController extends FOSRestController
         );
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
             $repository = $this->getDoctrine()->getRepository(Diagnostic::class);
-            $diagnostic = $repository->findBy(array('created_by' => $data));
+            $diagnostic = $repository->findBy(array('created_by' => $data),array('id'=>'DESC'));
             if (!empty($diagnostic)) {
                 return View::create($diagnostic, JsonResponse::HTTP_OK, []);
             }
@@ -44,7 +44,7 @@ class RestApiMesureINRController extends FOSRestController
         }
         if ($user->getUserType() === UserType::TYPE_DOCTOR) {
             $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
-            $Assigned = $repository->findBy(array('id_doctor' => $user->getId(), 'status' => 'Accepted', 'removed' => false));
+            $Assigned = $repository->findBy(array('id_doctor' => $user->getId(), 'status' => 'Accepted', 'removed' => false),array('id'=>'DESC'));
             foreach ($Assigned as $data) {
                 $a[] = $data->getIdPatient();
             }

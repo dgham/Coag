@@ -395,8 +395,7 @@ class WebPagesController extends AbstractController
                     }
 
                 }
-                if ($response === "Refuse invitation") {
-                    
+                if ($response === "Refuse invitation") { 
                     $repository = $this->getDoctrine()->getRepository(User::class);
                     $user = $repository->findOneBy(array('id' => $id));
                     $invitationValidation->setStatus("Refused");
