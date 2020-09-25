@@ -26,12 +26,6 @@ class Treatment
 
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Serializer\Groups({"users","doctors"})
-     */
-    private $picture;
-
-    /**
      * @ORM\Column(type="string", length=55)
      * @Serializer\Groups({"users","doctors"})
      */
@@ -95,7 +89,7 @@ class Treatment
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Serializer\Groups({"doctors"})
      */
-    private $medicationType;
+    private $DrugType;
 
 
 
@@ -116,18 +110,6 @@ class Treatment
         return $this;
     }
 
-
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(?string $picture): self
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
 
     public function getDosage(): ?string
     {
@@ -253,14 +235,14 @@ class Treatment
 
  
 
-    public function getMedicationType(): ?string
+    public function getDrugType(): ?string
     {
-        return $this->medicationType;
+        return $this->DrugType;
     }
 
-    public function setMedicationType(?string $medicationType): self
+    public function setDrugType(?string $DrugType): self
     {
-        $this->medicationType = $medicationType;
+        $this->DrugType = $DrugType;
 
         return $this;
     }

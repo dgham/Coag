@@ -17,57 +17,54 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class RestApiSessionController extends FOSRestController
 {
-      /**
-    * @Rest\Get("/api/session", name ="api_session")
+    /**
+     * @Rest\Get("/api/session", name ="api_session")
      * @Rest\View(serializerGroups={"admin"})
      */
     public function index()
     {
-        $user= $this->getUser();
+        $user = $this->getUser();
         $data = array(
             'id' => $user->getId()
         );
-            if ($user->getUserType() === UserType::TYPE_ADMIN) {
-                $repository = $this->getDoctrine()->getRepository(session::class);
-                $session = $repository->findBy(array('removed'=>false),(array('id'=>'DESC')));
-                if (!is_null($session)) {
-                    return View::create($session, JsonResponse::HTTP_OK, []);
+        if ($user->getUserType() === UserType::TYPE_ADMIN) {
+            $repository = $this->getDoctrine()->getRepository(session::class);
+            $session = $repository->findBy(array('removed' => false), (array('id' => 'DESC')));
+            if (!is_null($session)) {
+                return View::create($session, JsonResponse::HTTP_OK, []);
+            } else {
+                return View::create('no session Found', JsonResponse::HTTP_NOT_FOUND);
+            }
         } else {
-            return View::create('no session Found', JsonResponse::HTTP_NOT_FOUND);   
-                  } 
-        
-            } 
-            else {
-                return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-                      }
+            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
+    }
 
 
-         /**
-    * @Rest\Get("/api/session/{id}", name ="search_session")
+    /**
+     * @Rest\Get("/api/session/{id}", name ="search_session")
      * @Rest\View(serializerGroups={"admin"})
      */
+
     public function searchSession($id)
     {
-        $user= $this->getUser();
+        $user = $this->getUser();
         $data = array(
             'id' => $user->getId()
         );
-            if ($user->getUserType() === UserType::TYPE_ADMIN) {
-                $repository = $this->getDoctrine()->getRepository(session::class);
-                $session =  $repository->findOneBy(array('id' => $id,'removed' => false));
-                if (!is_null($session)) {
-                    return View::create($session, JsonResponse::HTTP_OK, []);
+        if ($user->getUserType() === UserType::TYPE_ADMIN) {
+            $repository = $this->getDoctrine()->getRepository(session::class);
+            $session =  $repository->findOneBy(array('id' => $id, 'removed' => false));
+            if (!is_null($session)) {
+                return View::create($session, JsonResponse::HTTP_OK, []);
+            } else {
+                return View::create('no session Found', JsonResponse::HTTP_NOT_FOUND);
+            }
         } else {
-            return View::create('no session Found', JsonResponse::HTTP_NOT_FOUND);   
-                  } 
-        
-            } 
-            else {
-                return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-                      }
+            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
-     /**
+    }
+    /**
      * 
      * @Rest\Post("/api/session", name ="post_session")
      * @Rest\View(serializerGroups={"admin"})
@@ -76,32 +73,32 @@ class RestApiSessionController extends FOSRestController
      */
     public function postsessionAction(Request $request)
     {
-        $user= $this->getUser();
+        $user = $this->getUser();
         if ((!$user->getUserType() === UserType::TYPE_ADMIN) || (!$user->getUserType() === UserType::TYPE_DOCTOR) || (!$user->getUserType() === UserType::TYPE_HOSPITAL) || (!$user->getUserType() === UserType::TYPE_ADMIN)) {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
         try {
             $data = $request->request->all();
-                $session = new Session();
-                $typeagent= gettype($data['user_agent']);
+            $session = new Session();
+            $typeagent = gettype($data['user_agent']);
             if (isset($data['user_agent'])) {
-                if($typeagent == "string"){
-                $session->setUserAgent($data['user_agent']);
-            } else {
-                return View::create('session should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
-            }
+                if ($typeagent == "string") {
+                    $session->setUserAgent($data['user_agent']);
+                } else {
+                    return View::create('session should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
+                }
             } else {
                 return View::create('Missing user agent', JsonResponse::HTTP_BAD_REQUEST, []);
             }
-            $typeaddress= gettype($data['ip_address']);
+            $typeaddress = gettype($data['ip_address']);
             if (isset($data['ip_address'])) {
-                if($typeaddress == "string"){
-                $session->setIpAddress($data['ip_address']);
-            } else {
-                return View::create('ipadress should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
+                if ($typeaddress == "string") {
+                    $session->setIpAddress($data['ip_address']);
+                } else {
+                    return View::create('ipadress should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
+                }
             }
-            }
-          
+
             $session->setIsValide(true);
             $session->setRemoved(false);
             $session->setCreatedBy($user);
@@ -109,19 +106,14 @@ class RestApiSessionController extends FOSRestController
             $em = $this->getDoctrine()->getManager();
             $em->persist($session);
             $em->flush();
-            $response=array(
-                'message'=>'session created',
-                'result'=>$session,
-               
+            $response = array(
+                'message' => 'session created',
+                'result' => $session,
+
             );
-            return View::create($response,Response::HTTP_CREATED, []);
-       
+            return View::create($response, Response::HTTP_CREATED, []);
         } catch (\Exception $ex) {
             return  View::create($ex->getMessage(), JsonResponse::HTTP_BAD_REQUEST, []);
         }
     }
-
-
-
-    
 }

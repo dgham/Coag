@@ -24,16 +24,14 @@ class RestApiHospitalController extends FOSRestController
         if ($user->getUserType() === UserType::TYPE_DOCTOR) {
             $repository = $this->getDoctrine()->getRepository(Hospital::class);
             $hospital = $repository->findAll();
-            if (!is_null($hospital)) {
+            if (!empty($hospital)) {
                 return View::create($hospital, JsonResponse::HTTP_OK, []);
             } else {
-                return View::create('hospital not Found', JsonResponse::HTTP_NOT_FOUND);
+                return View::create('no hospital Found', JsonResponse::HTTP_OK);
             }
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
-
     }
 
     /**
@@ -46,19 +44,18 @@ class RestApiHospitalController extends FOSRestController
         if ($user->getUserType() === UserType::TYPE_ADMIN) {
             $repository = $this->getDoctrine()->getRepository(Hospital::class);
             $hospital = $repository->findAll();
-            if (!is_null($hospital)) {
+            if (!empty($hospital)) {
                 return View::create($hospital, JsonResponse::HTTP_OK, []);
             } else {
                 return View::create('hospital not Found', JsonResponse::HTTP_NOT_FOUND);
             }
-
         }
         if ($user->getUserType() === UserType::TYPE_DOCTOR) {
             $repository = $this->getDoctrine()->getRepository(Doctor::class);
             $doctor = $repository->findOneBy(array('created_by' => $user->getId(), 'removed' => false));
             $hospital = $doctor->getHospital();
 
-            if (!is_null($hospital)) {
+            if (!empty($hospital)) {
                 $reflectionClass = new ReflectionClass(get_class($doctor));
                 $array = array();
                 foreach ($reflectionClass->getProperties() as $property) {
@@ -74,7 +71,6 @@ class RestApiHospitalController extends FOSRestController
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
-
     }
 
     /**
@@ -87,12 +83,11 @@ class RestApiHospitalController extends FOSRestController
         if ($user->getUserType() === UserType::TYPE_DOCTOR) {
             $repository = $this->getDoctrine()->getRepository(Hospital::class);
             $hospital = $repository->findOneBy(array('id' => $id, 'removed' => false));
-            if (!is_null($hospital)) {
+            if (!empty($hospital)) {
                 return View::create($hospital, JsonResponse::HTTP_OK, []);
             } else {
                 return View::create('hospital not Found', JsonResponse::HTTP_NOT_FOUND);
             }
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }

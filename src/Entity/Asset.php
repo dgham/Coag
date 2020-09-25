@@ -11,7 +11,7 @@ use JMS\Serializer\Annotation as Serializer;
 class Asset
 {
     /**
-     * @ORM\Id()
+     * @ORM\Id()    
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Serializer\Groups({"admin"})

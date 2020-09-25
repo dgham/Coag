@@ -71,13 +71,7 @@ class Doctor
      * @ORM\Column(type="boolean")
      */
     private $removed;
-
-    /**
-    * @Serializer\Groups({"users","admin","doctors"})
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $matricule;
-
+ 
     /**
      * @ORM\Column(type="boolean", nullable=false)
     * @Serializer\Groups({"users","admin","doctors"})
@@ -90,6 +84,12 @@ class Doctor
      * @Serializer\Groups({"users","admin","doctors"})
      */
     private $speciality;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     * @Serializer\Groups({"users","admin","doctors"})
+     */
+    private $registration_number;
 
 
 
@@ -201,17 +201,7 @@ class Doctor
         return $this;
     }
 
-    public function getMatricule(): ?string
-    {
-        return $this->matricule;
-    }
-
-    public function setMatricule(?string $matricule): self
-    {
-        $this->matricule = $matricule;
-
-        return $this;
-    }
+  
 
     public function getAffiliate(): ?bool
     {
@@ -233,6 +223,18 @@ class Doctor
     public function setSpeciality(?Speciality $speciality): self
     {
         $this->speciality = $speciality;
+
+        return $this;
+    }
+
+    public function getRegistrationNumber(): ?string
+    {
+        return $this->registration_number;
+    }
+
+    public function setRegistrationNumber(string $registration_number): self
+    {
+        $this->registration_number = $registration_number;
 
         return $this;
     }

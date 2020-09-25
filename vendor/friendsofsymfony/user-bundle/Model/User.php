@@ -88,6 +88,7 @@ abstract class User implements UserInterface, GroupableInterface
 
     /**
      * @var \DateTime|null
+     * @Serializer\Groups({"users"})
      */
     protected $lastLogin;
 

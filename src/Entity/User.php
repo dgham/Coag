@@ -174,7 +174,7 @@ class User extends BaseUser
         list (
             $this->id,
             $this->username,
-            $this->passwordord,
+            $this->password,
             // see section on salt below
             // $this->salt
             ) = unserialize($serialized,['allowed_classes' => false]);

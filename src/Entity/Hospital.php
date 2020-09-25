@@ -66,6 +66,18 @@ class Hospital
      */
     private $removed;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Serializer\Groups({"users","admin","doctors"})
+     */
+    private $WebSite;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Serializer\Groups({"users","admin","doctors"})
+     */
+    private $location;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -163,6 +175,30 @@ class Hospital
     public function setRemoved(bool $removed): self
     {
         $this->removed = $removed;
+
+        return $this;
+    }
+
+    public function getWebSite(): ?string
+    {
+        return $this->WebSite;
+    }
+
+    public function setWebSite(?string $WebSite): self
+    {
+        $this->WebSite = $WebSite;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): self
+    {
+        $this->location = $location;
 
         return $this;
     }

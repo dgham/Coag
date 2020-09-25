@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MedicationListRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\DrugRepository")
  */
-class MedicationList
+class Drug
 {
     /**
      * @ORM\Id()
@@ -32,6 +32,7 @@ class MedicationList
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @Serializer\Groups({"users","admin","doctors"})
      */
     private $created_by;
 
@@ -65,6 +66,12 @@ class MedicationList
      * @ORM\Column(type="boolean")
      */
     private $removed;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Serializer\Groups({"users","admin","doctors"})
+     */
+    private $picture;
 
     public function getId(): ?int
     {
@@ -175,6 +182,18 @@ class MedicationList
     public function setRemoved(bool $removed): self
     {
         $this->removed = $removed;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\Eatinghabits;
+use App\Entity\EatingHabit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Eatinghabits|null find($id, $lockMode = null, $lockVersion = null)
- * @method Eatinghabits|null findOneBy(array $criteria, array $orderBy = null)
- * @method Eatinghabits[]    findAll()
- * @method Eatinghabits[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method EatingHabit|null find($id, $lockMode = null, $lockVersion = null)
+ * @method EatingHabit|null findOneBy(array $criteria, array $orderBy = null)
+ * @method EatingHabit[]    findAll()
+ * @method EatingHabit[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EatinghabitsRepository extends ServiceEntityRepository
+class EatingHabitRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Eatinghabits::class);
+        parent::__construct($registry, EatingHabit::class);
     }
 
     public function findcount($value)
@@ -30,8 +30,20 @@ class EatinghabitsRepository extends ServiceEntityRepository
     ;
 }
 
+public function findHabits($value)
+{
+    return $this->createQueryBuilder('p')
+        ->select('p')
+        ->Where('p.created_by  IN (:val) ')
+        ->setParameter('val', $value)
+        ->orderBy('p.created_by', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
+
+
     // /**
-    //  * @return Eatinghabits[] Returns an array of Eatinghabits objects
+    //  * @return EatingHabit[] Returns an array of EatingHabit objects
     //  */
     /*
     public function findByExampleField($value)
@@ -48,7 +60,7 @@ class EatinghabitsRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Eatinghabits
+    public function findOneBySomeField($value): ?EatingHabit
     {
         return $this->createQueryBuilder('e')
             ->andWhere('e.exampleField = :val')

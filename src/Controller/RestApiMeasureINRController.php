@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Asset;
 use App\Entity\Device;
-use App\Entity\Diagnostic;
+use App\Entity\Measure;
 use App\Entity\Doctor;
 use App\Entity\DoctorAssignement;
 use App\Entity\Hospital;
@@ -22,10 +22,10 @@ use Hoa\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class RestApiMesureINRController extends FOSRestController
+class RestApiMeasureINRController extends FOSRestController
 {
     /**
-     * @Rest\Get("/api/diagnostic", name ="api_diagnostic")
+     * @Rest\Get("/api/measure", name ="api_Measure")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function index()
@@ -35,46 +35,45 @@ class RestApiMesureINRController extends FOSRestController
             'id' => $user->getId(),
         );
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
-            $repository = $this->getDoctrine()->getRepository(Diagnostic::class);
-            $diagnostic = $repository->findBy(array('created_by' => $data),array('id'=>'DESC'));
-            if (!empty($diagnostic)) {
-                return View::create($diagnostic, JsonResponse::HTTP_OK, []);
+            $repository = $this->getDoctrine()->getRepository(Measure::class);
+            $Measure = $repository->findBy(array('created_by' => $data), array('id' => 'DESC'));
+            if (!empty($Measure)) {
+                return View::create($Measure, JsonResponse::HTTP_OK, []);
             }
             return View::create('No data found', JsonResponse::HTTP_OK, []);
         }
         if ($user->getUserType() === UserType::TYPE_DOCTOR) {
             $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
-            $Assigned = $repository->findBy(array('id_doctor' => $user->getId(), 'status' => 'Accepted', 'removed' => false),array('id'=>'DESC'));
+            $Assigned = $repository->findBy(array('id_doctor' => $user->getId(), 'status' => 'Accepted', 'removed' => false), array('id' => 'DESC'));
             foreach ($Assigned as $data) {
                 $a[] = $data->getIdPatient();
             }
             if (!is_null($Assigned)) {
-                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnostic = $diagnosticrepository->findBy(array('created_by' => $a));
-                if (!empty($diagnostic)) {
-                    return View::create($diagnostic, JsonResponse::HTTP_OK, []);
+                $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                $Measure = $Measurerepository->findBy(array('created_by' => $a));
+                if (!empty($Measure)) {
+                    return View::create($Measure, JsonResponse::HTTP_OK, []);
                 }
                 return View::create('No data found', JsonResponse::HTTP_OK, []);
             } else {
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
             }
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     }
     /**
-     * @Rest\Get("/api/diagnostic/{id}", name ="search_diagnostic")
+     * @Rest\Get("/api/measure/{id}", name ="search_Measure")
      * @Rest\View(serializerGroups={"doctors"})
      */
-    public function searchDiagnostic($id)
+    public function searchMeasure($id)
     {
         $user = $this->getUser();
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
-            $repository = $this->getDoctrine()->getRepository(diagnostic::class);
-            $diagnostic = $repository->findOneBy(array('id' => $id, 'created_by' => $user->getId()));
-            if (!is_null($diagnostic)) {
-                return View::create($diagnostic, JsonResponse::HTTP_OK, []);
+            $repository = $this->getDoctrine()->getRepository(Measure::class);
+            $Measure = $repository->findOneBy(array('id' => $id, 'created_by' => $user->getId()));
+            if (!is_null($Measure)) {
+                return View::create($Measure, JsonResponse::HTTP_OK, []);
             } else {
                 return View::create(' Not Found', JsonResponse::HTTP_NOT_FOUND);
             }
@@ -87,14 +86,13 @@ class RestApiMesureINRController extends FOSRestController
             }
 
             if (!is_null($Assigned)) {
-                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnostic = $diagnosticrepository->findOneBy(array('id' => $id, 'created_by' => $a));
-                if (!is_null($diagnostic)) {
-                    return View::create($diagnostic, JsonResponse::HTTP_OK, []);
+                $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                $Measure = $Measurerepository->findOneBy(array('id' => $id, 'created_by' => $a));
+                if (!is_null($Measure)) {
+                    return View::create($Measure, JsonResponse::HTTP_OK, []);
                 } else {
                     return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                 }
-
             } else {
                 return View::create(' Not Found', JsonResponse::HTTP_NOT_FOUND);
             }
@@ -104,7 +102,7 @@ class RestApiMesureINRController extends FOSRestController
     }
 
     /**
-     * @Rest\Post("/api/diagnostic", name ="post_diagnostic")
+     * @Rest\Post("/api/measure", name ="post_Measure")
      * @Rest\View(serializerGroups={"users"})
      */
     public function create(Request $request, EntityManagerInterface $entity)
@@ -115,15 +113,15 @@ class RestApiMesureINRController extends FOSRestController
             if ($user->getUserType() === UserType::TYPE_PATIENT) {
                 $value = $request->request->get('value');
                 $typevalue = gettype($value);
-                $diagnostic = new Diagnostic();
+                $Measure = new Measure();
                 if (isset($value)) {
                     if ($typevalue == "double") {
 
-                        $diagnostic->setValue($value);
+                        $Measure->setValue($value);
                         if ((2.0 < $value) && ($value > 3.0)) {
-                            $diagnostic->setIndication('anormal mesure');
+                            $Measure->setIndication('anormal mesure');
                         } else {
-                            $diagnostic->setIndication('normal mesure');
+                            $Measure->setIndication('normal mesure');
                         }
                     } else {
                         return View::create('value of INR must be double!', JsonResponse::HTTP_BAD_REQUEST, []);
@@ -135,7 +133,7 @@ class RestApiMesureINRController extends FOSRestController
                 $typevalue = gettype($details);
                 if (isset($details)) {
                     if ($typevalue == "string") {
-                        $diagnostic->setDetails($details);
+                        $Measure->setDetails($details);
                     } else {
                         return View::create('details must be string!', JsonResponse::HTTP_BAD_REQUEST, []);
                     }
@@ -144,16 +142,17 @@ class RestApiMesureINRController extends FOSRestController
                 $typevalue = gettype($devicedate);
                 if (isset($devicedate)) {
                     if ($typevalue == "string") {
-                        $diagnostic->setDeviceDate($devicedate);
+                        $Measure->setDeviceDate($devicedate);
                     } else {
                         return View::create(' device date must be string!', JsonResponse::HTTP_BAD_REQUEST, []);
                     }
                 }
-                $diagnostic->setCreatedBy($user);
-                $diagnostic->setCreatedAt(new \DateTime());
-                $entity->persist($diagnostic);
+                $Measure->setReaded(false);
+                $Measure->setCreatedBy($user);
+                $Measure->setCreatedAt(new \DateTime());
+                $entity->persist($Measure);
                 $entity->flush();
-                return View::create($diagnostic, JsonResponse::HTTP_CREATED, []);
+                return View::create($Measure, JsonResponse::HTTP_CREATED, []);
             } else {
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
             }
@@ -163,10 +162,10 @@ class RestApiMesureINRController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/api/MesureDetails", name ="mesure_detailss")
+     * @Rest\Get("/api/measureDetails", name ="mesure_detailss")
      * @Rest\View(serializerGroups={"users"})
      */
-    public function countDiagnostic()
+    public function countMeasure()
     {
         $user = $this->getUser();
         $data = array(
@@ -179,22 +178,22 @@ class RestApiMesureINRController extends FOSRestController
                 $a[] = $data->getIdPatient();
             }
             if (!is_null($Assigned)) {
-                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnostic = $diagnosticrepository->findBy(array('created_by' => $a));
-                $nb = count($diagnostic);
+                $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                $Measure = $Measurerepository->findBy(array('created_by' => $a));
+                $nb = count($Measure);
                 $normall = 'normal mesure';
-                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnosticNormal = $diagnosticrepository->findByINRMesureNormal($a, $normall);
-                $diagnostictotal = $diagnosticrepository->findBy(array('created_by' => $a));
-                $normal = count($diagnosticNormal);
-                $total = count($diagnostictotal);
+                $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                $MeasureNormal = $Measurerepository->findByINRMesureNormal($a, $normall);
+                $Measuretotal = $Measurerepository->findBy(array('created_by' => $a));
+                $normal = count($MeasureNormal);
+                $total = count($Measuretotal);
                 $nbnormal = strval(intval(round($normal * 100 / $total))) . "%";
                 $anormal = 'anormal mesure';
-                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnosticANormal = $diagnosticrepository->findByINRMesureINormal($a, $anormal);
-                $diagnostictotal = $diagnosticrepository->findBy(array('created_by' => $a));
-                $normal = count($diagnosticANormal);
-                $total = count($diagnostictotal);
+                $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                $MeasureANormal = $Measurerepository->findByINRMesureINormal($a, $anormal);
+                $Measuretotal = $Measurerepository->findBy(array('created_by' => $a));
+                $normal = count($MeasureANormal);
+                $total = count($Measuretotal);
                 $nbAnormal = strval(intval(round($normal * 100 / $total))) . "%";
 
                 $response = array(
@@ -228,15 +227,15 @@ class RestApiMesureINRController extends FOSRestController
             if (!is_null($Assigned)) {
                 /// normal mesure mesure ////
                 $normal = 'normal mesure';
-                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnosticNormal = $diagnosticrepository->findByINRMesureINormal($a, $normal);
-                $diagnostictotal = $diagnosticrepository->findBy(array('created_by' => $a));
+                $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                $MeasureNormal = $Measurerepository->findByINRMesureINormal($a, $normal);
+                $Measuretotal = $Measurerepository->findBy(array('created_by' => $a));
                 $anormal = 'anormal mesure';
-                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnosticANormal = $diagnosticrepository->findByINRMesureINormal($a, $anormal);
-                $anormal = count($diagnosticANormal);
-                $normal = count($diagnosticNormal);
-                $total = count($diagnostictotal);
+                $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                $MeasureANormal = $Measurerepository->findByINRMesureINormal($a, $anormal);
+                $anormal = count($MeasureANormal);
+                $normal = count($MeasureNormal);
+                $total = count($Measuretotal);
                 $nbnormal = strval(intval(round($normal * 100 / $total))) . "%";
                 $nbAnormal = strval(intval(round($anormal * 100 / $total))) . "%";
                 $response = array(
@@ -250,50 +249,47 @@ class RestApiMesureINRController extends FOSRestController
         }
 
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
-            $repository = $this->getDoctrine()->getRepository(Diagnostic::class);
-            $diagnostic = $repository->findBy(array('created_by' => $user));
+            $repository = $this->getDoctrine()->getRepository(Measure::class);
+            $Measure = $repository->findBy(array('created_by' => $user));
 
-            if (!is_null($diagnostic)) {
-                $total = count($diagnostic);
+            if (!is_null($Measure)) {
+                $total = count($Measure);
                 $normall = 'normal mesure';
                 $anormall = 'anormal mesure';
-                $diagnosticNormal = $repository->findBy(array('created_by' => $user, "indication" => $normall));
-                $diagnosticANormal = $repository->findBy(array('created_by' => $user, "indication" => $anormall));
-                $normal = count($diagnosticNormal);
-                $anormal = count($diagnosticANormal);
-                $nbdiagtotal = count($diagnostic);
-                if ($total == 0){
+                $MeasureNormal = $repository->findBy(array('created_by' => $user, "indication" => $normall));
+                $MeasureANormal = $repository->findBy(array('created_by' => $user, "indication" => $anormall));
+                $normal = count($MeasureNormal);
+                $anormal = count($MeasureANormal);
+                $nbdiagtotal = count($Measure);
+                if ($total == 0) {
                     $response = array(
                         'Total_INRmesure' => 0,
                         'INR_Normal' => "0%",
                         'INR_Anormal' => "0%",
                     );
-                    return View::create($response, JsonResponse::HTTP_OK, []); 
+                    return View::create($response, JsonResponse::HTTP_OK, []);
+                } else {
+                    if ($normal == 0) {
+                        $nbnormal  == "0%";
+                    } else {
+                        $nbnormal = $normal * 100 / $total;
+                        $normall = strval(intval(round($nbnormal))) . "%";
+                    }
+                    if ($anormal == 0) {
+                        $nbanormal = "0%";
+                    } else {
+                        $nbanormal = $anormal * 100 / $total;
+                        $anormall = strval(intval(round($nbanormal))) . "%";
+                    }
+
+
+                    $response = array(
+                        'Total_INRmesure' => $total,
+                        'INR_Normal' => $normall,
+                        'INR_Anormal' => $anormall,
+                    );
+                    return View::create($response, JsonResponse::HTTP_OK, []);
                 }
-                else{
-                if ($normal == 0){
-                    $nbnormal  == "0%";
-                }
-                else{
-                    $nbnormal = $normal * 100 / $total;
-                    $normall = strval(intval(round($nbnormal))) . "%";
-                }
-                if($anormal == 0){
-                    $nbanormal= "0%";
-                }
-              else{
-                $nbanormal = $anormal * 100 / $total;
-                $anormall = strval(intval(round($nbanormal))) . "%";
-              }
-    
-             
-                $response = array(
-                    'Total_INRmesure' => $total,
-                    'INR_Normal' => $normall,
-                    'INR_Anormal' => $anormall,
-                );
-                return View::create($response, JsonResponse::HTTP_OK, []);
-            }
             } else {
                 return View::create('No measurements found ', JsonResponse::HHTP_NOT_FOUND, []);
             }
@@ -302,10 +298,10 @@ class RestApiMesureINRController extends FOSRestController
         }
     }
     /**
-     * @Rest\Get("/api/PatientMesureCount", name ="countt_diagnostic")
+     * @Rest\Get("/api/patientMesureCount", name ="countt_Measure")
      * @Rest\View(serializerGroups={"users"})
      */
-    public function CountpatientDiagnostic()
+    public function CountpatientMeasure()
     {
         $a = array();
         $user = $this->getUser();
@@ -313,9 +309,9 @@ class RestApiMesureINRController extends FOSRestController
             'id' => $user->getId(),
         );
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
-            $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-            $diagnostic = $diagnosticrepository->findby(array('created_by' => $user->getId()));
-            $nbdiag = count($diagnostic);
+            $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+            $Measure = $Measurerepository->findby(array('created_by' => $user->getId()));
+            $nbdiag = count($Measure);
 
             $response = array(
                 'ResultINR_Total' => $nbdiag,
@@ -327,9 +323,9 @@ class RestApiMesureINRController extends FOSRestController
         }
     }
 
-///////get all mesure of INR By of one patient///////
+    ///////get all mesure of INR By of one patient///////
     /**
-     * @Rest\Get("/api/DiagnosticByPatient/{id}", name ="patient_diagnostic")
+     * @Rest\Get("/api/measureByPatient/{id}", name ="patient_Measure")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function ResultbyPatient($id)
@@ -346,10 +342,9 @@ class RestApiMesureINRController extends FOSRestController
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
                 $doctorassignement = $repository->findOneBy(array('id_patient' => $patient->getId(), 'id_doctor' => $user->getId(), 'status' => 'Accepted', 'removed' => false));
                 if (!is_null($doctorassignement)) {
-                    $repository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                    $diagnostic = $repository->findBy(array('created_by' => $patient));
-                    return View::create($diagnostic, JsonResponse::HTTP_OK, []);
-
+                    $repository = $this->getDoctrine()->getRepository(Measure::class);
+                    $Measure = $repository->findBy(array('created_by' => $patient));
+                    return View::create($Measure, JsonResponse::HTTP_OK, []);
                 } else {
                     return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                 }
@@ -361,7 +356,7 @@ class RestApiMesureINRController extends FOSRestController
         }
     }
     /**
-     * @Rest\Get("/api/doctor/UserDiagnostic/{id}", name ="user_diagnostic")
+     * @Rest\Get("/api/doctor/userMeasure/{id}", name ="user_Measure")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function ResultbyUser($id)
@@ -375,14 +370,13 @@ class RestApiMesureINRController extends FOSRestController
             $repository = $this->getDoctrine()->getRepository(User::class);
             $user = $repository->findOneBy(array('id' => $id));
             if (!is_null($user)) {
-                $repository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnostic = $repository->findBy(array('created_by' => $user));
-                if (!empty($diagnostic)) {
-                    return View::create($diagnostic, JsonResponse::HTTP_OK, []);
+                $repository = $this->getDoctrine()->getRepository(Measure::class);
+                $Measure = $repository->findBy(array('created_by' => $user));
+                if (!empty($Measure)) {
+                    return View::create($Measure, JsonResponse::HTTP_OK, []);
                 } else {
-                    return View::create('no diagnostic found', JsonResponse::HTTP_NOT_FOUND, []);
+                    return View::create('no Measure found', JsonResponse::HTTP_NOT_FOUND, []);
                 }
-
             } else {
                 return View::create('user not found', JsonResponse::HTTP_NOT_FOUND, []);
             }
@@ -392,7 +386,7 @@ class RestApiMesureINRController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/api/PatientMesureDetails/{id}", name ="countt_indication")
+     * @Rest\Get("/api/patientMesureDetails/{id}", name ="countt_indication")
      * @Rest\View(serializerGroups={"users"})
      */
     public function Countpatientmesure($id)
@@ -413,17 +407,17 @@ class RestApiMesureINRController extends FOSRestController
 
                     foreach ($Assigned as $dataa) {
                         array_push($a, $dataa->getIdPatient());
-                        $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                        $diagnostic = $diagnosticrepository->findby(array('created_by' => $id, 'indication' => 'normal mesure'));
-                        $diagnosticanormal = $diagnosticrepository->findby(array('created_by' => $id, 'indication' => 'anormal mesure'));
-                        $diagnostictotal = $diagnosticrepository->findBy(array('created_by' => $id));
-                        $nbnormal = count($diagnostic);
-                        $nbanormal = count($diagnosticanormal);
-                        $nbdiagtotal = count($diagnostictotal);
+                        $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                        $Measure = $Measurerepository->findby(array('created_by' => $id, 'indication' => 'normal mesure'));
+                        $Measureanormal = $Measurerepository->findby(array('created_by' => $id, 'indication' => 'anormal mesure'));
+                        $Measuretotal = $Measurerepository->findBy(array('created_by' => $id));
+                        $nbnormal = count($Measure);
+                        $nbanormal = count($Measureanormal);
+                        $nbdiagtotal = count($Measuretotal);
                         $normal = strval(intval(round($nbnormal * 100 / $nbdiagtotal))) . "%";
                         $annormal = strval(intval(round($nbanormal * 100 / $nbdiagtotal))) . "%";
-                        $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                        $latestdate = $diagnosticrepository->findBymaxDate($id);
+                        $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                        $latestdate = $Measurerepository->findBymaxDate($id);
 
                         $response = array(
                             'Result_noraml' => $normal,
@@ -435,17 +429,14 @@ class RestApiMesureINRController extends FOSRestController
 
                         return View::create($response, JsonResponse::HTTP_OK, []);
                     }
-
                 }
-
             }
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     }
 
-/////////////il faut faire la correction ici/////////////
+    /////////////il faut faire la correction ici/////////////
 
     /**
      * @Rest\Get("/api/latestPatientsResult", name ="latestpatient_result")
@@ -466,8 +457,8 @@ class RestApiMesureINRController extends FOSRestController
                 array_push($a, $dataa->getIdPatient());
             }
 
-            $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-            $latestdatee = $diagnosticrepository->findByMesuremaxDate($a);
+            $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+            $latestdatee = $Measurerepository->findByMesuremaxDate($a);
 
             $response = array(
                 'Latest_INRresult' => $latestdatee,
@@ -526,9 +517,9 @@ class RestApiMesureINRController extends FOSRestController
             }
 
             if (!is_null($Assigned)) {
-                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnostictotal = $diagnosticrepository->findBy(array('created_by' => $a));
-                $total = count($diagnostictotal);
+                $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                $Measuretotal = $Measurerepository->findBy(array('created_by' => $a));
+                $total = count($Measuretotal);
 
                 $response = array(
                     'DoctorNumber' => $number,
@@ -541,14 +532,13 @@ class RestApiMesureINRController extends FOSRestController
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
             }
         }
-
     }
 
     /**
-     * @Rest\Get("/api/MesurebyGender", name ="hospital_mesureGender")
+     * @Rest\Get("/api/mesureByGender", name ="hospital_mesureGender")
      * @Rest\View(serializerGroups={"users"})
      */
-    public function hospitalDiagnosticBygender()
+    public function hospitalMeasureBygender()
     {
         $indication = 'anormal mesure';
         $a = array();
@@ -570,38 +560,36 @@ class RestApiMesureINRController extends FOSRestController
                 $a[] = $dataa->getIdPatient();
             }
             if (!is_null($Assigned)) {
-                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnostic = $diagnosticrepository->getassigned($a, $indication);
-                $diagnosticttotal = $diagnosticrepository->findBy(array('created_by' => $a));
-                $total = count($diagnostic);
-                $totale = count($diagnosticttotal);
+                $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                $Measure = $Measurerepository->getassigned($a, $indication);
+                $Measurettotal = $Measurerepository->findBy(array('created_by' => $a));
+                $total = count($Measure);
+                $totale = count($Measurettotal);
 
-                if (!is_null($diagnostic)) {
+                if (!is_null($Measure)) {
                     $NBMale = 0;
-                    foreach ($diagnostic as $dataa) {
+                    foreach ($Measure as $dataa) {
                         if ($dataa->getCreatedBy()->getGender() == "Male") {
                             $NBMale = $NBMale + 1;
                         }
                     }
-                    if($NBMale == 0){
-                        $purcentageMale = "0%"; 
-                    }
-                    else{
-                    $purcentageMale = strval(intval(round($NBMale * 100 / $total))) . "%";
+                    if ($NBMale == 0) {
+                        $purcentageMale = "0%";
+                    } else {
+                        $purcentageMale = strval(intval(round($NBMale * 100 / $total))) . "%";
                     }
                     $NBFemale = 0;
-                    foreach ($diagnostic as $dataa) {
+                    foreach ($Measure as $dataa) {
                         if ($dataa->getCreatedBy()->getGender() == "Female") {
                             $NBFemale = $NBFemale + 1;
                         }
                     }
-                    if($NBFemale == 0){
+                    if ($NBFemale == 0) {
                         $purcentaFemale = "0%";
-                    }
-                    else{
+                    } else {
                         $purcentaFemale = strval(intval(round($NBFemale * 100 / $total))) . "%";
                     }
-                  
+
 
                     $response = array(
                         'Anormal_MaleMesure' => $purcentageMale,
@@ -625,12 +613,12 @@ class RestApiMesureINRController extends FOSRestController
             }
             if (!is_null($Assigned)) {
                 $indication = 'anormal mesure';
-                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnostic = $diagnosticrepository->getassigned($a, $indication);
-                $diagnosticttotal = $diagnosticrepository->findBy(array('created_by' => $a));
-                $total = count($diagnostic);
-                $totale = count($diagnosticttotal);
-                if (!is_null($diagnostic)) {
+                $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                $Measure = $Measurerepository->getassigned($a, $indication);
+                $Measurettotal = $Measurerepository->findBy(array('created_by' => $a));
+                $total = count($Measure);
+                $totale = count($Measurettotal);
+                if (!is_null($Measure)) {
                     if ($total == 0) {
                         $response = array(
                             'Anormal_MaleMesure' => "0%",
@@ -639,48 +627,43 @@ class RestApiMesureINRController extends FOSRestController
                         return View::create($response, JsonResponse::HTTP_OK, []);
                     }
                     $NBMale = 0;
-                    foreach ($diagnostic as $dataa) {
+                    foreach ($Measure as $dataa) {
                         if ($dataa->getCreatedBy()->getGender() == "Male") {
                             $NBMale = $NBMale + 1;
                         }
                     }
-                    if($NBMale == 0){
-                        $purcentageMale = "0%"; 
-                    }
-                    else{
-                    $purcentageMale = strval(intval(round($NBMale * 100 / $total))) . "%";
+                    if ($NBMale == 0) {
+                        $purcentageMale = "0%";
+                    } else {
+                        $purcentageMale = strval(intval(round($NBMale * 100 / $total))) . "%";
                     }
                     $NBFemale = 0;
-                    foreach ($diagnostic as $dataa) {
+                    foreach ($Measure as $dataa) {
                         if ($dataa->getCreatedBy()->getGender() == "Female") {
                             $NBFemale = $NBFemale + 1;
                         }
                     }
                     if ($NBFemale == 0) {
                         $purcentaFemale = "0%";
+                    } else {
+                        $purcentaFemale = strval(intval(round($NBFemale * 100 / $total))) . "%";
                     }
-                        else{
-                            $purcentaFemale = strval(intval(round($NBFemale * 100 / $total))) . "%";
-                        }
 
-                  
-                        $response = array(
-                            'Anormal_MaleMesure' => $purcentageMale,
-                            'Anormal_FemaleMesure' => $purcentaFemale,
-                        );
-                        return View::create($response, JsonResponse::HTTP_OK, []);
-                    }
-                
+
+                    $response = array(
+                        'Anormal_MaleMesure' => $purcentageMale,
+                        'Anormal_FemaleMesure' => $purcentaFemale,
+                    );
+                    return View::create($response, JsonResponse::HTTP_OK, []);
+                }
             }
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
-
     }
 
     /**
-     * @Rest\Get("/api/DoctorActivity/{id}", name ="Doctor_Activity")
+     * @Rest\Get("/api/doctorActivity/{id}", name ="Doctor_Activity")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function doctorActivity($id)
@@ -701,19 +684,19 @@ class RestApiMesureINRController extends FOSRestController
                 }
                 $patientrepository = $this->getDoctrine()->getRepository(User::class);
                 $patient = $patientrepository->findBy(array('id' => $a));
-                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnostic = $diagnosticrepository->findBy(array('created_by' => $a));
+                $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                $Measure = $Measurerepository->findBy(array('created_by' => $a));
                 $reportrepository = $this->getDoctrine()->getRepository(Note::class);
                 $report = $reportrepository->findBy(array('created_by' => $Doctor->getCreatedBy()->getId(), 'remove' => false));
                 $treatmentrepository = $this->getDoctrine()->getRepository(Treatment::class);
                 $treatment = $treatmentrepository->findBy(array('created_by' => $id, 'remove' => false));
                 $patientNumber = count($patient);
-                $diagnosticnumber = count($diagnostic);
+                $Measurenumber = count($Measure);
                 $reportNumber = count($report);
                 $treatment = count($treatment);
                 $response = array(
                     'PatientNumber' => $patientNumber,
-                    'ResultINRNumber' => $diagnosticnumber,
+                    'ResultINRNumber' => $Measurenumber,
                     'MedicationNumber' => $treatment,
                     'MedicalReport' => $reportNumber,
 
@@ -724,9 +707,7 @@ class RestApiMesureINRController extends FOSRestController
             }
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-
         }
-
     }
 
     /**
@@ -766,16 +747,14 @@ class RestApiMesureINRController extends FOSRestController
 
             );
             return View::create($response, JsonResponse::HTTP_OK, []);
-
         } else {
 
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-
         }
     }
 
     /**
-     * @Rest\Get("/api/DoctorActivity", name ="DoctorUser_Activity")
+     * @Rest\Get("/api/doctorActivity", name ="DoctorUser_Activity")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function doctorActivityhistory()
@@ -795,21 +774,21 @@ class RestApiMesureINRController extends FOSRestController
                 $patientrepository = $this->getDoctrine()->getRepository(User::class);
                 $patient = $patientrepository->findBy(array('id' => $a));
 
-                $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                $diagnostic = $diagnosticrepository->findBy(array('created_by' => $a));
+                $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                $Measure = $Measurerepository->findBy(array('created_by' => $a));
                 $reportrepository = $this->getDoctrine()->getRepository(Note::class);
                 $report = $reportrepository->findBy(array('created_by' => $user->getId(), 'remove' => false));
                 $treatmentrepository = $this->getDoctrine()->getRepository(Treatment::class);
                 $treatment = $treatmentrepository->findBy(array('created_by' => $user->getId(), 'remove' => false));
 
                 $patientNumber = count($patient);
-                $diagnosticnumber = count($diagnostic);
+                $Measurenumber = count($Measure);
                 $reportNumber = count($report);
                 $treatment = count($treatment);
 
                 $response = array(
                     'PatientNumber' => $patientNumber,
-                    'ResultINRNumber' => $diagnosticnumber,
+                    'ResultINRNumber' => $Measurenumber,
                     'MedicationNumber' => $treatment,
                     'MedicalReport' => $reportNumber,
 
@@ -820,9 +799,7 @@ class RestApiMesureINRController extends FOSRestController
             }
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-
         }
-
     }
 
     /**
@@ -842,27 +819,24 @@ class RestApiMesureINRController extends FOSRestController
             $userverife = $repository->findBy(array('id' => $id));
             if (!empty($userverife)) {
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
-                $Assigned = $repository->findBy(array('id_doctor' => $user->getId(), 'id_patient' => $id,
-                 'status' => 'Accepted', 'removed' => false));
+                $Assigned = $repository->findBy(array(
+                    'id_doctor' => $user->getId(), 'id_patient' => $id,
+                    'status' => 'Accepted', 'removed' => false
+                ));
                 if (!empty($Assigned)) {
-                        $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-                        $diagnostic = $diagnosticrepository->findByLatestMesureByPatient($id);
-                        return View::create($diagnostic, JsonResponse::HTTP_OK, []);
-                    }
-                    else{
-                        return View::create('you are not allowed', JsonResponse::HTTP_FORBIDDEN, []);  
-                    }
+                    $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                    $Measure = $Measurerepository->findByLatestMesureByPatient($id);
+                    return View::create($Measure, JsonResponse::HTTP_OK, []);
+                } else {
+                    return View::create('you are not allowed', JsonResponse::HTTP_FORBIDDEN, []);
                 }
-                else{
-                    return View::create('user not found', JsonResponse::HTTP_NOT_FOUND, []);    
-                }
+            } else {
+                return View::create('user not found', JsonResponse::HTTP_NOT_FOUND, []);
+            }
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     }
-
-
-
     /**
      * @Rest\Get("/api/latestMesureByPatient", name ="countUser_latestMesure")
      * @Rest\View(serializerGroups={"users"})
@@ -875,18 +849,94 @@ class RestApiMesureINRController extends FOSRestController
             'id' => $user->getId(),
         );
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
-               $diagnosticrepository = $this->getDoctrine()->getRepository(Diagnostic::class);
-               $diagnostic = $diagnosticrepository->findByLatestMesureByPatient($user->getId());
-                if (!empty($diagnostic)){
-                return View::create($diagnostic, JsonResponse::HTTP_OK, []);
-                 }
-                else{
-                return View::create('there is no latest measure !', JsonResponse::HTTP_NOT_FOUND []);
-                }
+            $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+            $Measure = $Measurerepository->findByLatestMesureByPatient($user->getId());
+            if (!empty($Measure)) {
+                return View::create($Measure, JsonResponse::HTTP_OK, []);
+            } else {
+                return View::create('there is no latest measure !', JsonResponse::HTTP_NOT_FOUND[]);
+            }
+        } else {
+            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+        }
+    }
+
+    /**
+     * @Rest\Get("/api/unreadMeasure", name ="count_readedMeasure")
+     * @Rest\View(serializerGroups={"users"})
+     */
+    public function countReadedMesure()
+    {
+        $user = $this->getUser();
+        $data = array(
+            'id' => $user->getId(),
+        );
+        if ($user->getUserType() === UserType::TYPE_DOCTOR) {
+                $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                $doctorassignement = $repository->findBy(array('id_doctor' => $user->getId(), 'status' => 'Accepted', 'removed' => false));
+                if (!empty($doctorassignement)) {
+                    foreach ($doctorassignement as $data) {
+                        $a[] = $data->getIdPatient();
+                    }
+                    $repository = $this->getDoctrine()->getRepository(Measure::class);
+                    $Measure = $repository->findBy(array('created_by' => $a,'readed' => false));
+                  
+                    $count=count($Measure);
+                    $response = array(
+                        'unreaded_Measure' => $count,
+                    );
+                    return View::create($response, JsonResponse::HTTP_OK, []);
+                   
                 } else {
                     return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
                 }
+            
+        } else {
+            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+        }
     }
-
+    /**
+     * @Rest\Patch("/api/unreadMeasure/{id}", name ="update_readedMeasure")
+     * @Rest\View(serializerGroups={"users"})
+     */
+    public function updateReadedMesure($id,Request $request)
+    {
+        $user = $this->getUser();
+        $data = array(
+            'id' => $user->getId(),
+        );
+        if ($user->getUserType() === UserType::TYPE_DOCTOR) {
+            $readed = $request->request->get('readed');
+            if(isset($readed)){
+                if($readed === true){
+            $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                $doctorassignement = $repository->findBy(array('id_doctor' => $user->getId(), 'status' => 'Accepted', 'removed' => false));
+                if (!empty($doctorassignement)) {
+                    foreach ($doctorassignement as $data) {
+                        $a[] = $data->getIdPatient();
+                    }
+                    $repository = $this->getDoctrine()->getRepository(Measure::class);
+                    $Measure = $repository->findOneBy(array('id'=>$id,'created_by' => $a,'readed' => false));
+                    if (!is_null($Measure)){
+                        $Measure->setReaded(true); 
+                        $em = $this->getDoctrine()->getManager();
+                        $em->flush();
+                        return View::create("Measure readed", JsonResponse::HTTP_OK, []);         
+                    }
+                } else {
+                    return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+                }
+            }
+            else{
+                return View::create('readed must be true!', JsonResponse::HTTP_BAD_REQUEST, []);
+            }
+            }else{
+                return View::create('missing readed measure!', JsonResponse::HTTP_BAD_REQUEST, []);
+            }
+            
+        } else {
+            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+        }
+    }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use FOS\RestBundle\Controller\Annotations;
@@ -18,7 +19,7 @@ class RestPasswordManagementController extends FOSRestController implements Clas
     /**
      * Change user password
      *
-     * @Annotations\Post("/api/profile/change-password")
+     * @Annotations\Post("/api/profile/changePassword")
      */
     public function changeAction(Request $request)
     {

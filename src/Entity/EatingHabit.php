@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Entity\Foods;
+use App\Entity\Food;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\EatinghabitsRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\EatingHabitRepository")
  */
-class Eatinghabits
+class EatingHabit
 {
     /**
      * @ORM\Id()
@@ -18,10 +18,30 @@ class Eatinghabits
      * @Serializer\Groups({"users","doctors","patients"})
      */
     private $id;
+        
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="eatinghabits")
+     * @ORM\Column(type="string", length=1024)
+     * @Serializer\Groups({"users","doctors","patients"})
+     */
+    private $food;
+
+    /**
+     * @ORM\Column(type="float")
+     * @Serializer\Groups({"users","doctors","patients"})
+     */
+    private $quantity;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     * @Serializer\Groups({"users","doctors","patients"})
+     */
+    private $unit;
+ 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="eatinghabit")
      * @ORM\JoinColumn(nullable=false)
-     * @Serializer\Groups({"doctors","patients"})
+      * @Serializer\Groups({"users","doctors","patients"})
      */
     private $created_by;
 
@@ -37,7 +57,7 @@ class Eatinghabits
 
     /**
      * @ORM\Column(type="datetime")
-     * @Serializer\Groups({"users","doctors"})
+     * @Serializer\Groups({"users","doctors","patients"})
      */
     private $created_at;
 
@@ -55,27 +75,6 @@ class Eatinghabits
      * @ORM\Column(type="boolean")
      */
     private $remove;
-
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Serializer\Groups({"doctors","patients"})
-     */
-    private $breakfastFood;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-      * @Serializer\Groups({"doctors","patients"})
-     */
-    private $lunchFood;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-    * @Serializer\Groups({"doctors","patients"})
-     */
-    private $dinnerFood;
-
-
 
     public function getId(): ?int
     {
@@ -168,12 +167,12 @@ class Eatinghabits
         return $this;
     }
 
-    public function getFoodDescription(): ?Foods
+    public function getFoodDescription(): ?Food
     {
         return $this->food_description;
     }
 
-    public function setFoodDescription(?Foods $food_description): self
+    public function setFoodDescription(?Food $food_description): self
     {
         $this->food_description = $food_description;
 
@@ -212,6 +211,42 @@ class Eatinghabits
     public function setDinnerFood(string $dinnerFood): self
     {
         $this->dinnerFood = $dinnerFood;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?float
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(float $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getUnit(): ?string
+    {
+        return $this->unit;
+    }
+
+    public function setUnit(string $unit): self
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    public function getFood(): ?string
+    {
+        return $this->food;
+    }
+
+    public function setFood(string $food): self
+    {
+        $this->food = $food;
 
         return $this;
     }

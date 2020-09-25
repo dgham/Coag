@@ -2,26 +2,29 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MedicationTypeRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\FoodRepository")
  */
-class MedicationType
+class Food
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Serializer\Groups({"users","admin","doctors"})
+     * @Serializer\Groups({"users","admin","doctors","patients"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=55)
-     * @Serializer\Groups({"users","admin","doctors"})
+     * @ORM\Column(type="string", length=100)
+     * @Serializer\Groups({"users","admin","doctors","patients"})
      */
-    private $type;
+    private $name;
+
+   
 
     /**
      * @ORM\Column(type="datetime")
@@ -65,17 +68,19 @@ class MedicationType
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getName(): ?string
     {
-        return $this->type;
+        return $this->name;
     }
 
-    public function setType(string $type): self
+    public function setName(string $name): self
     {
-        $this->type = $type;
+        $this->name = $name;
 
         return $this;
     }
+
+   
 
     public function getCreatedAt(): ?\DateTimeInterface
     {

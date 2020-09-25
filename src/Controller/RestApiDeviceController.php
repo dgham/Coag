@@ -29,10 +29,10 @@ class RestApiDeviceController extends FOSRestController
         if ($user->getUserType() === UserType::TYPE_ADMIN) {
             $repository = $this->getDoctrine()->getRepository(Device::class);
             $device = $repository->findBy(array('removed' => false), array('id' => 'DESC'));
-            if (!is_null($device)) {
+            if (!empty($device)) {
                 return View::create($device, JsonResponse::HTTP_OK, []);
             } else {
-                return View::create('device not found', JsonResponse::HTTP_OK);
+                return View::create('no device found', JsonResponse::HTTP_OK);
             }
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
@@ -54,7 +54,6 @@ class RestApiDeviceController extends FOSRestController
             } else {
                 return View::create('device not Found', JsonResponse::HTTP_NOT_FOUND);
             }
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
@@ -210,7 +209,6 @@ class RestApiDeviceController extends FOSRestController
 
                     );
                     return View::create($response, JsonResponse::HTTP_OK, []);
-
                 }
             } catch (\Exception $ex) {
                 return new JsonResponse($ex->getMessage(), JsonResponse::HTTP_BAD_REQUEST, []);

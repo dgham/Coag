@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\DiagnosticRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\MeasureRepository")
  */
-class Diagnostic
+class Measure
 {
     /**
      * @ORM\Id()
@@ -31,7 +31,7 @@ class Diagnostic
     private $indication;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="diagnostics")
+     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="Measures")
      * @ORM\JoinColumn(nullable=false)
      *  @Serializer\Groups({"doctors"})
      */
@@ -72,6 +72,11 @@ class Diagnostic
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $details;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $readed;
 
     public function getId(): ?int
     {
@@ -194,6 +199,18 @@ class Diagnostic
     public function setDetails(?string $details): self
     {
         $this->details = $details;
+
+        return $this;
+    }
+
+    public function getReaded(): ?bool
+    {
+        return $this->readed;
+    }
+
+    public function setReaded(bool $readed): self
+    {
+        $this->readed = $readed;
 
         return $this;
     }

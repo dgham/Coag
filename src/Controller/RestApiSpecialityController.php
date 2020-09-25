@@ -53,7 +53,6 @@ class RestApiSpecialityController extends FOSRestController
             } else {
                 return View::create('no data found', JsonResponse::HTTP_NOT_FOUND);
             }
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
@@ -69,10 +68,30 @@ class RestApiSpecialityController extends FOSRestController
         if ($user->getUserType() === UserType::TYPE_ADMIN) {
             $name = $request->request->get('speciality_name');
             $typename = gettype($name);
-            $speciality = new Speciality();
+        
             if (isset($name)) {
                 if ($typename == "string") {
+                    foreach ($name as $data){
+                        $a[] = $data['name'];
+                        $nb++;
+                    }
+             
+                         $count=count($a);
+                        for($i=0;$i<$nb;$i++){
+                    $speciality = new Speciality();
                     $speciality->setSpecialityName($name);
+                    $speciality->setCreatedBy($user);
+                    $speciality->setCreatedAt(new \DateTime());
+                    $speciality->setRemoved(false);
+                    $entity->persist($speciality);
+                    $entity->flush();
+                        }
+                        $response = array(
+                            'message' => 'speciality created',
+                            'result' => $speciality,
+            
+                        );
+                        return View::create($response, JsonResponse::HTTP_CREATED, []);
                 } else {
                     return View::create('speciality name must be a string', JsonResponse::HTTP_BAD_REQUEST);
                 }
@@ -80,18 +99,8 @@ class RestApiSpecialityController extends FOSRestController
                 return View::create('missing speciality_name!', JsonResponse::HTTP_BAD_REQUEST);
             }
 
-            $speciality->setCreatedBy($user);
-            $speciality->setCreatedAt(new \DateTime());
-            $speciality->setRemoved(false);
-            $entity->persist($speciality);
-            $entity->flush();
-            $response = array(
-                'message' => 'speciality created',
-                'result' => $speciality,
-
-            );
-            return View::create($response, JsonResponse::HTTP_CREATED, []);
-
+         
+           
         } else {
 
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
@@ -133,11 +142,9 @@ class RestApiSpecialityController extends FOSRestController
                 return View::create($response, JsonResponse::HTTP_OK, []);
             } else {
                 return View::create('speciality not Found', JsonResponse::HTTP_NOT_FOUND);
-
             }
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-
         }
     }
     /**
@@ -161,8 +168,6 @@ class RestApiSpecialityController extends FOSRestController
             }
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-
         }
     }
-
 }

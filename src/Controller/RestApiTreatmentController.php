@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 class RestApiTreatmentController extends FOSRestController
 {
     /**
-     * @Rest\Get("/api/medication", name ="api_treatment")
+     * @Rest\Get("/api/treatment", name ="api_treatment")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function index()
@@ -42,17 +42,15 @@ class RestApiTreatmentController extends FOSRestController
             $treatment = $repository->findBy(array('patient' => $user->getId(), 'remove' => false), array('id' => 'DESC'));
             if (!empty($treatment)) {
                 return View::create($treatment, JsonResponse::HTTP_OK, []);
-
             } else {
                 return View::create('no treatment found', JsonResponse::HTTP_OK, []);
             }
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     }
     /**
-     * @Rest\Get("/api/medication/{id}", name ="search_treatment")
+     * @Rest\Get("/api/treatment/{id}", name ="search_treatment")
      * @Rest\View(serializerGroups={"users"})
      */
     public function searchTreatment($id)
@@ -80,7 +78,7 @@ class RestApiTreatmentController extends FOSRestController
         }
     }
     /**
-     * @Rest\Post("/api/medication", name ="create_treatment")
+     * @Rest\Post("/api/treatment", name ="create_treatment")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function create(Request $request, EntityManagerInterface $entity)
@@ -103,7 +101,7 @@ class RestApiTreatmentController extends FOSRestController
             $typetype = gettype($type);
             if (isset($type)) {
                 if ($typetype == "string") {
-                    $treatment->setMedicationType($type);
+                    $treatment->setDrugType($type);
                 } else {
                     return View::create('type of treatment must be integer!', JsonResponse::HTTP_BAD_REQUEST, []);
                 }
@@ -137,34 +135,6 @@ class RestApiTreatmentController extends FOSRestController
             }
 
 
-            $uploadedImage = $request->files->get('picture');
-            if (!is_null($uploadedImage)) {
-
-                /**
-                 * @var UploadedFile $image
-                 */
-                $image = $uploadedImage;
-
-                $imageName = md5(uniqid()) . '.' . $image->guessExtension();
-                $type = $image->getType();
-                $size = $image->getSize();
-                $imagetype = $image->guessExtension();
-                $path = $this->getParameter('treatment_directory');
-                $path_uplaod = 'Assets/Treatments/';
-                if ($imagetype == "jpeg" || $imagetype == "png") {
-                    $image->move($path_uplaod, $imageName);
-                    $image_url = $path_uplaod . $imageName;
-                    $treatment->setPicture($image_url);
-    
-            } else {
-    
-                return View::create("select picture please !", JsonResponse::HTTP_BAD_REQUEST, []);
-            }
-    
-        }
-
-
-
 
             $patientid = $request->request->get('patient_id');
             if (isset($patientid)) {
@@ -189,15 +159,12 @@ class RestApiTreatmentController extends FOSRestController
 
                         );
                         return View::create($response, Response::HTTP_CREATED, []);
-
                     } else {
                         return View::create('this doctor is not assigned to this patient!!', JsonResponse::HTTP_BAD_REQUEST, []);
                     }
                 } else {
                     return View::create('sorry, you are not the doctor of this patient!', JsonResponse::HTTP_BAD_REQUEST, []);
-
                 }
-
             } else {
                 return View::create('you should add patient to add his treatment !', JsonResponse::HTTP_BAD_REQUEST, []);
             }
@@ -208,7 +175,7 @@ class RestApiTreatmentController extends FOSRestController
 
     /**
      * @param Request $request
-     * @Rest\Patch("/api/medication/{id}", name ="patch_treatment")
+     * @Rest\Patch("/api/treatment/{id}", name ="patch_treatment")
      * @Rest\View(serializerGroups={"users"})
      */
     public function patchAction(Request $request, $id)
@@ -231,7 +198,7 @@ class RestApiTreatmentController extends FOSRestController
                 $typetype = gettype($type);
                 if (isset($type)) {
                     if ($typetype == "string") {
-                        $treatment->setMedicationType($type);
+                        $treatment->setDrugType($type);
                     } else {
                         return View::create(' type of treatment should be string!', JsonResponse::HTTP_BAD_REQUEST, []);
                     }
@@ -268,7 +235,6 @@ class RestApiTreatmentController extends FOSRestController
                             $treatment->setPatient($iduser);
                         } else {
                             return View::create('this patient not assingned ', JsonResponse::HTTP_BAD_REQUEST, []);
-
                         }
                     } else {
                         return View::create('patient Not Found', JsonResponse::HTTP_NOT_FOUND);
@@ -284,18 +250,16 @@ class RestApiTreatmentController extends FOSRestController
 
                 );
                 return View::create($response, JsonResponse::HTTP_OK, []);
-
             } else {
                 return View::create('treatment Not Found', JsonResponse::HTTP_NOT_FOUND);
             }
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     }
 
     /**
-     * @Rest\Delete("/api/medication/{id}", name ="delete_treatment")
+     * @Rest\Delete("/api/treatment/{id}", name ="delete_treatment")
      * @Rest\View(serializerGroups={"users"})
      */
     public function delete($id)
@@ -322,7 +286,7 @@ class RestApiTreatmentController extends FOSRestController
     /**
      * @param Request $request
      * @return JsonResponse
-     * @Rest\Post("api/medication/picture/{id}", name ="treatment_image")
+     * @Rest\Post("api/treatment/picture/{id}", name ="treatment_image")
      * @Rest\View(serializerGroups={"users"})
      */
     public function uploadImage($id, Request $request)
@@ -367,21 +331,18 @@ class RestApiTreatmentController extends FOSRestController
                     }
                 } else {
                     return View::create('picture is missing!', JsonResponse::HTTP_BAD_REQUEST, []);
-
                 }
             } else {
                 return View::create(' Not Found', JsonResponse::HTTP_NOT_FOUND);
-
             }
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
-
     }
 
     //get treatment by patient//
     /**
-     * @Rest\Get("/api/medicationByUser/{id}", name ="user_treatment")
+     * @Rest\Get("/api/treatmentByUser/{id}", name ="user_treatment")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function findTreatmentByUser($id)

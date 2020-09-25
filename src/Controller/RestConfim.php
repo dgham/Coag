@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Entity\Patient;
@@ -22,7 +23,7 @@ class RestConfim extends FOSRestController
     /**
      * Reset user password
      *
-     * @Rest\Post("/auth/resetpassword", name ="Resettt_password")
+     * @Rest\Post("/authResetPassword", name ="Resettt_password")
      */
     public function resetPasswordRequestAction(Request $request, \Swift_Mailer $mailer, UrlGeneratorInterface $router)
     {
@@ -55,7 +56,7 @@ class RestConfim extends FOSRestController
                     ->setTo($email)
                     ->setBody(
                         '<html>' .
-                        '<head>
+                            '<head>
                         <style>
                     .button {
                     background-color: #56c596; /* Green */
@@ -89,8 +90,8 @@ class RestConfim extends FOSRestController
                         text-align: center;
                     }
                     </style></head>' .
-                        ' <body>' .
-                        ' <div marginwidth="0" marginheight="0" style="width:100%;background-color:#ffffff;margin:0;padding:0;">
+                            ' <body>' .
+                            ' <div marginwidth="0" marginheight="0" style="width:100%;background-color:#ffffff;margin:0;padding:0;">
 
                         <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="m_-3655858657801354087container" style="border-collapse:collapse;width:100%;min-width:100%;height:auto">
                           <tbody><tr>
@@ -131,8 +132,8 @@ class RestConfim extends FOSRestController
                           - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                         </div>
                         </div>' .
-                        ' </body>' .
-                        '</html>',
+                            ' </body>' .
+                            '</html>',
                         'text/html'
                     );
 
@@ -146,13 +147,12 @@ class RestConfim extends FOSRestController
         } else {
             return View::create("missing email !", Response::HTTP_BAD_REQUEST, []);
         }
-
     }
 
     /**
      * Reset user password
      *
-     * @Rest\Patch("/auth/RestConfirmation", name ="Resetconfirm_password")
+     * @Rest\Patch("/authResetConfirmation", name ="Resetconfirm_password")
      */
     public function resetConfirmation(Request $request, UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
     {
@@ -183,7 +183,6 @@ class RestConfim extends FOSRestController
                             'result' => 'missing confirm_Password',
                         );
                         return View::create($response, Response::HTTP_BAD_REQUEST, []);
-
                     }
                 } else {
                     $response = array(
@@ -191,12 +190,10 @@ class RestConfim extends FOSRestController
                         'result' => 'missing password',
                     );
                     return View::create($response, Response::HTTP_BAD_REQUEST, []);
-
                 }
             } else {
 
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-
             }
         } else {
             $response = array(
@@ -207,11 +204,11 @@ class RestConfim extends FOSRestController
         }
     }
 
-/**
- * send patient invitation
- *
- * @Rest\Post("/sendInvitation", name ="send_invitaion")
- */
+    /**
+     * send patient invitation
+     *
+     * @Rest\Post("/sendInvitation", name ="send_invitaion")
+     */
     public function sendInvitation(Request $request, \Swift_Mailer $mailer, EntityManagerInterface $entity)
     {
         $email = $request->request->get('email');
@@ -249,7 +246,7 @@ class RestConfim extends FOSRestController
                                 ->setTo($email)
                                 ->setBody(
                                     '<html>' .
-                                    '<head>
+                                        '<head>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -262,8 +259,8 @@ class RestConfim extends FOSRestController
                <br> <p> If you need aditional information about the doctor, or you did not make this change, please contact <a href=`mailto:' . $emaill . '` style=`color:#ff6c37;text-decoration:unerline;font-weight:blod`>' . $emaill . '</a>.<p> cheers, <br> the CoagCare App Team </p>
                <p style="text-align:center;font-size:11px;color:#282828;padding:20px 0;padding-left:0px">
                © 2020 CoagCare . All Rights Reserved. Continuous Net </p>' .
-                                    ' </body>' .
-                                    '</html>',
+                                        ' </body>' .
+                                        '</html>',
                                     'text/html'
                                 );
 
@@ -302,7 +299,6 @@ class RestConfim extends FOSRestController
                         'result' => 'doctor username missing!',
                     );
                     return View::create($response, Response::HTTP_BAD_REQUEST, []);
-
                 }
             } else {
                 $response = array(
@@ -310,23 +306,19 @@ class RestConfim extends FOSRestController
                     'result' => 'this email is not patient email! try another',
                 );
                 return View::create($response, Response::HTTP_BAD_REQUEST, []);
-
             }
-
         } else {
             $response = array(
                 'message' => 'failure',
                 'result' => 'email patient missing!',
             );
             return View::create($response, Response::HTTP_BAD_REQUEST, []);
-
         }
-
     }
 
     /**
      *
-     * @Rest\POST("/Acceptation", name ="invitation_accept")
+     * @Rest\POST("/acceptation", name ="invitation_accept")
      */
     public function PatientAcceptation(Request $request, UserPasswordEncoderInterface $encoder, SerializerInterface $serializer)
     {
@@ -364,7 +356,6 @@ class RestConfim extends FOSRestController
                                     'result' => 'doctor not found',
                                 );
                                 return View::create($response, Response::HTTP_NOT_FOUND, []);
-
                             }
                         } else {
                             $response = array(
@@ -372,16 +363,13 @@ class RestConfim extends FOSRestController
                                 'result' => 'patient not found password',
                             );
                             return View::create($response, Response::HTTP_NOT_FOUND, []);
-
                         }
-
                     } else {
                         $response = array(
                             'message' => 'failure',
                             'result' => 'missing id doctor',
                         );
                         return View::create($response, Response::HTTP_BAD_REQUEST, []);
-
                     }
                 } else {
                     $response = array(
@@ -389,7 +377,6 @@ class RestConfim extends FOSRestController
                         'result' => 'user not found',
                     );
                     return View::create($response, Response::HTTP_NOT_FOUND, []);
-
                 }
             } else {
                 $response = array(
@@ -397,18 +384,13 @@ class RestConfim extends FOSRestController
                     'result' => 'token not found',
                 );
                 return View::create($response, Response::HTTP_NOT_FOUND, []);
-
             }
-
         } else {
             $response = array(
                 'message' => 'failure',
                 'result' => 'token missing',
             );
             return View::create($response, Response::HTTP_BAD_REQUEST, []);
-
         }
-
     }
-
 }

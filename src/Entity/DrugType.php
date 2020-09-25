@@ -2,39 +2,26 @@
 
 namespace App\Entity;
 
-use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 /**
- * @ORM\Entity(repositoryClass="App\Repository\FoodsRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\DrugTypeRepository")
  */
-class Foods
+class DrugType
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Serializer\Groups({"users","admin","doctors","patients"})
+     * @Serializer\Groups({"users","admin","doctors"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     * @Serializer\Groups({"users","admin","doctors","patients"})
+     * @ORM\Column(type="string", length=55)
+     * @Serializer\Groups({"users","admin","doctors"})
      */
-    private $name;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Serializer\Groups({"users","admin","doctors","patients"})
-     */
-    private $description;
-
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     * @Serializer\Groups({"users","admin","doctors","patients"})
-     */
-    private $quantity;
+    private $type;
 
     /**
      * @ORM\Column(type="datetime")
@@ -78,38 +65,14 @@ class Foods
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getType(): ?string
     {
-        return $this->name;
+        return $this->type;
     }
 
-    public function setName(string $name): self
+    public function setType(string $type): self
     {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getQuantity(): ?string
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(?string $quantity): self
-    {
-        $this->quantity = $quantity;
+        $this->type = $type;
 
         return $this;
     }

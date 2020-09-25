@@ -20,7 +20,7 @@ class RestApiMedicalReportController extends FOSRestController
 {
 
     /**
-     * @Rest\Get("/api/MedicalReport", name ="api_notes")
+     * @Rest\Get("/api/medicalReport", name ="api_notes")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function index()
@@ -37,7 +37,6 @@ class RestApiMedicalReportController extends FOSRestController
             } else {
                 return View::create('No data found :)', JsonResponse::HTTP_OK, []);
             }
-
         }
 
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
@@ -48,14 +47,13 @@ class RestApiMedicalReportController extends FOSRestController
             } else {
                 return View::create('No data found :)', JsonResponse::HTTP_OK, []);
             }
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     }
 
     /**
-     * @Rest\Get("/api/MedicalReport/{id}", name ="serch_notes")
+     * @Rest\Get("/api/medicalReport/{id}", name ="serch_notes")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function searchNote($id)
@@ -85,7 +83,7 @@ class RestApiMedicalReportController extends FOSRestController
     }
 
     /**
-     * @Rest\Post("/api/MedicalReport", name ="post_notes")
+     * @Rest\Post("/api/medicalReport", name ="post_notes")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function create(Request $request, EntityManagerInterface $entity)
@@ -98,7 +96,9 @@ class RestApiMedicalReportController extends FOSRestController
             if (isset($comment)) {
                 if ($typecomment == "string") {
                     $note = new Note();
-                    $note->setComment(preg_replace_callback("/(&#[0-9]+;)/", function ($m) {return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES");}, $comment));
+                    $note->setComment(preg_replace_callback("/(&#[0-9]+;)/", function ($m) {
+                        return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES");
+                    }, $comment));
                     $patientid = $request->request->get('patient_id');
                     if (isset($patientid)) {
                         //   Get user if exist or not   //
@@ -122,7 +122,6 @@ class RestApiMedicalReportController extends FOSRestController
 
                                 );
                                 return View::create($response, Response::HTTP_CREATED, []);
-
                             } else {
                                 return View::create('not assigned to this patient!!', JsonResponse::HTTP_BAD_REQUEST, []);
                             }
@@ -135,11 +134,9 @@ class RestApiMedicalReportController extends FOSRestController
                 } else {
                     return View::create('comment should be a string', JsonResponse::HTTP_BAD_REQUEST, []);
                 }
-
             } else {
                 return View::create('comment is required to add note for your patient', JsonResponse::HTTP_BAD_REQUEST, []);
             }
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
@@ -147,7 +144,7 @@ class RestApiMedicalReportController extends FOSRestController
 
     /**
      * @param Request $request
-     * @Rest\Patch("/api/MedicalReport/{id}", name ="patch_notes")
+     * @Rest\Patch("/api/medicalReport/{id}", name ="patch_notes")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function patchAction(Request $request, $id)
@@ -159,7 +156,9 @@ class RestApiMedicalReportController extends FOSRestController
             if (!is_null($notes)) {
                 $comment = $request->request->get('comment');
                 if (isset($comment)) {
-                    $notes->setComment(preg_replace_callback("/(&#[0-9]+;)/", function ($m) {return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES");}, $comment));
+                    $notes->setComment(preg_replace_callback("/(&#[0-9]+;)/", function ($m) {
+                        return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES");
+                    }, $comment));
                 }
                 $patientid = $request->request->get('patient_id');
                 if (isset($patientid)) {
@@ -175,11 +174,9 @@ class RestApiMedicalReportController extends FOSRestController
                             $notes->setPatientId($iduser);
                         } else {
                             return View::create('sorry but you are not assigned to this patient!', JsonResponse::HTTP_BAD_REQUEST, []);
-
                         }
                     } else {
                         return View::create('sorry ,this patient not exist!!', JsonResponse::HTTP_BAD_REQUEST, []);
-
                     }
                 }
 
@@ -195,13 +192,12 @@ class RestApiMedicalReportController extends FOSRestController
                 return View::create($response, JsonResponse::HTTP_OK, []);
             } else {
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-
             }
         }
     }
 
     /**
-     * @Rest\Delete("/api/MedicalReport/{id}", name ="delete_notes")
+     * @Rest\Delete("/api/medicalReport/{id}", name ="delete_notes")
      */
     public function delete($id)
     {
@@ -221,12 +217,11 @@ class RestApiMedicalReportController extends FOSRestController
             return View::create(' Not Found!', JsonResponse::HTTP_NOT_FOUND);
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-
         }
     }
 
     /**
-     * @Rest\Get("/api/PatientMedicalReport/{id}", name ="patient_report")
+     * @Rest\Get("/api/patientMedicalReport/{id}", name ="patient_report")
      * @Rest\View(serializerGroups={"doctors"})
      */
     public function ReportOfPatient($id)

@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\MedicationType;
+use App\Entity\DrugType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method MedicationType|null find($id, $lockMode = null, $lockVersion = null)
- * @method MedicationType|null findOneBy(array $criteria, array $orderBy = null)
- * @method MedicationType[]    findAll()
- * @method MedicationType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method DrugType|null find($id, $lockMode = null, $lockVersion = null)
+ * @method DrugType|null findOneBy(array $criteria, array $orderBy = null)
+ * @method DrugType[]    findAll()
+ * @method DrugType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MedicationTypeRepository extends ServiceEntityRepository
+class DrugTypeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, MedicationType::class);
+        parent::__construct($registry, DrugType::class);
     }
 
     // /**
-    //  * @return MedicationType[] Returns an array of MedicationType objects
+    //  * @return DrugType[] Returns an array of DrugType objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class MedicationTypeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?MedicationType
+    public function findOneBySomeField($value): ?DrugType
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.exampleField = :val')

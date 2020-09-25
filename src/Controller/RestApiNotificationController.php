@@ -33,11 +33,9 @@ class RestApiNotificationController extends FOSRestController
             } else {
                 return View::create('No data found', JsonResponse::HTTP_OK, []);
             }
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
-
     }
     /**
      * @Rest\Get("/api/notification/{id}", name ="search_notifications")
@@ -51,7 +49,6 @@ class RestApiNotificationController extends FOSRestController
             $notification = $repository->findOneBy(array('id' => $id, 'created_by' => $user->getId(), 'removed' => false));
             if (!is_null($notification)) {
                 return View::create($notification, JsonResponse::HTTP_OK, []);
-
             } else {
                 return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
             }
@@ -78,7 +75,7 @@ class RestApiNotificationController extends FOSRestController
                 if (isset($deviceid)) {
                     if ($typedevice == "integer") {
                         $repository = $this->getDoctrine()->getRepository(Device::class);
-                        $pushDevice = $repository->findOneBy(array('id' => $data['device_id'], 'created_by' => $user, 'removed' => false,'enabled'=>true));
+                        $pushDevice = $repository->findOneBy(array('id' => $data['device_id'], 'created_by' => $user, 'removed' => false, 'enabled' => true));
                         if (!empty($pushDevice)) {
                             $notification->setPushDeviceId($pushDevice);
                         } else {
@@ -151,14 +148,13 @@ class RestApiNotificationController extends FOSRestController
             $repository = $this->getDoctrine()->getRepository(Notification::class);
             $notification = $repository->findOneBy(array('id' => $id, 'created_by' => $this->getUser()->getId(), 'removed' => false, "readed" => false));
             if (!is_null($notification)) {
-                $readed= $request->request->get('readed');
+                $readed = $request->request->get('readed');
                 if (isset($readed)) {
                     $notification->setReaded($readed);
-
                 } else {
                     return View::create('notification read missing', JsonResponse::HTTP_BAD_REQUEST, []);
                 }
-                $enabled= $request->request->get('enabled');
+                $enabled = $request->request->get('enabled');
                 if (isset($enabled)) {
                     $notification->setEnabled($enabled);
                 }
@@ -167,23 +163,20 @@ class RestApiNotificationController extends FOSRestController
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
                 return View::create('notification updated', JsonResponse::HTTP_OK, []);
-
             } else {
                 return View::create('Not Found', JsonResponse::HTTP_NOT_FOUND);
             }
-
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
-
     }
-    
+
 
 
 
 
     /**
-     * @Rest\Get("/api/NotReadedNotification", name ="readed_notifications")
+     * @Rest\Get("/api/notReadedNotification", name ="readed_notifications")
      * @Rest\View(serializerGroups={"users"})
      */
     public function readed()
@@ -207,5 +200,4 @@ class RestApiNotificationController extends FOSRestController
             }
         }
     }
-
 }
