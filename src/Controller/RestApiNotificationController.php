@@ -170,11 +170,6 @@ class RestApiNotificationController extends FOSRestController
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     }
-
-
-
-
-
     /**
      * @Rest\Get("/api/notReadedNotification", name ="readed_notifications")
      * @Rest\View(serializerGroups={"users"})

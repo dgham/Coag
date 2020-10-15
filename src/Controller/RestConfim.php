@@ -46,13 +46,13 @@ class RestConfim extends FOSRestController
             $token = $user->getConfirmationToken();
             $name = $user->getUsername();
             try {
-                $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
-                    ->setUsername('amira.dgham@intern.continuousnet.com')
-                    ->setPassword('?qS^3igZ')
-                    ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                $transport = (new \Swift_SmtpTransport('mail.continuousnet.com', 587, 'tls'))
+                ->setUsername('amira.dgham@continuousnet.com')
+                ->setPassword('aSspjguK')
+                ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false)));
                 $mailer = new \Swift_Mailer($transport);
                 $message = (new \Swift_Message('CoagCare message'))
-                    ->setFrom('amira.dgham@intern.continuousnet.com')
+                    ->setFrom('amira.dgham@continuousnet.com')
                     ->setTo($email)
                     ->setBody(
                         '<html>' .
@@ -118,7 +118,7 @@ class RestConfim extends FOSRestController
                                       </tr>
                                       <tr>
                                           <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
-                                            <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                            <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@continuousnet.com</a>.</p>
                                             <p>Cheers,<br>The coagcare Team</p>
                                         </td>
                                     </tr>
@@ -236,13 +236,13 @@ class RestConfim extends FOSRestController
 
                     if (!is_null($patientValidation)) {
                         try {
-                            $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
-                                ->setUsername('amira.dgham@intern.continuousnet.com')
-                                ->setPassword('?qS^3igZ')
-                                ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                            $transport = (new \Swift_SmtpTransport('mail.continuousnet.com', 587, 'tls'))
+                            ->setUsername('amira.dgham@continuousnet.com')
+                            ->setPassword('aSspjguK')
+                            ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false)));
                             $mailer = new \Swift_Mailer($transport);
                             $message = (new \Swift_Message('CoagCare message'))
-                                ->setFrom('amira.dgham@intern.continuousnet.com')
+                                ->setFrom('amira.dgham@continuousnet.com')
                                 ->setTo($email)
                                 ->setBody(
                                     '<html>' .

@@ -189,13 +189,13 @@ class RestApiDoctorAssignementController extends AbstractController
                             $em = $this->getDoctrine()->getManager();
                             $em->flush();
                             try {
-                                $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
-                                    ->setUsername('amira.dgham@intern.continuousnet.com')
-                                    ->setPassword('?qS^3igZ')
-                                    ->setStreamOptions(array('ssl' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                                $transport = (new \Swift_SmtpTransport('mail.continuousnet.com', 587, 'tls'))
+                                ->setUsername('amira.dgham@continuousnet.com')
+                                ->setPassword('aSspjguK')
+                                ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false)));
                                 $mailer = new \Swift_Mailer($transport);
                                 $message = (new \Swift_Message('CoagCare message'))
-                                    ->setFrom('amira.dgham@intern.continuousnet.com')
+                                    ->setFrom('amira.dgham@continuousnet.com')
                                     ->setTo($email)
                                     ->setBody(
                                         '<html>' .
@@ -264,7 +264,7 @@ class RestApiDoctorAssignementController extends AbstractController
                           </tr>
                           <tr>
                               <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
-                                <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@continuousnet.com</a>.</p>
                                 <p>Cheers,<br>The coagcare Team</p>
                             </td>
                         </tr>
@@ -307,13 +307,13 @@ class RestApiDoctorAssignementController extends AbstractController
                             $em = $this->getDoctrine()->getManager();
                             $em->flush();
                             try {
-                                $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
-                                    ->setUsername('amira.dgham@intern.continuousnet.com')
-                                    ->setPassword('?qS^3igZ')
-                                    ->setStreamOptions(array('ssl' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                                $transport = (new \Swift_SmtpTransport('mail.continuousnet.com', 587, 'tls'))
+                                ->setUsername('amira.dgham@continuousnet.com')
+                                ->setPassword('aSspjguK')
+                                ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false)));
                                 $mailer = new \Swift_Mailer($transport);
                                 $message = (new \Swift_Message('CoagCare message'))
-                                    ->setFrom('amira.dgham@intern.continuousnet.com')
+                                    ->setFrom('amira.dgham@continuousnet.com')
                                     ->setTo($email)
                                     ->setBody(
                                         '<html>' .
@@ -386,7 +386,7 @@ class RestApiDoctorAssignementController extends AbstractController
                           </tr>
                           <tr>
                               <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
-                                <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@continuousnet.com</a>.</p>
                                 <p>Cheers,<br>The coagcare Team</p>
                             </td>
                         </tr>
@@ -433,13 +433,13 @@ class RestApiDoctorAssignementController extends AbstractController
                             $em = $this->getDoctrine()->getManager();
                             $em->flush();
                             try {
-                                $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
-                                    ->setUsername('amira.dgham@intern.continuousnet.com')
-                                    ->setPassword('?qS^3igZ')
-                                    ->setStreamOptions(array('ssl' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                                $transport = (new \Swift_SmtpTransport('mail.continuousnet.com', 587, 'tls'))
+                                ->setUsername('amira.dgham@continuousnet.com')
+                                ->setPassword('aSspjguK')
+                                ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false)));
                                 $mailer = new \Swift_Mailer($transport);
                                 $message = (new \Swift_Message('CoagCare message'))
-                                    ->setFrom('amira.dgham@intern.continuousnet.com')
+                                    ->setFrom('amira.dgham@continuousnet.com')
                                     ->setTo($email)
                                     ->setBody(
                                         '<html>' .
@@ -512,7 +512,7 @@ class RestApiDoctorAssignementController extends AbstractController
                                   </tr>
                                   <tr>
                                       <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
-                                        <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                        <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@continuousnet.com</a>.</p>
                                         <p>Cheers,<br>The coagcare Team</p>
                                     </td>
                                 </tr>
@@ -558,13 +558,13 @@ class RestApiDoctorAssignementController extends AbstractController
                         $entity->flush();
                         try {
                             $token = $doctorAssignment->getInvitationToken();
-                            $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
-                                ->setUsername('amira.dgham@intern.continuousnet.com')
-                                ->setPassword('?qS^3igZ')
-                                ->setStreamOptions(array('ssl' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                            $transport = (new \Swift_SmtpTransport('mail.continuousnet.com', 587, 'tls'))
+                            ->setUsername('amira.dgham@continuousnet.com')
+                            ->setPassword('aSspjguK')
+                            ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false)));
                             $mailer = new \Swift_Mailer($transport);
                             $message = (new \Swift_Message('CoagCare message'))
-                                ->setFrom('amira.dgham@intern.continuousnet.com')
+                                ->setFrom('amira.dgham@continuousnet.com')
                                 ->setTo($email)
                                 ->setBody(
                                     '<html>' .
@@ -637,7 +637,7 @@ class RestApiDoctorAssignementController extends AbstractController
                           </tr>
                           <tr>
                               <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
-                                <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@continuousnet.com</a>.</p>
                                 <p>Cheers,<br>The coagcare Team</p>
                             </td>
                         </tr>
@@ -725,13 +725,13 @@ class RestApiDoctorAssignementController extends AbstractController
                             $em->flush();
                             $token = $Assignementvalidation->getInvitationToken();
                             try {
-                                $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
-                                    ->setUsername('amira.dgham@intern.continuousnet.com')
-                                    ->setPassword('?qS^3igZ')
-                                    ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                                $transport = (new \Swift_SmtpTransport('mail.continuousnet.com', 587, 'tls'))
+                                ->setUsername('amira.dgham@continuousnet.com')
+                                ->setPassword('aSspjguK')
+                                ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false)));
                                 $mailer = new \Swift_Mailer($transport);
                                 $message = (new \Swift_Message('CoagCare message'))
-                                    ->setFrom('amira.dgham@intern.continuousnet.com')
+                                    ->setFrom('amira.dgham@continuousnet.com')
                                     ->setTo($email)
                                     ->setBody(
                                         '<html>' .
@@ -806,7 +806,7 @@ class RestApiDoctorAssignementController extends AbstractController
                               </tr>
                               <tr>
                                   <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
-                                    <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                    <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@continuousnet.com</a>.</p>
                                     <p>Cheers,<br>The coagcare Team</p>
                                 </td>
                             </tr>
@@ -851,13 +851,13 @@ class RestApiDoctorAssignementController extends AbstractController
                             $em = $this->getDoctrine()->getManager();
                             $em->flush();
                             try {
-                                $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
-                                    ->setUsername('amira.dgham@intern.continuousnet.com')
-                                    ->setPassword('?qS^3igZ')
-                                    ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                                $transport = (new \Swift_SmtpTransport('mail.continuousnet.com', 587, 'tls'))
+                                ->setUsername('amira.dgham@continuousnet.com')
+                                ->setPassword('aSspjguK')
+                                ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false)));
                                 $mailer = new \Swift_Mailer($transport);
                                 $message = (new \Swift_Message('CoagCare message'))
-                                    ->setFrom('amira.dgham@intern.continuousnet.com')
+                                    ->setFrom('amira.dgham@continuousnet.com')
                                     ->setTo($email)
                                     ->setBody(
                                         '<html>' .
@@ -930,7 +930,7 @@ class RestApiDoctorAssignementController extends AbstractController
                   </tr>
                   <tr>
                       <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
-                        <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                        <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@continuousnet.com</a>.</p>
                         <p>Cheers,<br>The coagcare Team</p>
                     </td>
                 </tr>
@@ -972,13 +972,13 @@ class RestApiDoctorAssignementController extends AbstractController
                             $em = $this->getDoctrine()->getManager();
                             $em->flush();
                             try {
-                                $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
-                                    ->setUsername('amira.dgham@intern.continuousnet.com')
-                                    ->setPassword('?qS^3igZ')
-                                    ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                                $transport = (new \Swift_SmtpTransport('mail.continuousnet.com', 587, 'tls'))
+                                ->setUsername('amira.dgham@continuousnet.com')
+                                ->setPassword('aSspjguK')
+                                ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false)));
                                 $mailer = new \Swift_Mailer($transport);
                                 $message = (new \Swift_Message('CoagCare message'))
-                                    ->setFrom('amira.dgham@intern.continuousnet.com')
+                                    ->setFrom('amira.dgham@continuousnet.com')
                                     ->setTo($email)
                                     ->setBody(
                                         '<html>' .
@@ -1051,7 +1051,7 @@ class RestApiDoctorAssignementController extends AbstractController
                                       </tr>
                                       <tr>
                                           <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
-                                            <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                            <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@continuousnet.com</a>.</p>
                                             <p>Cheers,<br>The coagcare Team</p>
                                         </td>
                                     </tr>
@@ -1090,13 +1090,13 @@ class RestApiDoctorAssignementController extends AbstractController
                             $token = $AssignementRefusedvalidation->getInvitationToken();
                         }
                         try {
-                            $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
-                                ->setUsername('amira.dgham@intern.continuousnet.com')
-                                ->setPassword('?qS^3igZ')
-                                ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                            $transport = (new \Swift_SmtpTransport('mail.continuousnet.com', 587, 'tls'))
+                            ->setUsername('amira.dgham@continuousnet.com')
+                            ->setPassword('aSspjguK')
+                            ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false)));
                             $mailer = new \Swift_Mailer($transport);
                             $message = (new \Swift_Message('CoagCare message'))
-                                ->setFrom('amira.dgham@intern.continuousnet.com')
+                                ->setFrom('amira.dgham@continuousnet.com')
                                 ->setTo($email)
                                 ->setBody(
                                     '<html>' .
@@ -1169,7 +1169,7 @@ class RestApiDoctorAssignementController extends AbstractController
                                           </tr>
                                           <tr>
                                               <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
-                                                <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                                <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@continuousnet.com</a>.</p>
                                                 <p>Cheers,<br>The coagcare Team</p>
                                             </td>
                                         </tr>
@@ -1215,13 +1215,13 @@ class RestApiDoctorAssignementController extends AbstractController
                         $entity->flush();
                         $token =  $doctorAssignment->getInvitationToken();
                         try {
-                            $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
-                                ->setUsername('amira.dgham@intern.continuousnet.com')
-                                ->setPassword('?qS^3igZ')
-                                ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
+                            $transport = (new \Swift_SmtpTransport('mail.continuousnet.com', 587, 'tls'))
+                            ->setUsername('amira.dgham@continuousnet.com')
+                            ->setPassword('aSspjguK')
+                            ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false)));
                             $mailer = new \Swift_Mailer($transport);
                             $message = (new \Swift_Message('CoagCare message'))
-                                ->setFrom('amira.dgham@intern.continuousnet.com')
+                                ->setFrom('amira.dgham@continuousnet.com')
                                 ->setTo($email)
                                 ->setBody(
                                     '<html>' .
@@ -1289,7 +1289,7 @@ class RestApiDoctorAssignementController extends AbstractController
                               </tr>
                               <tr>
                                   <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
-                                    <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                    <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@continuousnet.com</a>.</p>
                                     <p>Cheers,<br>The coagcare Team</p>
                                 </td>
                             </tr>
@@ -1479,6 +1479,7 @@ class RestApiDoctorAssignementController extends AbstractController
                 } else {
                     $idpatient = $qr_validation->getId();
                     $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                    $assignemenntDelted= $repository->findOneBy(array('id_doctor' => $user->getId(), 'id_patient' => $idpatient, 'status' => 'Accepted', 'removed' => true));
                     $assignement = $repository->findOneBy(array('id_doctor' => $user->getId(), 'id_patient' => $idpatient, 'status' => 'Accepted', 'removed' => false));
                     $assignementpending = $repository->findOneBy(array('id_doctor' => $user->getId(), 'id_patient' => $idpatient, 'status' => 'Pending', 'removed' => false));
                     $assignementrefused = $repository->findOneBy(array('id_doctor' => $user->getId(), 'id_patient' => $idpatient, 'status' => 'Refused', 'removed' => false));
@@ -1489,6 +1490,15 @@ class RestApiDoctorAssignementController extends AbstractController
                         $assignementpending->setStatus("Accepted");
                         $assignementpending->setUpdatedBy($user);
                         $assignementpending->setUpdatedAt(new \DateTime());
+                        $em = $this->getDoctrine()->getManager();
+                        $em->flush();
+                        return View::create('congratulation, you are the doctor of this patient', JsonResponse::HTTP_OK, []);
+                    }
+                    if (!empty($assignemenntDelted)) {
+                        $assignemenntDelted->setStatus("Accepted");
+                        $assignemenntDelted->setUpdatedBy($user);
+                        $assignemenntDelted->setUpdatedAt(new \DateTime());
+                        $assignemenntDelted->setRemoved(false);
                         $em = $this->getDoctrine()->getManager();
                         $em->flush();
                         return View::create('congratulation, you are the doctor of this patient', JsonResponse::HTTP_OK, []);
@@ -1528,6 +1538,7 @@ class RestApiDoctorAssignementController extends AbstractController
                 } else {
                     $iddoctor = $qr_validation->getId();
                     $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                    $assignementDeleted = $repository->findOneBy(array('id_doctor' => $iddoctor, 'id_patient' => $user->getId(), 'status' => 'Accepted', 'removed' => true));
                     $assignement = $repository->findOneBy(array('id_doctor' => $iddoctor, 'id_patient' => $user->getId(), 'status' => 'Accepted', 'removed' => false));
                     $assignementpending = $repository->findOneBy(array('id_doctor' => $iddoctor, 'id_patient' => $user->getId(), 'status' => 'Pending', 'removed' => false));
                     $assignementrefused = $repository->findOneBy(array('id_doctor' => $iddoctor, 'id_patient' => $user->getId(), 'status' => 'Refused', 'removed' => false));
@@ -1541,6 +1552,15 @@ class RestApiDoctorAssignementController extends AbstractController
                         $em = $this->getDoctrine()->getManager();
                         $em->flush();
                         return View::create('QrCode valid with success.Now, you are the doctor of this patient', JsonResponse::HTTP_OK, []);
+                    }
+                    if (!empty($assignementDeleted)) {
+                        $assignementDeleted->setStatus("Accepted");
+                        $assignementDeleted->setUpdatedBy($user);
+                        $assignementDeleted->setUpdatedAt(new \DateTime());
+                        $assignementDeleted->setRemoved(false);
+                        $em = $this->getDoctrine()->getManager();
+                        $em->flush();
+                        return View::create('congratulation, you are the doctor of this patient', JsonResponse::HTTP_OK, []);
                     }
                     if (!empty($assignementrefused)) {
                         $assignementrefused->setStatus("Accepted");

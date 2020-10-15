@@ -862,10 +862,10 @@ class RestApiMeasureINRController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/api/unreadMeasure", name ="count_readedMeasure")
+     * @Rest\Get("/api/unreadMeasure/{id}", name ="count_readedMeasure")
      * @Rest\View(serializerGroups={"users"})
      */
-    public function countReadedMesure()
+    public function countReadedMesure($id)
     {
         $user = $this->getUser();
         $data = array(
@@ -873,13 +873,10 @@ class RestApiMeasureINRController extends FOSRestController
         );
         if ($user->getUserType() === UserType::TYPE_DOCTOR) {
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
-                $doctorassignement = $repository->findBy(array('id_doctor' => $user->getId(), 'status' => 'Accepted', 'removed' => false));
+                $doctorassignement = $repository->findBy(array('id_doctor' => $user->getId(),'id_patient'=>$id, 'status' => 'Accepted', 'removed' => false));
                 if (!empty($doctorassignement)) {
-                    foreach ($doctorassignement as $data) {
-                        $a[] = $data->getIdPatient();
-                    }
                     $repository = $this->getDoctrine()->getRepository(Measure::class);
-                    $Measure = $repository->findBy(array('created_by' => $a,'readed' => false));
+                    $Measure = $repository->findBy(array('created_by' => $id,'readed' => false));
                   
                     $count=count($Measure);
                     $response = array(
