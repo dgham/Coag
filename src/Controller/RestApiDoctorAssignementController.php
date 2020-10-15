@@ -259,7 +259,7 @@ class RestApiDoctorAssignementController extends AbstractController
                           </tr>
                           <tr>
                               <td style="padding-bottom:30px">
-       <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></center></div>
+       <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></center></div>
                             </td>
                           </tr>
                           <tr>
@@ -381,7 +381,7 @@ class RestApiDoctorAssignementController extends AbstractController
                           </tr>
                           <tr>
                               <td style="padding-bottom:30px">
-       <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></center></div>
+       <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></center></div>
                             </td>
                           </tr>
                           <tr>
@@ -507,7 +507,7 @@ class RestApiDoctorAssignementController extends AbstractController
                                   </tr>
                                   <tr>
                                       <td style="padding-bottom:30px">
-               <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></center></div>
+               <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></center></div>
                                     </td>
                                   </tr>
                                   <tr>
@@ -632,7 +632,7 @@ class RestApiDoctorAssignementController extends AbstractController
                           </tr>
                           <tr>
                               <td style="padding-bottom:30px">
-       <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></center></div>
+       <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a></center></div>
                             </td>
                           </tr>
                           <tr>
@@ -801,7 +801,7 @@ class RestApiDoctorAssignementController extends AbstractController
                               </tr>
                               <tr>
                                   <td style="padding-bottom:30px">
-           <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
+           <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
                                 </td>
                               </tr>
                               <tr>
@@ -925,7 +925,7 @@ class RestApiDoctorAssignementController extends AbstractController
                   </tr>
                   <tr>
                       <td style="padding-bottom:30px">
-<div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
+<div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
                     </td>
                   </tr>
                   <tr>
@@ -1046,7 +1046,7 @@ class RestApiDoctorAssignementController extends AbstractController
                                       </tr>
                                       <tr>
                                           <td style="padding-bottom:30px">
-                   <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
+                   <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
                                         </td>
                                       </tr>
                                       <tr>
@@ -1164,7 +1164,7 @@ class RestApiDoctorAssignementController extends AbstractController
                                           </tr>
                                           <tr>
                                               <td style="padding-bottom:30px">
-                       <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
+                       <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
                                             </td>
                                           </tr>
                                           <tr>
@@ -1284,7 +1284,7 @@ class RestApiDoctorAssignementController extends AbstractController
                               </tr>
                               <tr>
                                   <td style="padding-bottom:30px">
-           <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/InvitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
+           <div class="container"> <center><a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="button button3" style=`color:#fffff;` ><font color="FFFFF"> Accept invitation</font> </a> <a href=`https://api.coagcare.continuousnet.com/invitationResponse?token=' . $token . '&id=' . $id . ' class="btn" style=`color:#fffff;` > <font color="56c596"> Refuse invitation </font></a>
                                 </td>
                               </tr>
                               <tr>
