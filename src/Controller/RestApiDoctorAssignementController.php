@@ -417,11 +417,6 @@ class RestApiDoctorAssignementController extends AbstractController
                         }
                     }
 
-
-
-
-
-
                     if ((!empty($AssignementRefusedvalidation))) {
                         $token = $AssignementRefusedvalidation->getInvitationToken();
                         if ($token != null) {

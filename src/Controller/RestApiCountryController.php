@@ -27,7 +27,7 @@ class RestApiCountryController extends FOSRestController
     public function index()
     {
         $user = $this->getUser();
-        if (($user->getUserType() === UserType::TYPE_ADMIN) || ($user->getUserType() === UserType::TYPE_DOCTOR) || ($user->getUserType() === UserType::TYPE_PATIENT)  || ($user->getUserType() === UserType::TYPE_ADMIN)  || ($user->getUserType() === UserType::TYPE_HOSPITAL)) {
+    
             $repository = $this->getDoctrine()->getRepository(Country::class);
             $country = $repository->findBy(array('remove' => false), array('id' => 'DESC'));
             if (!empty($country)) {
@@ -35,9 +35,7 @@ class RestApiCountryController extends FOSRestController
             } else {
                 return View::create('no country found', JsonResponse::HTTP_OK);
             }
-        } else {
-            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-        }
+     
     }
 
     /**
@@ -47,7 +45,6 @@ class RestApiCountryController extends FOSRestController
     public function searchCountry($id)
     {
         $user = $this->getUser();
-        if (($user->getUserType() === UserType::TYPE_ADMIN) || ($user->getUserType() === UserType::TYPE_DOCTOR) || ($user->getUserType() === UserType::TYPE_PATIENT)  || ($user->getUserType() === UserType::TYPE_ADMIN)  || ($user->getUserType() === UserType::TYPE_HOSPITAL)) {
             $repository = $this->getDoctrine()->getRepository(Country::class);
             $country = $repository->findOneBy(array('id' => $id, 'created_by' => $user->getId(), 'remove' => false));
             if (!is_null($country)) {
@@ -55,9 +52,6 @@ class RestApiCountryController extends FOSRestController
             } else {
                 return View::create('country not Found', JsonResponse::HTTP_NOT_FOUND);
             }
-        } else {
-            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
-        }
     }
 
 
