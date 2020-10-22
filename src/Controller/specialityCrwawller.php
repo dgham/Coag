@@ -31,7 +31,7 @@ for ($i = 0; $i < 28; $i++) {
             $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=UTF8", $username, $password);
             // set the PDO error mode to exception
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO wp_speciality (id,created_by, speciality_name,created_at,removed)
+            $sql = "INSERT INTO speciality (id,created_by, speciality_name,created_at,removed)
                     VALUES (0,21,'$speciality_fr','2018-12-05 12:39:16',0);";
             // use exec() because no results are returned
             echo '#';
