@@ -27,7 +27,6 @@ class RestApiCountryController extends FOSRestController
      */
     public function getcountry()
     {
-        $user = $this->getUser();
     
             $repository = $this->getDoctrine()->getRepository(Country::class);
             $country = $repository->findBy(array('remove' => false), array('id' => 'DESC'));
@@ -46,7 +45,7 @@ class RestApiCountryController extends FOSRestController
      */
     public function byid($id)
     {
-        $user = $this->getUser();
+        
             $repository = $this->getDoctrine()->getRepository(Country::class);
             $country = $repository->findOneBy(array('id' => $id, 'created_by' => $user->getId(), 'remove' => false));
             if (!is_null($country)) {

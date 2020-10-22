@@ -22,10 +22,6 @@ class RestApiSpecialityController extends FOSRestController
      */
     public function takeSpeciality()
     {
-        $user = $this->getUser();
-        $data = array(
-            'id' => $user->getId(),
-        );
             $repository = $this->getDoctrine()->getRepository(Speciality::class);
             $speciality = $repository->findAll(array('id' => 'DESC', 'removed' => false));
             if (!empty($speciality)) {
@@ -43,9 +39,7 @@ class RestApiSpecialityController extends FOSRestController
      * @Rest\View(serializerGroups={"admin"})
      */
     public function searchSpecialitybyid($id)
-    {
-        $user = $this->getUser();
-      
+    { 
             $repository = $this->getDoctrine()->getRepository(Speciality::class);
             $speciality = $repository->findOneBy(array('id' => $id, 'removed' => false));
             if (!empty($speciality)) {
