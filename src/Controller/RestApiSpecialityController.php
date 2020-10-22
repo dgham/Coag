@@ -15,17 +15,17 @@ use Symfony\Component\HttpFoundation\Request;
 class RestApiSpecialityController extends FOSRestController
 {
 
-    /**
-     * @Rest\Get("/api/speciality", name ="api_speciality")
+  
+      /**
+     * @Rest\Get("/speciality", name ="api_speciality")
      * @Rest\View(serializerGroups={"admin"})
      */
-    public function index()
+    public function takeSpeciality()
     {
         $user = $this->getUser();
         $data = array(
             'id' => $user->getId(),
         );
-    
             $repository = $this->getDoctrine()->getRepository(Speciality::class);
             $speciality = $repository->findAll(array('id' => 'DESC', 'removed' => false));
             if (!empty($speciality)) {
@@ -36,11 +36,13 @@ class RestApiSpecialityController extends FOSRestController
        
     }
 
-    /**
-     * @Rest\Get("/api/speciality/{id}", name ="search_speciality")
+
+  
+     /**
+     * @Rest\Get("/speciality/{id}", name ="search_speciality")
      * @Rest\View(serializerGroups={"admin"})
      */
-    public function searchSpeciality($id)
+    public function searchSpecialitybyid($id)
     {
         $user = $this->getUser();
       
@@ -53,6 +55,7 @@ class RestApiSpecialityController extends FOSRestController
             }
 
     }
+    
 
     /**
      * @Rest\Post("/api/speciality", name ="post_speciality")

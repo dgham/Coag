@@ -20,11 +20,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class RestApiCountryController extends FOSRestController
 {
-    /**
-     * @Rest\Get("/api/country", name ="api_country")
+ 
+      /**
+     * @Rest\Get("/country", name ="api_country")
      * @Rest\View(serializerGroups={"users"})
      */
-    public function index()
+    public function getcountry()
     {
         $user = $this->getUser();
     
@@ -38,11 +39,12 @@ class RestApiCountryController extends FOSRestController
      
     }
 
-    /**
-     * @Rest\Get("/api/country/{id}", name ="search_country")
+
+  /**
+     * @Rest\Get("/country/{id}", name ="search_country")
      * @Rest\View(serializerGroups={"users"})
      */
-    public function searchCountry($id)
+    public function byid($id)
     {
         $user = $this->getUser();
             $repository = $this->getDoctrine()->getRepository(Country::class);
