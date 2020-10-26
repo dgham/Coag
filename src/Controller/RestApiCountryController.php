@@ -22,7 +22,7 @@ class RestApiCountryController extends FOSRestController
 {
  
       /**
-     * @Rest\Get("/Getcountry", name ="apii_country")
+     * @Rest\Get("/getCountry", name ="apii_country")
      * @Rest\View(serializerGroups={"users"})
      */
     public function getcountry()
@@ -37,7 +37,7 @@ class RestApiCountryController extends FOSRestController
     }
 
   /**
-     * @Rest\Get("/Getcountry/{id}", name ="search_country")
+     * @Rest\Get("/getCountry/{id}", name ="search_country")
      * @Rest\View(serializerGroups={"users"})
      */
     public function byid($id)

@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CountryRepository")
  */
@@ -172,31 +173,31 @@ class Country
         return $this->created_by;
     }
 
-    public function setCreatedBy(?user $created_by): self
+    public function setCreatedBy(?User $created_by): self
     {
         $this->created_by = $created_by;
 
         return $this;
     }
 
-    public function getUpdatedBy(): ?user
+    public function getUpdatedBy(): ?User
     {
         return $this->updated_by;
     }
 
-    public function setUpdatedBy(?user $updated_by): self
+    public function setUpdatedBy(?User $updated_by): self
     {
         $this->updated_by = $updated_by;
 
         return $this;
     }
 
-    public function getRemovedBy(): ?user
+    public function getRemovedBy(): ?User
     {
         return $this->removed_by;
     }
 
-    public function setRemovedBy(?user $removed_by): self
+    public function setRemovedBy(?User $removed_by): self
     {
         $this->removed_by = $removed_by;
 
