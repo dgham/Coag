@@ -27,6 +27,7 @@ class Note
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="notes")
      * @ORM\JoinColumn(nullable=false)
+     * @Serializer\Groups({"doctors"})
      */
     private $created_by;
 
