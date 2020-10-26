@@ -168,7 +168,7 @@ class Country
         return $this;
     }
 
-    public function getCreatedBy(): ?user
+    public function getCreatedBy(): ?User
     {
         return $this->created_by;
     }
