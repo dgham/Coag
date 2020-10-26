@@ -55,18 +55,18 @@ class Country
     private $enabled;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="countries")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="countries")
      * @ORM\JoinColumn(nullable=false)
      */
     private $created_by;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $updated_by;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $removed_by;
 
