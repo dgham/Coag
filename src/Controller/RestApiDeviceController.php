@@ -68,7 +68,7 @@ class RestApiDeviceController extends FOSRestController
     {
         $add = false;
         $user = $this->getUser();
-        if (($user->getUserType() === UserType::TYPE_ADMIN) || ($user->getUserType() === UserType::TYPE_DOCTOR) || ($user->getUserType() === UserType::TYPE_HOSPITAL)) {
+        if (($user->getUserType() === UserType::TYPE_ADMIN) || ($user->getUserType() === UserType::TYPE_DOCTOR) ||($user->getUserType() === UserType::TYPE_PATIENT) || ($user->getUserType() === UserType::TYPE_HOSPITAL)) {
             try {
                 $data = $request->request->all();
                 $repository = $this->getDoctrine()->getRepository(Device::class);
