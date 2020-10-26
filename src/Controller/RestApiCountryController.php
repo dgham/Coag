@@ -22,12 +22,11 @@ class RestApiCountryController extends FOSRestController
 {
  
       /**
-     * @Rest\Get("/country", name ="api_country")
+     * @Rest\Get("/Getcountry", name ="apii_country")
      * @Rest\View(serializerGroups={"users"})
      */
     public function getcountry()
     {
-    
             $repository = $this->getDoctrine()->getRepository(Country::class);
             $country = $repository->findBy(array('remove' => false), array('id' => 'DESC'));
             if (!empty($country)) {
@@ -35,12 +34,10 @@ class RestApiCountryController extends FOSRestController
             } else {
                 return View::create('no country found', JsonResponse::HTTP_OK);
             }
-     
     }
 
-
   /**
-     * @Rest\Get("/country/{id}", name ="search_country")
+     * @Rest\Get("/Getcountry/{id}", name ="search_country")
      * @Rest\View(serializerGroups={"users"})
      */
     public function byid($id)
