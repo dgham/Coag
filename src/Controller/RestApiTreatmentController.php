@@ -51,7 +51,7 @@ class RestApiTreatmentController extends FOSRestController
     }
     /**
      * @Rest\Get("/api/treatment/{id}", name ="search_treatment")
-     * @Rest\View(serializerGroups={"doctor"})
+     * @Rest\View(serializerGroups={"doctors"})
      */
     public function searchTreatment($id)
     {
@@ -133,9 +133,6 @@ class RestApiTreatmentController extends FOSRestController
             } else {
                 return View::create('missing periode!!', JsonResponse::HTTP_BAD_REQUEST, []);
             }
-
-
-
             $patientid = $request->request->get('patient_id');
             if (isset($patientid)) {
                 //   Get user if exist or not   //
@@ -176,7 +173,7 @@ class RestApiTreatmentController extends FOSRestController
     /**
      * @param Request $request
      * @Rest\Patch("/api/treatment/{id}", name ="patch_treatment")
-     * @Rest\View(serializerGroups={"users"})
+     * @Rest\View(serializerGroups={"doctors"})
      */
     public function patchAction(Request $request, $id)
     {
