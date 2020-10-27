@@ -74,7 +74,6 @@ class RestApiHabitController extends FOSRestController
             foreach ($Assigned as $data) {
                 $a[] = $data->getCreatedBy();
             }
-
             if (!is_null($Assigned)) {
                 $habitsrepository = $this->getDoctrine()->getRepository(EatingHabit::class);
                 $habits = $habitsrepository->findOneBy(array('id' => $id, 'created_by' => $a, 'remove' => false));
@@ -105,12 +104,9 @@ class RestApiHabitController extends FOSRestController
     public function create(Request $request, EntityManagerInterface $entity)
     {
         $user = $this->getUser();
-        try {
+        
             if ($user->getUserType() === UserType::TYPE_PATIENT) {
                 $name = $request->request;
-                var_dump($name);
-                die;
-                if (sizeof($name) >0){
                 $food = $request->request->get('food');
                 $quantity = $request->request->get('quantity');
                 $unit = $request->request->get('unit');
@@ -118,20 +114,33 @@ class RestApiHabitController extends FOSRestController
                 $typequantity = gettype($quantity);
                 $typeunit = gettype($unit);
                 $nb=0;
+               
+            //    if ($food == null) {
+            //     return View::create('missing food habits!!!', JsonResponse::HTTP_BAD_REQUEST, []);
+            //    } 
+            //    if ($quantity ==null) {
+            //     return View::create('missing quantity!!!', JsonResponse::HTTP_BAD_REQUEST, []);
+            //    } 
+            //    if ($unit == null){
+            //     return View::create('missing unit!!!', JsonResponse::HTTP_BAD_REQUEST, []);
+            //    }
+            //     else{              
                 foreach ($name as $data){
+             
+                if (sizeof($data) >= 3){
                     $foods[] = $data['food'];
                     $quantitys[] = $data['quantity'];
                     $units[] = $data['unit'];
                     $nb++;
                 }
+            }
+        
                 if($nb==0){
-                    return View::create('missing food or quantity or units,check your request data', JsonResponse::HTTP_FORBIDDEN, []);
+                    return View::create('missing food or quantity or unit,check your request data', JsonResponse::HTTP_FORBIDDEN, []);
                 }
                 else{
-
                     for($i=0;$i<$nb;$i++){
-                $habits = new EatingHabit();
-                
+                $habits = new EatingHabit();      
                 $habits->setFood($foods[$i]);
                 $habits->setQuantity($quantitys[$i]);
                 $habits->setUnit($units[$i]);
@@ -146,21 +155,15 @@ class RestApiHabitController extends FOSRestController
                 );
                 return View::create($response, Response::HTTP_CREATED, []);
             }
-                }
-                else{
-                    return View::create('missing data', JsonResponse::HTTP_FORBIDDEN, []);
-                }
-    }
-   
+    
+            
+        }
         else{
             return View::create('Not authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     
      
-        
-        } catch (Exception $ex) {
-            return View::create($ex->getMessage(), JsonResponse::HTTP_BAD_REQUEST, []);
-        }
+     
     }
 
 
