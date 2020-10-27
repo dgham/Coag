@@ -108,6 +108,7 @@ class RestApiHabitController extends FOSRestController
         try {
             if ($user->getUserType() === UserType::TYPE_PATIENT) {
                 $name = $request->request;
+                if (sizeof($name) >0){
                 $food = $request->request->get('food');
                 $quantity = $request->request->get('quantity');
                 $unit = $request->request->get('unit');
@@ -115,7 +116,7 @@ class RestApiHabitController extends FOSRestController
                 $typequantity = gettype($quantity);
                 $typeunit = gettype($unit);
                 $nb=0;
-                if (sizeof($name) >0){
+               
                 foreach ($name as $data){
                     $foods[] = $data['food'];
                     $quantitys[] = $data['quantity'];
