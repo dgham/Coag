@@ -40,7 +40,7 @@ class Treatment
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="treatments")
      * @ORM\JoinColumn(nullable=false)
-     * @Serializer\Groups({"doctors"})
+     * @Serializer\Groups({"users","doctors"})
      * 
      */
     private $created_by;
@@ -57,7 +57,7 @@ class Treatment
 
     /**
      * @ORM\Column(type="datetime")
-     * @Serializer\Groups({"doctors"})
+     * @Serializer\Groups({"users","doctors"})
      */
     private $created_at;
 
@@ -89,7 +89,7 @@ class Treatment
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Serializer\Groups({"doctors"})
+     * @Serializer\Groups({"users","doctors"})
      */
     private $DrugType;
 
