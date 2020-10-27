@@ -108,7 +108,6 @@ class RestApiHabitController extends FOSRestController
         try {
             if ($user->getUserType() === UserType::TYPE_PATIENT) {
                 $name = $request->request;
-             
                 $food = $request->request->get('food');
                 $quantity = $request->request->get('quantity');
                 $unit = $request->request->get('unit');
@@ -116,6 +115,7 @@ class RestApiHabitController extends FOSRestController
                 $typequantity = gettype($quantity);
                 $typeunit = gettype($unit);
                 $nb=0;
+                if (sizeof($name) >0){
                 foreach ($name as $data){
                     $foods[] = $data['food'];
                     $quantitys[] = $data['quantity'];
@@ -144,8 +144,12 @@ class RestApiHabitController extends FOSRestController
                 );
                 return View::create($response, Response::HTTP_CREATED, []);
             }
-        }
-        
+                }
+                else{
+                    return View::create('missing data', JsonResponse::HTTP_FORBIDDEN, []);
+                }
+    }
+   
         else{
             return View::create('Not authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
