@@ -51,7 +51,7 @@ class RestApiTreatmentController extends FOSRestController
     }
     /**
      * @Rest\Get("/api/treatment/{id}", name ="search_treatment")
-     * @Rest\View(serializerGroups={"users"})
+     * @Rest\View(serializerGroups={"doctor"})
      */
     public function searchTreatment($id)
     {
