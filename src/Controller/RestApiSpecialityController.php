@@ -28,12 +28,8 @@ class RestApiSpecialityController extends FOSRestController
                 return View::create($speciality, JsonResponse::HTTP_OK, []);
             } else {
                 return View::create('No data found', JsonResponse::HTTP_OK, []);
-            }
-       
+            }  
     }
-
-
-  
      /**
      * @Rest\Get("/speciality/{id}", name ="search_speciality")
      * @Rest\View(serializerGroups={"admin"})

@@ -72,8 +72,9 @@ class RestApiHabitController extends FOSRestController
             $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
             $Assigned = $repository->findBy(array('id_doctor' => $user->getId(), 'status' => 'Accepted', 'removed' => false));
             foreach ($Assigned as $data) {
-                $a[] = $data->getCreatedBy();
+                $a[] = $data->getIdPatient();
             }
+    
             if (!is_null($Assigned)) {
                 $habitsrepository = $this->getDoctrine()->getRepository(EatingHabit::class);
                 $habits = $habitsrepository->findOneBy(array('id' => $id, 'created_by' => $a, 'remove' => false));
@@ -96,6 +97,36 @@ class RestApiHabitController extends FOSRestController
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     }
+    
+
+
+  /**
+     * @Rest\Get("/api/habitByUser/{id}", name ="habit_byuser")
+     * @Rest\View(serializerGroups={"patients"})
+     */
+    public function searchhabitsByuser($id)
+    {
+        $user = $this->getUser();
+        if ($user->getUserType() === UserType::TYPE_DOCTOR) {
+            $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+            $Assigned = $repository->findOneBy(array('id_doctor' => $user->getId(),'id_patient'=>$id, 'status' => 'Accepted', 'removed' => false));
+            foreach ($Assigned as $data) {
+                $a[] = $data->getIdPatient();
+            }
+            if (!is_null($Assigned)) {
+                $habitsrepository = $this->getDoctrine()->getRepository(EatingHabit::class);
+                $habits = $habitsrepository->findBy(array('created_by' => $id,'remove' => false));
+                if (!is_null($habits)) {
+                    return View::create($habits, JsonResponse::HTTP_OK, []);
+                } else {
+                    return View::create('Habits Not Found', JsonResponse::HTTP_NOT_FOUND);
+                }
+            }
+        }
+      
+    }
+
+
 
     /**
      * @Rest\Post("/api/habit", name ="post_habits")
@@ -134,7 +165,6 @@ class RestApiHabitController extends FOSRestController
                     $nb++;
                 }
             }
-        
                 if($nb==0){
                     return View::create('missing food or quantity or unit,check your request data', JsonResponse::HTTP_FORBIDDEN, []);
                 }
