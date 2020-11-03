@@ -270,17 +270,7 @@ class RestConfim extends FOSRestController
                             return View::create($ex->getMessage(), Response::HTTP_BAD_REQUEST, []);
                         }
                         $patientid = $patientValidation->getId();
-
-                        //$doctor_id= $doctorvalidation->getId();
-                        //$doctorassignment=new DoctorAssignement();
-                        //$doctorassignment->setIdPatient($patientValidation);
-                        //$doctorassignment->setIdDoctor($doctorvalidation);
-                        //$doctorassignment->setRequestDate(new \DateTime());
-                        //$doctorassignment->setStatus("pending");
-                        //$doctorassignment->setEnabled(false);
-                        //$doctorassignment->setRemoved(false);
-                        //$entity ->persist($doctorassignment);
-                        //$entity->flush();
+                       
                         $response = array(
                             'message' => 'success',
                             'result' => 'Email was send successfuly, check your email to reset your password',
