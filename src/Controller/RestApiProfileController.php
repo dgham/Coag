@@ -285,6 +285,8 @@ class RestApiProfileController extends FOSRestController
        try{
         $user = $this->getUser();
         $uploadedImage = $request->files->get('picture');
+        var_dump($uploadedImage);
+        die;
         if ($uploadedImage == null){
             return View::create("select picture please !", JsonResponse::HTTP_BAD_REQUEST, []);
         }
@@ -292,9 +294,7 @@ class RestApiProfileController extends FOSRestController
          * @var UploadedFile $image
          */
         $image = $uploadedImage;
-
         $imageName = md5(uniqid()) . '.' . $image->guessExtension();
-
         $imagetype = $image->guessExtension();
         $path = $this->getParameter('image_directory');
         $serveur_ip = gethostbyname(gethostname());
