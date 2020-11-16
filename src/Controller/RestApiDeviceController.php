@@ -34,6 +34,17 @@ class RestApiDeviceController extends FOSRestController
             } else {
                 return View::create('no device found', JsonResponse::HTTP_OK);
             }
+        }
+            if (($user->getUserType() === UserType::TYPE_PATIENT) || ($user->getUserType() === UserType::TYPE_DOCTOR)) {
+                $repository = $this->getDoctrine()->getRepository(Device::class);
+                $device = $repository->findOneBy(array('created_by'=>$user->getId(),'removed' => false));
+                if (!empty($device)) {
+                    return View::create($device, JsonResponse::HTTP_OK, []);
+                } else {
+                    return View::create('no device found', JsonResponse::HTTP_OK);
+                }
+                
+            
         } else {
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
