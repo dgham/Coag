@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Device;
-use App\Entity\Notification;
-use App\Entity\UserType;
 use DateTime;
 use Exception;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\FOSRestController;
+use App\Entity\User;
+use App\Entity\Device;
+use App\Entity\UserType;
+use App\Entity\Notification;
 use FOS\RestBundle\View\View;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RestApiNotificationController extends FOSRestController
 {
@@ -118,10 +119,23 @@ class RestApiNotificationController extends FOSRestController
                 if (isset($data['type'])) {
                     $notification->setType($data['type']);
                 }
+                $createdid = $request->request->get('created_by');
+                $typecretaedid= gettype($createdid);
+                if (isset($createdid)) {
+                    if ($typecretaedid == "integer") {
+                $repository = $this->getDoctrine()->getRepository(User::class);
+                $userid = $repository->findOneBy(array('id' => $createdid, 'remove' => false, 'enabled' => true));
+            } else {
+                return View::create('created_by of notification must be int!!', JsonResponse::HTTP_BAD_REQUEST, []);
+                    }
+                }else{
+                    return View::create('created_by is missing !', JsonResponse::HTTP_BAD_REQUEST, []);
+                }
+
                 $notification->setEnabled(true);
                 $notification->setReaded(false);
                 $notification->setRemoved(false);
-                $notification->setCreatedBy($user);
+                $notification->setCreatedBy($userid);
                 $notification->setCreatedAt(new \DateTime());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($notification);
@@ -180,6 +194,7 @@ class RestApiNotificationController extends FOSRestController
         $data = array(
             'id' => $user->getId(),
         );
+
         if (($user->getUserType() === UserType::TYPE_DOCTOR) || ($user->getUserType() === UserType::TYPE_PATIENT)) {
             $repository = $this->getDoctrine()->getRepository(Notification::class);
             $notification = $repository->findBy(array('created_by' => $data, 'readed' => false));

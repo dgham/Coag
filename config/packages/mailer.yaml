@@ -7,8 +7,8 @@ swiftmailer:
             url:                  null
             transport:            smtp
             command:              '/usr/sbin/sendmail -bs'
-            username:             amira.dgham@intern.continuousnet.com
-            password:             '?qS^3igZ'
+            username:             amira.dgham@continuousnet.com
+            password:             'aSspjguK'
             host:                 mail.dreamhost.com
             port:                 587
             timeout:              100
@@ -18,7 +18,7 @@ swiftmailer:
                     verify_peer: false
                     verify_peer_name: false   
             encryption:           tls
-            sender_address:       amira.dgham@intern.continuousnet.com
+            sender_address:       amira.dgham@continuousnet.com
             delivery_addresses:   []
             antiflood:
                 threshold:            99
