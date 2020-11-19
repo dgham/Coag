@@ -175,12 +175,12 @@ class WebPagesController extends AbstractController
                         $em->persist($invitationValidation);
                         $em->flush();
                         $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
-                            ->setUsername('amira.dgham@intern.continuousnet.com')
-                            ->setPassword('?qS^3igZ')
+                            ->setUsername('amira.dgham@continuousnet.com')
+                            ->setPassword('aSspjguK')
                             ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
                         $mailer = new \Swift_Mailer($transport);
                         $message = (new \Swift_Message('CoagCare message'))
-                            ->setFrom('amira.dgham@intern.continuousnet.com')
+                            ->setFrom('amira.dgham@continuousnet.com')
                             ->setTo($email)
                             ->setBody(
                                 '<html>' .
@@ -229,7 +229,7 @@ class WebPagesController extends AbstractController
                                       <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
                                         <tbody><tr>
                                           <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
-                                              <img src="https://api.coagcare.continuousnet.com/Assets/images/4448b54b5015cf433e02a578933a9925.png" alt="" border="0" width="125" style="display:block">
+                                              <img src="https://api.coagcare.continuousnet.com/Assets/images/26f33fbf5addfa9ed60d18ced6c46912.svg" alt="" border="0" width="125" style="display:block">
                                           </td>
                                         </tr>
                                         <tr>
@@ -244,7 +244,7 @@ class WebPagesController extends AbstractController
                                               </tr>
                                               <tr>
                                                   <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
-                                                    <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                                    <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@continuousnet.com</a>.</p>
                                                     <p>Cheers,<br>The coagcare Team</p>
                                                 </td>
                                             </tr>
@@ -294,12 +294,12 @@ class WebPagesController extends AbstractController
                         $em->persist($invitationValidation);
                         $em->flush();
                         $transport = (new \Swift_SmtpTransport('mail.dreamhost.com', 587, 'tls'))
-                            ->setUsername('amira.dgham@intern.continuousnet.com')
-                            ->setPassword('?qS^3igZ')
+                            ->setUsername('amira.dgham@continuousnet.com')
+                            ->setPassword('aSspjguK')
                             ->setStreamOptions(array('tls' => array('allow_self_signed' => false, 'verify_peer' => false)));
                         $mailer = new \Swift_Mailer($transport);
                         $message = (new \Swift_Message('CoagCare message'))
-                            ->setFrom('amira.dgham@intern.continuousnet.com')
+                            ->setFrom('amira.dgham@continuousnet.com')
                             ->setTo($email)
                             ->setBody(
                                 '<html>' .
@@ -348,7 +348,7 @@ class WebPagesController extends AbstractController
                                       <table width="580" class="m_-3655858657801354087deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
                                         <tbody><tr>
                                           <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
-                                              <img src="https://api.coagcare.continuousnet.com/Assets/images/4448b54b5015cf433e02a578933a9925.png" alt="" border="0" width="125" style="display:block">
+                                              <img src="https://api.coagcare.continuousnet.com/Assets/images/26f33fbf5addfa9ed60d18ced6c46912.svg" alt="" border="0" width="125" style="display:block">
                                           </td>
                                         </tr>
                                         <tr>
@@ -363,7 +363,7 @@ class WebPagesController extends AbstractController
                                               </tr>
                                               <tr>
                                                   <td style="font-size:13px;padding:0px 10px 0px 10px;text-align:left">
-                                                    <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@intern.continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@intern.continuousnet.com</a>.</p>
+                                                    <p>If you need additional assistance, or you did not make this change, please contact <a href="mailto:amira.dgham@continuousnet.com" style="color:#56c596;;text-decoration:underline;font-weight:bold" target="_blank">amira.dgham@continuousnet.com</a>.</p>
                                                     <p>Cheers,<br>The coagcare Team</p>
                                                 </td>
                                             </tr>
