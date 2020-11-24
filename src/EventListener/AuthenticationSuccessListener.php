@@ -61,6 +61,8 @@ class AuthenticationSuccessListener extends Controller
         $data['zipCode'] = $user->getZipCode();
         $data['city'] = $user->getCity();
         $data['country'] = $user->getCountry();
+        $data['qr_code'] = $user->getQRCode();
+
         
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
             $repository = $this->em->getRepository(Patient::class);
