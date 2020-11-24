@@ -115,9 +115,9 @@ class RestApiMeasureINRController extends FOSRestController
                 $typevalue = gettype($value);
                 $Measure = new Measure();
                 if (isset($value)) {
-                    if ($typevalue == "double") {
+                    if ($typevalue == "string") {
 
-                        $Measure->setValue($value);
+                        $Measure->setValue((double)$value);
                         if ((2.0 < $value) && ($value > 3.0)) {
                             $Measure->setIndication('anormal mesure');
                         } else {

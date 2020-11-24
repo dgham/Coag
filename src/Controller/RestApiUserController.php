@@ -185,8 +185,9 @@ class RestApiUserController extends AbstractFOSRestController
       $weight = $request->request->get("weight");
       if (isset($weight)) {
          $typeweight = gettype($weight);
-         if ($typeweight == "double") {
-            $this->patient->setWeight($weight);
+         if ($typeweight == "string") {
+
+            $this->patient->setWeight((double)$weight);
          } else {
             return View::create("weight must be double", JsonResponse::HTTP_BAD_REQUEST, []);
          }
@@ -201,8 +202,8 @@ class RestApiUserController extends AbstractFOSRestController
       $size = $request->request->get("size");
       if (isset($size)) {
          $typesize = gettype($size);
-         if ($typesize == "double") {
-            $this->patient->setSize($size);
+         if ($typesize == "string") {
+            $this->patient->setSize((double)$size);
          } else {
             return View::create("size must be double", JsonResponse::HTTP_BAD_REQUEST, []);
          }
