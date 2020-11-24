@@ -151,7 +151,7 @@ class RestApiHabitController extends FOSRestController
                 for($i=0;$i<$nb;$i++){
                 $habits = new EatingHabit();      
                 $habits->setFood($foods[$i]);
-                $habits->setQuantity($quantitys[$i]);
+                $habits->setQuantity((double)$quantitys[$i]);
                 $habits->setUnit($units[$i]);
                 $habits->setCreatedBy($user);
                 $habits->setCreatedAt(new \DateTime());

@@ -183,11 +183,11 @@ class RestApiProfileController extends FOSRestController
             if (!is_null($patient)) {
                 $weight = $request->request->get('weight');
                 if (isset($weight)) {
-                    $patient->setWeight($weight);
+                    $patient->setWeight((double)$weight);
                 }
                 $size = $request->request->get('size');
                 if (isset($size)) {
-                    $patient->setSize($size);
+                    $patient->setSize((double)$size);
                 }
                 $proffesion = $request->request->get('proffesion');
                 if (isset($proffesion)) {
