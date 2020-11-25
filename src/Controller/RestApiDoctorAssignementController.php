@@ -1598,7 +1598,7 @@ class RestApiDoctorAssignementController extends AbstractController
         );
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
             $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
-            $doctorassignement = $repository->findOneBy(array('id_patient' => $user->getId(),'status' => 'Accepted','id_doctor'=>$id, 'removed' => false));
+            $doctorassignement = $repository->findOneBy(array('id_patient' => $user->getId(),'status' => 'Accepted','id_doctor'=>$id, 'removed' => false,'enabled'=>false));
             $doctorAccess= $repository->findOneBy(array('id_patient' => $user->getId(),'status' => 'Accepted','removed'=>false,'enabled'=>true));
             if (empty($doctorassignement)) {
                 return View::create('no data found', JsonResponse::HTTP_OK, []);
@@ -1607,13 +1607,14 @@ class RestApiDoctorAssignementController extends AbstractController
                 if (isset($enabled)) {
                     $enabledtype = gettype($enabled);
                     if ($enabled == "boolean"){
-                        if ($enabled== true){
+                        if (!empty($doctorAccess)){
                         $doctorAccess->setEnabled(false);
                         $doctorassignement->setEnabled($enabled);
                         }
                         else{
-                        $doctorassignement->setEnabled($enabled);
+                        $doctorassignement->setEnabled($enabled);   
                         }
+                      
             return View::create($doctorassignement, JsonResponse::HTTP_OK, []);
                     }
                 }
