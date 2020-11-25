@@ -9,6 +9,7 @@ use App\Entity\Device;
 use App\Entity\UserType;
 use App\Entity\Notification;
 use FOS\RestBundle\View\View;
+use App\Entity\DoctorAssignement;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -119,7 +120,9 @@ class RestApiNotificationController extends FOSRestController
                 if (isset($data['type'])) {
                     $notification->setType($data['type']);
                 }
+                $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
                 $doctorassignement = $repository->findOneBy(array('id_patient' => $user->getId(),'status' => 'Accepted', 'removed' => false,'enabled'=>true));
+               dump($doctorassignement->getIdPatient());
                 dump($doctorassignement);
                 die;
             //     $createdid = $request->request->get('created_by');
