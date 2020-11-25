@@ -1590,7 +1590,7 @@ class RestApiDoctorAssignementController extends AbstractController
      * @Rest\View(serializerGroups={"doctors"})
      */
 
-    public function doctorAccess(Request $request, $id)
+    public function doctorAccess(Request $request, $id, EntityManagerInterface $entity)
     {
         $user = $this->getUser();
         $data = array(
