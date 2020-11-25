@@ -1599,7 +1599,7 @@ class RestApiDoctorAssignementController extends AbstractController
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
             $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
             $doctorassignement = $repository->findOneBy(array('id_patient' => $user->getId(),'status' => 'Accepted','id_doctor'=>$id, 'removed' => false));
-            $doctorAccess= $repository->findBy(array('id_patient' => $user->getId(),'status' => 'Accepted','removed'=>false,'enabled'=>true));
+            $doctorAccess= $repository->findOneBy(array('id_patient' => $user->getId(),'status' => 'Accepted','removed'=>false,'enabled'=>true));
             if (empty($doctorassignement)) {
                 return View::create('no data found', JsonResponse::HTTP_OK, []);
             }
