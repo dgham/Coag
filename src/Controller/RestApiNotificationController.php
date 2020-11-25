@@ -122,9 +122,7 @@ class RestApiNotificationController extends FOSRestController
                 }
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
                 $doctorassignement = $repository->findOneBy(array('id_patient' => $user->getId(),'status' => 'Accepted', 'removed' => false,'enabled'=>true));
-               dump($doctorassignement->getIdPatient());
-                dump($doctorassignement);
-                die;
+            
             //     $createdid = $request->request->get('created_by');
             //     $typecretaedid= gettype($createdid);
             //     if (isset($createdid)) {
@@ -140,7 +138,7 @@ class RestApiNotificationController extends FOSRestController
                 $notification->setEnabled(true);
                 $notification->setReaded(false);
                 $notification->setRemoved(false);
-                $notification->setCreatedBy($doctor_id);
+                $notification->setCreatedBy($doctorassignement->getIdPatient());
                 $notification->setCreatedAt(new \DateTime());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($notification);
