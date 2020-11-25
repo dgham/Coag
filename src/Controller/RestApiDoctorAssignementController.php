@@ -1607,16 +1607,16 @@ class RestApiDoctorAssignementController extends AbstractController
                 if (isset($enabled)) {
                     $enabledtype = gettype($enabled);
                     if ($enabled == "boolean"){
-                        if (!empty($doctorAccess)){
                         $doctorAccess->setEnabled(false);
                         $doctorassignement->setEnabled($enabled);
-                        }
-                        else{
-                        $doctorassignement->setEnabled($enabled);   
+                        $entity->persist($doctorAccess);
+                        $entity->flush();
+                        $entity->persist($doctorAssignment);
+                        $entity->flush();
+                        return View::create($doctorassignement, JsonResponse::HTTP_OK, []);
                         }
                       
-            return View::create($doctorassignement, JsonResponse::HTTP_OK, []);
-                    }
+          
                 }
                 } else {
                     return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
