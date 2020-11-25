@@ -67,7 +67,90 @@ class RestApiNotificationController extends FOSRestController
     public function postNotificationAction(Request $request)
     {
         $user = $this->getUser();
-        if (($user->getUserType() === UserType::TYPE_PATIENT) || ($user->getUserType() === UserType::TYPE_DOCTOR)) {
+        if ($user->getUserType() === UserType::TYPE_PATIENT) {
+            try {
+                $data = $request->request->all();
+                $notification = new Notification();
+                $deviceid = $request->request->get('device_id');
+                $typedevice = gettype($deviceid);
+                if (isset($deviceid)) {
+                    if ($typedevice == "integer") {
+                        $repository = $this->getDoctrine()->getRepository(Device::class);
+                        $pushDevice = $repository->findOneBy(array('id' => $data['device_id'], 'created_by' => $user, 'removed' => false, 'enabled' => true));
+                        if (!empty($pushDevice)) {
+                            $notification->setPushDeviceId($pushDevice);
+                        } else {
+                            return View::create('error !Not the correct device', JsonResponse::HTTP_NOT_FOUND);
+                        }
+                    } else {
+                        return View::create('device_id should be integer ', JsonResponse::HTTP_BAD_REQUEST, []);
+                    }
+                } else {
+                    return View::create('Missing device!', JsonResponse::HTTP_BAD_REQUEST, []);
+                }
+                $typetitle = gettype($data['title']);
+                if (isset($data['title'])) {
+                    if ($typetitle == "string") {
+                        $notification->setTitle($data['title']);
+                    } else {
+                        return View::create('title of notification must be string!!', JsonResponse::HTTP_BAD_REQUEST, []);
+                    }
+                } else {
+                    return View::create('missing title!!', JsonResponse::HTTP_BAD_REQUEST, []);
+                }
+                $typebody = gettype($data['body']);
+                if (isset($data['body'])) {
+                    if ($typebody == "string") {
+                        $notification->setBody($data['body']);
+                    } else {
+                        return View::create('body of notification must be string!!', JsonResponse::HTTP_BAD_REQUEST, []);
+                    }
+                } else {
+                    return View::create('missing body!!', JsonResponse::HTTP_BAD_REQUEST, []);
+                }
+                $typedata = gettype($data['data']);
+                if (isset($data['data'])) {
+                    if ($typedata == "string") {
+                        $notification->setData($data['data']);
+                    } else {
+                        return View::create('data of notification must be string!!', JsonResponse::HTTP_BAD_REQUEST, []);
+                    }
+                }
+                if (isset($data['type'])) {
+                    $notification->setType($data['type']);
+                }
+                $doctorassignement = $repository->findOneBy(array('id_patient' => $user->getId(),'status' => 'Accepted','id_doctor'=>$id, 'removed' => false,'enabled'=>true));
+                dump($doctorassignement);
+                $doctor_id= $doctorassignement->getIdDoctor();
+                dump($doctor_id);
+                die;
+
+            //     $createdid = $request->request->get('created_by');
+            //     $typecretaedid= gettype($createdid);
+            //     if (isset($createdid)) {
+            //         if ($typecretaedid == "integer") {
+            //     $repository = $this->getDoctrine()->getRepository(User::class);
+            //     $userid = $repository->findOneBy(array('id' => $createdid, 'remove' => false, 'enabled' => true));
+            // } else {
+            //     return View::create('created_by of notification must be int!!', JsonResponse::HTTP_BAD_REQUEST, []);
+            //         }
+            //     }else{
+            //         return View::create('created_by is missing !', JsonResponse::HTTP_BAD_REQUEST, []);
+            //     }
+                $notification->setEnabled(true);
+                $notification->setReaded(false);
+                $notification->setRemoved(false);
+                $notification->setCreatedBy($doctor_id);
+                $notification->setCreatedAt(new \DateTime());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($notification);
+                $em->flush();
+                return View::create($notification, JsonResponse::HTTP_CREATED);
+            } catch (Exception $e) {
+                return View::create($e->getMessage(), JsonResponse::HTTP_BAD_REQUEST, []);
+            }
+        }
+        if ($user->getUserType() === UserType::TYPE_DOCTOR) {
             try {
                 $data = $request->request->all();
                 $notification = new Notification();
