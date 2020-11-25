@@ -119,12 +119,9 @@ class RestApiNotificationController extends FOSRestController
                 if (isset($data['type'])) {
                     $notification->setType($data['type']);
                 }
-                $doctorassignement = $repository->findOneBy(array('id_patient' => $user->getId(),'status' => 'Accepted','id_doctor'=>$id, 'removed' => false,'enabled'=>true));
+                $doctorassignement = $repository->findOneBy(array('id_patient' => $user->getId(),'status' => 'Accepted', 'removed' => false,'enabled'=>true));
                 dump($doctorassignement);
-                $doctor_id= $doctorassignement->getIdDoctor();
-                dump($doctor_id);
                 die;
-
             //     $createdid = $request->request->get('created_by');
             //     $typecretaedid= gettype($createdid);
             //     if (isset($createdid)) {
