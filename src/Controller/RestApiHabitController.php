@@ -196,10 +196,10 @@ class RestApiHabitController extends FOSRestController
                     }
                 }
                 if (isset($quantity)) {
-                    if ($typequantity === "double") {
-                        $habits->setQuantity($quantity);
+                    if ($typequantity === "string") {
+                        $habits->setQuantity((double)$quantity);
                     } else {
-                        return View::create('quantity must be double', JsonResponse::HTTP_BAD_REQUEST);
+                        return View::create('quantity must be string', JsonResponse::HTTP_BAD_REQUEST);
                     }
                 }
                 if (isset($unit)) {
