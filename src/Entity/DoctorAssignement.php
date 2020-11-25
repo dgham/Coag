@@ -45,6 +45,7 @@ class DoctorAssignement
 
     /**
      * @ORM\Column(type="boolean")
+     * @Serializer\Groups({"doctors"})
      */
     private $enabled;
 

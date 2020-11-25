@@ -545,7 +545,7 @@ class RestApiDoctorAssignementController extends AbstractController
                         $doctorAssignment->setRequestDate(new \DateTime());
                         $doctorAssignment->setStatus("Pending");
                         $doctorAssignment->setCreatedBy($user);
-                        $doctorAssignment->setEnabled(true);
+                        $doctorAssignment->setEnabled(false);
                         $doctorAssignment->setRemoved(false);
                         $doctorAssignment->setCreatedAt(new \DateTime());
                         $doctorAssignment->setInvitationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
@@ -1202,7 +1202,7 @@ class RestApiDoctorAssignementController extends AbstractController
                         $doctorAssignment->setRequestDate(new \DateTime());
                         $doctorAssignment->setStatus("Pending");
                         $doctorAssignment->setCreatedBy($user);
-                        $doctorAssignment->setEnabled(true);
+                        $doctorAssignment->setEnabled(false);
                         $doctorAssignment->setRemoved(false);
                         $doctorAssignment->setCreatedAt(new \DateTime());
                         $doctorAssignment->setInvitationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
@@ -1512,7 +1512,7 @@ class RestApiDoctorAssignementController extends AbstractController
                         $doctorAssignment->setRequestDate(new \DateTime());
                         $doctorAssignment->setStatus("Accepted");
                         $doctorAssignment->setCreatedBy($user);
-                        $doctorAssignment->setEnabled(true);
+                        $doctorAssignment->setEnabled(false);
                         $doctorAssignment->setRemoved(false);
                         $doctorAssignment->setCreatedAt(new \DateTime());
                         $entity->persist($doctorAssignment);
@@ -1571,7 +1571,7 @@ class RestApiDoctorAssignementController extends AbstractController
                         $doctorAssignment->setRequestDate(new \DateTime());
                         $doctorAssignment->setStatus("Accepted");
                         $doctorAssignment->setCreatedBy($user);
-                        $doctorAssignment->setEnabled(true);
+                        $doctorAssignment->setEnabled(false);
                         $doctorAssignment->setRemoved(false);
                         $doctorAssignment->setCreatedAt(new \DateTime());
                         $entity->persist($doctorAssignment);
@@ -1584,4 +1584,44 @@ class RestApiDoctorAssignementController extends AbstractController
             }
         }
     }
+
+    /**
+     * @Rest\Patch("/api/doctorAccess/{id}", name ="access_doctor")
+     * @Rest\View(serializerGroups={"doctors"})
+     */
+
+    public function doctorAccess($id)
+    {
+        $user = $this->getUser();
+        $data = array(
+            'id' => $user->getId()
+        );
+        if ($user->getUserType() === UserType::TYPE_PATIENT) {
+            $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+            $doctorassignement = $repository->findOneBy(array('id_patient' => $user->getId(),'status' => 'Accepted','id_doctor'=>$id, 'removed' => false));
+            $doctorAccess= $repository->findBy(array('id_patient' => $user->getId(),'status' => 'Accepted','removed'=>false,'enabled'=>true));
+            if (empty($doctorassignement)) {
+                return View::create('no data found', JsonResponse::HTTP_OK, []);
+            }
+            $enabled = $request->request->get('enabled');
+                if (isset($enabled)) {
+                    $enabledtype = gettype($enabled);
+                    if ($enabled == "boolean"){
+                        if ($enabled== true){
+                        $doctorAccess->setEnabled(false);
+                        $doctorassignement->setEnabled($enabled);
+                        }
+                        else{
+                        $doctorassignement->setEnabled($enabled);
+                        }
+            return View::create($doctorassignement, JsonResponse::HTTP_OK, []);
+                    }
+                }
+                } else {
+                    return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+                }
+            }
+
+
+
 }

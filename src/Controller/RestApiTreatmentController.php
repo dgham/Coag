@@ -141,7 +141,7 @@ class RestApiTreatmentController extends FOSRestController
 
                 //    Get patient if doctor is assigned by or not //
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
-                $idpatient = $repository->findOneBy(array('id_doctor' => $user->getId(), 'id_patient' => $patientid, 'status' => 'Accepted', 'removed' => false));
+                $idpatient = $repository->findOneBy(array('id_doctor' => $user->getId(), 'id_patient' => $patientid, 'status' => 'Accepted', 'removed' => false,'enabled'=> true));
                 if (!is_null($iduser)) {
                     if (!is_null($idpatient)) {
                         $treatment->setPatient($iduser);
@@ -157,7 +157,7 @@ class RestApiTreatmentController extends FOSRestController
                         );
                         return View::create($response, Response::HTTP_CREATED, []);
                     } else {
-                        return View::create('this doctor is not assigned to this patient!!', JsonResponse::HTTP_BAD_REQUEST, []);
+                        return View::create('this doctor is not assigned to this patient or this doctor have no access to add treatment !!', JsonResponse::HTTP_BAD_REQUEST, []);
                     }
                 } else {
                     return View::create('sorry, you are not the doctor of this patient!', JsonResponse::HTTP_BAD_REQUEST, []);
