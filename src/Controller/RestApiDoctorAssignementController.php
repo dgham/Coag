@@ -1614,10 +1614,8 @@ class RestApiDoctorAssignementController extends AbstractController
                         else{
                         $doctorassignement->setEnabled($enabled);
                         }
-                        $entity->persist($doctorAccess);
-                        $entity->flush();
-                        $entity->persist($doctorAssignment);
-                        $entity->flush();
+                        $em = $this->getDoctrine()->getManager();
+                        $em->flush();
                         return View::create($doctorassignement, JsonResponse::HTTP_OK, []);
                         }
                       
