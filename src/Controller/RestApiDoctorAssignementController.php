@@ -1607,8 +1607,13 @@ class RestApiDoctorAssignementController extends AbstractController
                 if (isset($enabled)) {
                     $enabledtype = gettype($enabled);
                     if ($enabled == "boolean"){
+                        if (!empty($doctorAccess)){
                         $doctorAccess->setEnabled(false);
                         $doctorassignement->setEnabled($enabled);
+                        }
+                        else{
+                        $doctorassignement->setEnabled($enabled);
+                        }
                         $entity->persist($doctorAccess);
                         $entity->flush();
                         $entity->persist($doctorAssignment);
