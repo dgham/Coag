@@ -135,10 +135,11 @@ class RestApiNotificationController extends FOSRestController
             //     }else{
             //         return View::create('created_by is missing !', JsonResponse::HTTP_BAD_REQUEST, []);
             //     }
+                $notification->setRecivedUser($doctorassignement->getIdPatient());
                 $notification->setEnabled(true);
                 $notification->setReaded(false);
                 $notification->setRemoved(false);
-                $notification->setCreatedBy($doctorassignement->getIdPatient());
+                $notification->setCreatedBy($user->getId());
                 $notification->setCreatedAt(new \DateTime());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($notification);
@@ -200,22 +201,24 @@ class RestApiNotificationController extends FOSRestController
                 if (isset($data['type'])) {
                     $notification->setType($data['type']);
                 }
-                $createdid = $request->request->get('created_by');
+                $createdid = $request->request->get('recived_user');
                 $typecretaedid= gettype($createdid);
                 if (isset($createdid)) {
                     if ($typecretaedid == "integer") {
                 $repository = $this->getDoctrine()->getRepository(User::class);
                 $userid = $repository->findOneBy(array('id' => $createdid, 'remove' => false, 'enabled' => true));
             } else {
-                return View::create('created_by of notification must be int!!', JsonResponse::HTTP_BAD_REQUEST, []);
+                return View::create('recived_user of notification must be int!!', JsonResponse::HTTP_BAD_REQUEST, []);
                     }
                 }else{
-                    return View::create('created_by is missing !', JsonResponse::HTTP_BAD_REQUEST, []);
+                    return View::create('recived_user is missing !', JsonResponse::HTTP_BAD_REQUEST, []);
                 }
+                $notification->setRecivedUser($userid);
                 $notification->setEnabled(true);
                 $notification->setReaded(false);
                 $notification->setRemoved(false);
-                $notification->setCreatedBy($userid);
+                $notification->setCreatedBy($user->getId());
+                
                 $notification->setCreatedAt(new \DateTime());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($notification);
@@ -228,6 +231,7 @@ class RestApiNotificationController extends FOSRestController
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN);
         }
     }
+    
     /**
      * @Rest\Patch("/api/notification/{id}", name ="patch_notifications")
      * @Rest\View(serializerGroups={"users"})

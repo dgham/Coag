@@ -56,6 +56,7 @@ class Notification
     private $enabled;
 
     /**
+     * @Serializer\Groups({"users"})
      * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="notifications")
      */
     private $created_by;
@@ -96,6 +97,13 @@ class Notification
       * @Serializer\Groups({"users"})
      */
     private $readed;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @Serializer\Groups({"users"})
+     */
+    private $recived_user;
 
     public function getId(): ?int
     {
@@ -266,6 +274,19 @@ class Notification
     public function setReaded(bool $readed): self
     {
         $this->readed = $readed;
+
+        return $this;
+    }
+
+
+    public function getRecivedUser(): ?User
+    {
+        return $this->recived_user;
+    }
+
+    public function setRecivedUser(?User $recived_user): self
+    {
+        $this->recived_user = $recived_user;
 
         return $this;
     }
