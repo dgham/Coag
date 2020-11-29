@@ -139,7 +139,7 @@ class RestApiNotificationController extends FOSRestController
                 $notification->setEnabled(true);
                 $notification->setReaded(false);
                 $notification->setRemoved(false);
-                $notification->setCreatedBy($user->getId());
+                $notification->setCreatedBy($user);
                 $notification->setCreatedAt(new \DateTime());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($notification);
@@ -217,7 +217,7 @@ class RestApiNotificationController extends FOSRestController
                 $notification->setEnabled(true);
                 $notification->setReaded(false);
                 $notification->setRemoved(false);
-                $notification->setCreatedBy($user->getId());
+                $notification->setCreatedBy($user);
                 
                 $notification->setCreatedAt(new \DateTime());
                 $em = $this->getDoctrine()->getManager();
