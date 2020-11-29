@@ -135,7 +135,7 @@ class RestApiNotificationController extends FOSRestController
             //     }else{
             //         return View::create('created_by is missing !', JsonResponse::HTTP_BAD_REQUEST, []);
             //     }
-                $notification->setRecivedUser($doctorassignement->getIdPatient());
+                $notification->setRecivedUser($doctorassignement->getIdDoctor());
                 $notification->setEnabled(true);
                 $notification->setReaded(false);
                 $notification->setRemoved(false);
