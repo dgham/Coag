@@ -211,13 +211,13 @@ class RestApiNotificationController extends FOSRestController
                 $typecretaedid= gettype($createdid);
                 if (isset($createdid)) {
                     if ($typecretaedid == "integer") {
-                $repository = $this->getDoctrine()->getRepository(User::class);
-                $userid = $repository->findOneBy(array('id' => $createdid, 'remove' => false, 'enabled' => true));
+                $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+                $userid = $repository->findOneBy(array('id_doctor'=>$user->getId(),'id_patient' => $createdid,'status' => 'Accepted', 'removed' => false,'enabled'=>true));
                 if (!empty($userid)){
                     $notification->setRecivedUser($userid);
                 }
                 else{
-                    return View::create('error recived_user !', JsonResponse::HTTP_BAD_REQUEST, []);
+                    return View::create('error recived_user !you are not allowed to post notification!', JsonResponse::HTTP_BAD_REQUEST, []);
                 }
             } else {
                 return View::create('recived_user of notification must be int!!', JsonResponse::HTTP_BAD_REQUEST, []);
