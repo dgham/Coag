@@ -61,7 +61,7 @@ class AuthenticationSuccessListener extends Controller
         $data['zipCode'] = $user->getZipCode();
         $data['city'] = $user->getCity();
         $data['country'] = $user->getCountry();
-        $data['qr_code'] = $user->getQRCode();
+     
 
         
         if ($user->getUserType() === UserType::TYPE_PATIENT) {
@@ -71,12 +71,14 @@ class AuthenticationSuccessListener extends Controller
                 $data['weight'] = $patient->getWeight();
                 $data['size'] = $patient->getSize();
                 $data['proffesion'] = $patient->getProffesion();
+                $data['qr_code'] = $user->getQRCode();
             }
         } else if ($user->getUserType() === UserType::TYPE_DOCTOR) {
             $repository = $this->em->getRepository(Doctor::class);
             $doctor = $repository->findOneBy(array('created_by' => $user->getId()));
             if (!is_null($doctor)) {
                 $data['speciality'] = $doctor->getSpeciality();
+                $data['qr_code'] = $user->getQRCode();
             }
         } else if ($user->getUserType() === UserType::TYPE_HOSPITAL) {
             $repository = $this->em->getRepository(Hospital::class);
