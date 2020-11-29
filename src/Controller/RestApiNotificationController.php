@@ -29,7 +29,7 @@ class RestApiNotificationController extends FOSRestController
         );
         if (($user->getUserType() === UserType::TYPE_DOCTOR) || ($user->getUserType() === UserType::TYPE_PATIENT)) {
             $repository = $this->getDoctrine()->getRepository(Notification::class);
-            $notification = $repository->findBy(array('created_by' => $data, 'removed' => false), array('created_at' => 'DESC'));
+            $notification = $repository->findBy(array('recived_user' => $data, 'removed' => false), array('created_at' => 'DESC'));
             if (!empty($notification)) {
                 return View::create($notification, JsonResponse::HTTP_OK, []);
             } else {
@@ -48,7 +48,7 @@ class RestApiNotificationController extends FOSRestController
         $user = $this->getUser();
         if (($user->getUserType() === UserType::TYPE_DOCTOR) || ($user->getUserType() === UserType::TYPE_PATIENT)) {
             $repository = $this->getDoctrine()->getRepository(Notification::class);
-            $notification = $repository->findOneBy(array('id' => $id, 'created_by' => $user->getId(), 'removed' => false));
+            $notification = $repository->findOneBy(array('id' => $id, 'recived_user' => $user->getId(), 'removed' => false));
             if (!is_null($notification)) {
                 return View::create($notification, JsonResponse::HTTP_OK, []);
             } else {
@@ -122,7 +122,13 @@ class RestApiNotificationController extends FOSRestController
                 }
                 $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
                 $doctorassignement = $repository->findOneBy(array('id_patient' => $user->getId(),'status' => 'Accepted', 'removed' => false,'enabled'=>true));
-            
+            if (!empty($doctorassignement)){
+
+                $notification->setRecivedUser($doctorassignement->getIdDoctor());
+            }
+            else{
+                return View::create('please make sure you have a doctor that assigned you to make post notification :) ', JsonResponse::HTTP_BAD_REQUEST, []);
+            }
             //     $createdid = $request->request->get('created_by');
             //     $typecretaedid= gettype($createdid);
             //     if (isset($createdid)) {
@@ -135,7 +141,7 @@ class RestApiNotificationController extends FOSRestController
             //     }else{
             //         return View::create('created_by is missing !', JsonResponse::HTTP_BAD_REQUEST, []);
             //     }
-                $notification->setRecivedUser($doctorassignement->getIdDoctor());
+              
                 $notification->setEnabled(true);
                 $notification->setReaded(false);
                 $notification->setRemoved(false);
@@ -207,13 +213,19 @@ class RestApiNotificationController extends FOSRestController
                     if ($typecretaedid == "integer") {
                 $repository = $this->getDoctrine()->getRepository(User::class);
                 $userid = $repository->findOneBy(array('id' => $createdid, 'remove' => false, 'enabled' => true));
+                if (!empty($userid)){
+                    $notification->setRecivedUser($userid);
+                }
+                else{
+                    return View::create('error recived_user !', JsonResponse::HTTP_BAD_REQUEST, []);
+                }
             } else {
                 return View::create('recived_user of notification must be int!!', JsonResponse::HTTP_BAD_REQUEST, []);
                     }
                 }else{
                     return View::create('recived_user is missing !', JsonResponse::HTTP_BAD_REQUEST, []);
                 }
-                $notification->setRecivedUser($userid);
+               
                 $notification->setEnabled(true);
                 $notification->setReaded(false);
                 $notification->setRemoved(false);
@@ -244,7 +256,7 @@ class RestApiNotificationController extends FOSRestController
         if (($user->getUserType() === UserType::TYPE_PATIENT) || ($user->getUserType() === UserType::TYPE_DOCTOR)) {
             $data = $request->request->all();
             $repository = $this->getDoctrine()->getRepository(Notification::class);
-            $notification = $repository->findOneBy(array('id' => $id, 'created_by' => $this->getUser()->getId(), 'removed' => false, "readed" => false));
+            $notification = $repository->findOneBy(array('id' => $id, 'recived_user' => $this->getUser()->getId(), 'removed' => false, "readed" => false));
             if (!is_null($notification)) {
                 $readed = $request->request->get('readed');
                 if (isset($readed)) {
@@ -281,7 +293,7 @@ class RestApiNotificationController extends FOSRestController
 
         if (($user->getUserType() === UserType::TYPE_DOCTOR) || ($user->getUserType() === UserType::TYPE_PATIENT)) {
             $repository = $this->getDoctrine()->getRepository(Notification::class);
-            $notification = $repository->findBy(array('created_by' => $data, 'readed' => false));
+            $notification = $repository->findBy(array('recived_user' => $data, 'readed' => false));
 
             if (!is_null($notification)) {
                 $readed = count($notification);
