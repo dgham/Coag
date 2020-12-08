@@ -1073,8 +1073,8 @@ class RestApiMeasureINRController extends FOSRestController
                             $NB100 = $NB100 + 1;
                         }
                     }
-                    dump($MB30);
-                    dump($Mb60);
+                    dump($NB30);
+                    dump($NB60);
                     die;
                 
                     if ($NB10 == 0) {
