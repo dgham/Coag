@@ -935,5 +935,172 @@ class RestApiMeasureINRController extends FOSRestController
             return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
         }
     }
+    
+    /**
+     * @Rest\Get("/api/mesureByAge", name ="measure_age")
+     * @Rest\View(serializerGroups={"users"})
+     */
+    public function MeasureByage()
+    {
+       
+        $indication = 'anormal mesure';
+        $a = array();
+        $user = $this->getUser();
+        $data = array(
+            'id' => $user->getId(),
+        );
+      
+    
+        if ($user->getUserType() === UserType::TYPE_DOCTOR) {
+            $repository = $this->getDoctrine()->getRepository(DoctorAssignement::class);
+            $Assigned = $repository->findBy(array('id_doctor' => $user->getId(), 'status' => 'Accepted', 'removed' => false));
+            foreach ($Assigned as $dataa) {
+                $a[] = $dataa->getIdPatient();
+            }
+            if (!is_null($Assigned)) {
+                $indication = 'anormal mesure';
+                $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
+                $Measure = $Measurerepository->getassigned($a, $indication);
+          
+                $Measurettotal = $Measurerepository->findBy(array('created_by' => $a));
+                $total = count($Measure);
+                 $totale = count($Measurettotal);
+                if (!is_null($Measure)) {
+                    if ($total == 0) {
+                        $response = array(
+                        '0-10' => "0%",
+                        '10-20' => "0%",
+                        '20-30' => "0%",
+                        '30-40' => "0%",
+                        '40-50' => "0%",
+                        '50-60' => "0%",
+                        '60-70' => "0%",
+                        '70-80' => "0%",
+                        '80-90' => "0%",
+                        '90-100' => "0%",
+                        );
+                     
+                        return View::create($response, JsonResponse::HTTP_OK, []);
+                    }
+                    $NB10 = 0;
+                    $NB20 = 0;
+                    $NB30 = 0;
+                    $NB40 = 0;
+                    $NB50 = 0;
+                    $NB60 = 0;
+                    $NB70 = 0;
+                    $NB80 = 0;
+                    $NB90 = 0;
+                    $NB100 = 0;
+                    foreach ($Measure as $dataa) {
+                      $birth=  intval($dataa->getCreatedBy()->getBirthDate()->format("Y"));
+                      $year=intval(date("Y"));
+                      $age_patient=$year-$birth;
+                        if ($age_patient >= 1 && $age_patient <= 10) {
+                            $NB10 = $NB10 + 1;
+                        }
+                        if ($age_patient >= 10 && $age_patient <= 20) {
+                            $NB20 = $NB20 + 1;
+                        }
+                        
+                        if ($age_patient >= 20 && $age_patient <= 30) {
+                            $NB30 = $NB30 + 1;
+                        }
+                       
+                        if ($age_patient >= 30 && $age_patient <= 40) {
+                            $NB40 = $NB40 + 1;
+                        }
+                        if ($age_patient >= 40 && $age_patient <= 50) {
+                            $NB50 = $NB50 + 1;
+                        }
+                        if ($age_patient >= 50 && $age_patient <=60) {
+                            $NB60 = $NB60 + 1;
+                        }
+                        if ($age_patient >= 60 && $age_patient <=70) {
+                            $NB70 = $NB70 + 1;
+                        }
+                        if ($age_patient >= 70 && $age_patient <= 80) {
+                            $NB80 = $N80 + 1;
+                        }
+                        if ($age_patient >= 80 && $age_patient <= 90) {
+                            $NB90 = $NB90 + 1;
+                        }
+                        if ($age_patient >= 90 && $age_patient <= 100) {
+                            $NB100 = $NB100 + 1;
+                        }
+                    }
+                
+                    if ($NB10 == 0) {
+                        $purcentage10= "0%";
+                    } else {
+                        $purcentage10 = strval(intval(round($NB10 * 100 / $total))) . "%";
+                    }
+                    if ($NB20 == 0) {
+                        $purcentage20= "0%";
+                    } else {
+                        $purcentage20 = strval(intval(round($NB20 * 100 / $total))) . "%";
+                    }
+                    if ($NB30 == 0) {
+                        $purcentage30= "0%";
+                    } else {
+                        $purcentage30 = strval(intval(round($NB30 * 100 / $total))) . "%";
+                    }
+                    if ($NB40 == 0) {
+                        $purcentage40= "0%";
+                    } else {
+                        $purcentage40 = strval(intval(round($NB40 * 100 / $total))) . "%";
+                    }
+                    if ($NB50 == 0) {
+                        $purcentage50= "0%";
+                    } else {
+                        $purcentage50 = strval(intval(round($NB50 * 100 / $total))) . "%";
+                    }
+                    if ($NB60 == 0) {
+                        $purcentage60= "0%";
+                    } else {
+                        $purcentage60 = strval(intval(round($NB60 * 100 / $total))) . "%";
+                    }
+                    if ($NB70 == 0) {
+                        $purcentage70= "0%";
+                    } else {
+                        $purcentage70 = strval(intval(round($NB70 * 100 / $total))) . "%";
+                    }
+                    if ($NB80 == 0) {
+                        $purcentage80= "0%";
+                    } else {
+                        $purcentage80 = strval(intval(round($NB80 * 100 / $total))) . "%";
+                    }
+                    if ($NB90 == 0) {
+                        $purcentage90= "0%";
+                    } else {
+                        $purcentage90 = strval(intval(round($NB90 * 100 / $total))) . "%";
+                    }
+                    if ($NB100 == 0) {
+                        $purcentage100= "0%";
+                    } else {
+                        $purcentage100 = strval(intval(round($NB100 * 100 / $total))) . "%";
+                    }
+            
+                    $response = array(
+                        '0-10' => $purcentage10,
+                        '10-20' => $purcentage20,
+                        '20-30' => $purcentage30,
+                        '30-40' => $purcentage40,
+                        '40-50' => $purcentage50,
+                        '50-60' => $purcentage60,
+                        '60-70' => $purcentage70,
+                        '70-80' => $purcentage80,
+                        '80-90' => $purcentage90,
+                        '90-100' => $purcentage100,
+                    
+                    );
+                    return View::create($response, JsonResponse::HTTP_OK, []);
+                }
+            }
+        } else {
+            return View::create('Not Authorized', JsonResponse::HTTP_FORBIDDEN, []);
+        }
+    }
+    
 
 }
