@@ -999,32 +999,76 @@ class RestApiMeasureINRController extends FOSRestController
                         if (($age_patient >= 1) && ($age_patient <= 10)) {
                             $NB10 = $NB10 + 1;
                         }
+                    }
+                    foreach ($Measure as $dataa) {
+                        $birth=  intval($dataa->getCreatedBy()->getBirthDate()->format("Y"));
+                        $year=intval(date("Y"));
+                        $age_patient=$year-$birth;
                         if (($age_patient > 10) && ($age_patient <= 20)) {
                             $NB20 = $NB20 + 1;
                         }
-                        
+                    }
+                    foreach ($Measure as $dataa) {
+                        $birth=  intval($dataa->getCreatedBy()->getBirthDate()->format("Y"));
+                        $year=intval(date("Y"));
+                        $age_patient=$year-$birth;
                         if (($age_patient > 20) && ($age_patient <= 30)) {
                             $NB30 = $NB30 + 1;
                         }
+                    }
+                    foreach ($Measure as $dataa) {
+                        $birth=  intval($dataa->getCreatedBy()->getBirthDate()->format("Y"));
+                        $year=intval(date("Y"));
+                        $age_patient=$year-$birth;
                        
                         if (($age_patient > 30) && ($age_patient <= 40)) {
                             $NB40 = $NB40 + 1;
                         }
+                    }
+                    foreach ($Measure as $dataa) {
+                        $birth=  intval($dataa->getCreatedBy()->getBirthDate()->format("Y"));
+                        $year=intval(date("Y"));
+                        $age_patient=$year-$birth;
                         if (($age_patient > 40) && ($age_patient <= 50)) {
                             $NB50 = $NB50 + 1;
                         }
+                    }
+                    foreach ($Measure as $dataa) {
+                        $birth=  intval($dataa->getCreatedBy()->getBirthDate()->format("Y"));
+                        $year=intval(date("Y"));
+                        $age_patient=$year-$birth;
                         if (($age_patient > 50) && ($age_patient <=60)) {
                             $NB60 = $NB60 + 1;
                         }
+                    }
+                    foreach ($Measure as $dataa) {
+                        $birth=  intval($dataa->getCreatedBy()->getBirthDate()->format("Y"));
+                        $year=intval(date("Y"));
+                        $age_patient=$year-$birth;
                         if (($age_patient > 60) && ($age_patient <=70)) {
                             $NB70 = $NB70 + 1;
                         }
+                    }
+                    foreach ($Measure as $dataa) {
+                        $birth=  intval($dataa->getCreatedBy()->getBirthDate()->format("Y"));
+                        $year=intval(date("Y"));
+                        $age_patient=$year-$birth;
                         if (($age_patient > 70) && ($age_patient <= 80)) {
                             $NB80 = $N80 + 1;
                         }
+                    }
+                    foreach ($Measure as $dataa) {
+                        $birth=  intval($dataa->getCreatedBy()->getBirthDate()->format("Y"));
+                        $year=intval(date("Y"));
+                        $age_patient=$year-$birth;
                         if (($age_patient > 80) && ($age_patient <= 90)) {
                             $NB90 = $NB90 + 1;
                         }
+                    }
+                    foreach ($Measure as $dataa) {
+                        $birth=  intval($dataa->getCreatedBy()->getBirthDate()->format("Y"));
+                        $year=intval(date("Y"));
+                        $age_patient=$year-$birth;
                         if (($age_patient > 90) && ($age_patient <= 100)) {
                             $NB100 = $NB100 + 1;
                         }
