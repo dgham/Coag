@@ -1073,6 +1073,9 @@ class RestApiMeasureINRController extends FOSRestController
                             $NB100 = $NB100 + 1;
                         }
                     }
+                    dump($MB30);
+                    dump($Mb60);
+                    die;
                 
                     if ($NB10 == 0) {
                         $purcentage10= "0%";
