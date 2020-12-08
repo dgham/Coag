@@ -960,7 +960,7 @@ class RestApiMeasureINRController extends FOSRestController
             if (!is_null($Assigned)) {
                 $indication = 'anormal mesure';
                 $Measurerepository = $this->getDoctrine()->getRepository(Measure::class);
-                $Measure = $Measurerepository->getassigned($a, $indication);
+                $Measure = $Measurerepository->findByMesuremaxDateAge($a, $indication);
           
                 $Measurettotal = $Measurerepository->findBy(array('created_by' => $a));
                 $total = count($Measure);

@@ -103,6 +103,20 @@ class MeasureRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findByMesuremaxDateAge($value,$indication)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p')
+            ->Where('p.created_by  IN (:val) ')
+            ->andWhere('p.indication LIKE :indication')
+            ->setParameter('val', $value)
+            ->setParameter('indication', $indication)
+            ->orderBy('p.id', 'DESC')
+            ->groupBy('p.created_by')
+            ->getQuery()
+            ->getResult();
+    }
+
 
     // /**
     //  * @return Measure[] Returns an array of Measure objects
